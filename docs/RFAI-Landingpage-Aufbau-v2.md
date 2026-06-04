@@ -128,7 +128,7 @@ trotzdem zurückhaltend, weil dort Erkennung zählt, nicht Technik.)
   Leerstandstage → +4.100 € · 14 unvollständige Umlagen → +6.800 € p.a.
 - **Ehrlichkeit:** Solange nur eigener Bestand → „aus unserem eigenen Portfolio". Keine erfundenen Zahlen.
 - **Founder-Micro-Element HIER** (Foto + Name + kurzes Zitat) → Identifikation VOR der Suche. Die LANGE Story
-  bleibt unten (Abschnitt 9).
+  bleibt unten (Abschnitt 7).
 
 ### Abschnitt 3b — Brücke: „Was Sie in 3 Minuten herausfinden" ★ ERSTE-KLICK-HEBEL
 **Aufgabe:** den größten Conversion-Engpass lösen — „warum sollte ich überhaupt starten".
