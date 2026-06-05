@@ -166,6 +166,34 @@ export const schatzsucheConfig: Config = {
       verknuepfteHebel: ['workflow-automatisierung', 'aufgabensteuerung'],
       aktiv: true,
     },
+    {
+      id: 'projektkalkulation-unsicher',
+      schmerzBereich: 'liquiditaet',
+      text: 'Projektkalkulationen sind unsicher — Kostenüberschreitungen drohen',
+      rollenFilter: ['projektentwicklung', 'fixAndFlip', 'familyOffice', 'assetManagementEigen'],
+      verknuepfteHebel: ['projekt-kalkulation', 'kostenrisiko-fruehwarnung'],
+      aktiv: true,
+    },
+    {
+      id: 'ki-rechtsunsicher',
+      schmerzBereich: 'risiko',
+      text: 'Unsicher, ob der KI-Einsatz datenschutzkonform ist',
+      rollenFilter: [
+        'buyAndHold',
+        'bestandshaltung',
+        'familyOffice',
+        'assetManagementEigen',
+        'hausverwaltung',
+        'externerAssetManager',
+        'immobilienberatung',
+        'steuerberater',
+        'makler',
+        'projektentwicklung',
+        'fixAndFlip',
+      ],
+      verknuepfteHebel: ['ki-compliance', 'ki-befaehigung'],
+      aktiv: true,
+    },
   ],
 
   // Hebel (Funde), nach Phase geordnet, mit Wert-Kategorie (§6/§6.1)
@@ -293,6 +321,62 @@ export const schatzsucheConfig: Config = {
         'Automatisierte Routinen sparen wiederkehrenden Aufwand und ermöglichen Skalierung.',
       playbookLink: '#playbook-automatisierung',
       kartenText: 'Manuelle Routinen bremsen Wachstum aus.',
+    },
+    {
+      id: 'projekt-kalkulation',
+      name: 'Projektkalkulation & Szenarioanalyse',
+      lebenszyklusPhase: 5, // Projekte erfolgreich entwickeln
+      wertKategorie: 'effizienz',
+      rahmung: 'chance',
+      quantifizierbar: false,
+      taetigkeiten: ['C'],
+      detailFragen: [],
+      nutzenAussage:
+        'Belastbare Kalkulationen und durchgerechnete Szenarien schaffen je Projekt eine fundierte Entscheidungsgrundlage.',
+      playbookLink: '#playbook-projektkalkulation',
+      kartenText: 'Unsichere Kalkulationen führen zu teuren Fehlentscheidungen.',
+    },
+    {
+      id: 'kostenrisiko-fruehwarnung',
+      name: 'Kostenrisiko-Frühwarnung',
+      lebenszyklusPhase: 5, // Projekte erfolgreich entwickeln
+      wertKategorie: 'risiko',
+      rahmung: 'verlust',
+      quantifizierbar: false,
+      taetigkeiten: ['C'],
+      detailFragen: [],
+      nutzenAussage:
+        'Früh erkannte Kostenrisiken verhindern Budgetüberschreitungen, bevor sie das Projektergebnis aufzehren.',
+      playbookLink: '#playbook-kostenrisiko',
+      kartenText: 'Kostenüberschreitungen bemerkt man oft zu spät.',
+    },
+    {
+      id: 'ki-compliance',
+      name: 'Datenschutz-konformer KI-Einsatz',
+      lebenszyklusPhase: 6, // KI professionell nutzen
+      wertKategorie: 'risiko',
+      rahmung: 'verlust',
+      quantifizierbar: false,
+      taetigkeiten: ['A', 'B', 'C'],
+      detailFragen: [],
+      nutzenAussage:
+        'Klare Regeln zu Anonymisierung und Datenschutz halten den KI-Einsatz rechtssicher — und vermeiden Compliance-Risiken.',
+      playbookLink: '#playbook-ki-compliance',
+      kartenText: 'Unklarer Datenschutz macht den KI-Einsatz zum Risiko.',
+    },
+    {
+      id: 'ki-befaehigung',
+      name: 'Sicherer KI-Einsatz im Alltag',
+      lebenszyklusPhase: 6, // KI professionell nutzen
+      wertKategorie: 'effizienz',
+      rahmung: 'chance',
+      quantifizierbar: false,
+      taetigkeiten: ['A', 'B', 'C'],
+      detailFragen: [],
+      nutzenAussage:
+        'Bewährte Methoden für den produktiven KI-Einsatz machen das Team schneller und unabhängiger im Tagesgeschäft.',
+      playbookLink: '#playbook-ki-befaehigung',
+      kartenText: 'Ohne klare Methode bleibt vieles von dem, was KI leisten kann, ungenutzt.',
     },
   ],
 
