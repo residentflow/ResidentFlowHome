@@ -1,0 +1,50 @@
+{
+  "name": "residentflow-home",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "ResidentFlowAI Landingpage & Bestandspotenzial-Suche (Schatzsuche)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "api:dev": "tsx watch api/server.ts",
+    "api:start": "node --import tsx api/server.ts"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "zod": "^3.23.8",
+    "pdf-lib": "^1.17.1",
+    "fastify": "^4.28.1",
+    "@fastify/cors": "^9.0.1",
+    "@getbrevo/brevo": "^2.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "jsdom": "^25.0.1",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.6",
+    "vite-react-ssg": "^0.7.1",
+    "vitest": "^2.1.1"
+  }
+}
