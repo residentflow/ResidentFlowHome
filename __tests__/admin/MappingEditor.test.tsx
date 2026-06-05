@@ -17,11 +17,6 @@ describe('MappingEditor', () => {
     const problemTitel = screen.queryByText(/probleme/i);
     expect(problemTitel).toBeTruthy();
 
-    // Erstes Problem wählen
-    const problemOptionen = screen.getAllByRole('option').filter(
-      (el) => el.closest('[data-testid="problem-select"]') || el.closest('select'),
-    );
-
     // Mindestens eine Auswahl für Probleme muss da sein
     const problemSelect = screen.getByTestId('problem-select');
     expect(problemSelect).toBeTruthy();

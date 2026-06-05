@@ -22,10 +22,6 @@ function ladeAlleSrcDateien(dir: string): string[] {
 const srcVerzeichnis = path.resolve(__dirname, '../../src');
 const alleDateien = ladeAlleSrcDateien(srcVerzeichnis);
 
-function inhaltAller(): string {
-  return alleDateien.map((f) => fs.readFileSync(f, 'utf-8')).join('\n');
-}
-
 function inhaltMitPfaden(): Array<{ pfad: string; inhalt: string }> {
   return alleDateien.map((f) => ({ pfad: f, inhalt: fs.readFileSync(f, 'utf-8') }));
 }

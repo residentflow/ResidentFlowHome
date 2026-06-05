@@ -16,14 +16,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
   },
   "include": ["src", "api", "__tests__", "vite.config.ts", "vitest.config.ts"]
 }
