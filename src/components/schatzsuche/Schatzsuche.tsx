@@ -6,12 +6,18 @@ import { DetailSchritt } from './DetailSchritt';
 import { ErkenntnisListe } from './ErkenntnisListe';
 import { Fortschrittsbalken } from './Fortschrittsbalken';
 import { useSchatzsuche } from './useSchatzsuche';
+import { routing } from '@/domain/engine/routing';
+import {
+  rollenAusProfilen,
+  groessenBucketsAusProfilen,
+  type ProfilId,
+} from '@/content/taetigkeitsprofile';
 import type { Taetigkeit, Rolle } from '@/domain/enums';
 import type { Config } from '@/domain/schema/config';
 import type { HebelLaufzeit, RoutingGroessen } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 
-type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail';
+type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail' | 'ergebnis';
 
 /** Live-Ergebnis der Suche, das die LandingPage für Treppe/Opt-in (§10) konsumiert. */
 export interface SchatzsucheErgebnis {
@@ -19,7 +25,7 @@ export interface SchatzsucheErgebnis {
   groessen: RoutingGroessen;
   relevanteHebel: HebelLaufzeit[];
   aggregat: Spanne;
-  /** true, sobald der Detail-Schritt erreicht ist (Ergebnis-/Treppe-Bereich anzeigen). */
+  /** true, sobald der Ergebnis-Bereich (Detail oder Partner-Ausgang) erreicht ist. */
   imErgebnis: boolean;
 }
 
@@ -29,35 +35,19 @@ interface SchatzsucheProps {
   onErgebnis?: (ergebnis: SchatzsucheErgebnis) => void;
 }
 
-/** Alle Rollen, die primär einer Tätigkeit zugehören (für Problemfilter). */
-const ROLLEN_JE_TAETIGKEIT: Record<Taetigkeit, Rolle[]> = {
-  A: ['buyAndHold', 'bestandshaltung', 'familyOffice', 'assetManagementEigen'],
-  B: ['hausverwaltung', 'externerAssetManager', 'immobilienberatung', 'steuerberater', 'makler'],
-  C: ['projektentwicklung', 'fixAndFlip'],
-};
-
-function rollenAusTaetigkeiten(taetigkeiten: Taetigkeit[]): Rolle[] {
-  const rollen: Rolle[] = [];
-  for (const t of taetigkeiten) {
-    for (const r of ROLLEN_JE_TAETIGKEIT[t]) {
-      if (!rollen.includes(r)) rollen.push(r);
-    }
-  }
-  return rollen;
-}
-
 function hebelNamenAusConfig(config: Config): Record<string, string> {
   return Object.fromEntries(config.hebel.map((h) => [h.id, h.name]));
 }
 
 /**
  * Orchestrator der Schatzsuche — §8.1.
- * Reihenfolge: Tätigkeit → Größe → Probleme → Detail.
+ * Reihenfolge: Tätigkeit (Profil) → Größe → Probleme → Detail.
+ * Multiplikatoren (Steuerberater/Makler) werden nach der Größe direkt zum Partner-Ergebnis geführt (§10.2).
  * Kein fetch, kein Cookie, kein Storage, keine E-Mail (§8.5).
  */
 export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
   const [schritt, setSchritt] = useState<Schritt>('taetigkeit');
-  const [gewaehlteTaetigkeiten, setGewaehlteTaetigkeiten] = useState<Taetigkeit[]>([]);
+  const [gewaehlteProfile, setGewaehlteProfile] = useState<ProfilId[]>([]);
 
   const {
     waehleRollen,
@@ -73,6 +63,11 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
     detailAngaben,
   } = useSchatzsuche(config);
 
+  // Größen-Buckets (A/B/C) der gewählten Profile — größenunabhängige Profile (Mandanten) liefern keinen.
+  const groessenBuckets = groessenBucketsAusProfilen(gewaehlteProfile);
+
+  const istErgebnis = schritt === 'detail' || schritt === 'ergebnis';
+
   // Stabiler Schlüssel: feuert onErgebnis nur bei echten Wert-Änderungen (kein Render-Loop).
   const ergebnisKey = JSON.stringify({
     rollen,
@@ -87,20 +82,22 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
       groessen,
       relevanteHebel,
       aggregat,
-      imErgebnis: schritt === 'detail',
+      imErgebnis: istErgebnis,
     });
     // ergebnisKey kapselt die relevanten Werte; onErgebnis sollte vom Aufrufer memoisiert werden.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ergebnisKey]);
 
-  function handleTaetigkeitWeiter(taetigkeiten: Taetigkeit[]) {
-    setGewaehlteTaetigkeiten(taetigkeiten);
-    waehleRollen(rollenAusTaetigkeiten(taetigkeiten));
+  function handleTaetigkeitWeiter(profile: ProfilId[]) {
+    setGewaehlteProfile(profile);
+    waehleRollen(rollenAusProfilen(profile));
     setSchritt('groesse');
   }
 
   function handleGroesseWeiter() {
-    setSchritt('probleme');
+    // Multiplikatoren (Partnerprogramm) brauchen keinen Schmerz-/Detail-Funnel (§10.2) → direkt zum Ergebnis.
+    const ergebnis = routing(rollenAusProfilen(gewaehlteProfile), groessen);
+    setSchritt(ergebnis.endAusgang === 'partnerprogramm' ? 'ergebnis' : 'probleme');
   }
 
   function handleGroesseAendern(taetigkeit: Taetigkeit, wert: number) {
@@ -139,12 +136,12 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
 
       {/* Schritt-Inhalte */}
       {schritt === 'taetigkeit' && (
-        <TaetigkeitSchritt gewaehlt={gewaehlteTaetigkeiten} onWeiter={handleTaetigkeitWeiter} />
+        <TaetigkeitSchritt gewaehlt={gewaehlteProfile} onWeiter={handleTaetigkeitWeiter} />
       )}
 
       {schritt === 'groesse' && (
         <GroesseSchritt
-          taetigkeiten={gewaehlteTaetigkeiten}
+          taetigkeiten={groessenBuckets}
           groessen={groessen}
           onGroesseAendern={handleGroesseAendern}
           onWeiter={handleGroesseWeiter}
@@ -169,6 +166,16 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
           detailAngaben={detailAngaben}
           onDetailAngabe={setzeDetailAngabe}
         />
+      )}
+
+      {schritt === 'ergebnis' && (
+        <div data-testid="schritt-ergebnis">
+          <h2>Ihr passender Weg</h2>
+          <p>
+            Als Multiplikator (Steuerberater / Makler) ist das Partnerprogramm Ihr direkter Weg —
+            größenunabhängig. Ihr verdichtetes Ergebnis finden Sie direkt darunter.
+          </p>
+        </div>
       )}
     </div>
   );

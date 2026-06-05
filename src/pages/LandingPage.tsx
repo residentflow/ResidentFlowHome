@@ -88,22 +88,24 @@ export function LandingPage() {
       <Abschnitt testid="abschnitt-7-ergebnis">
         {ergebnis && ergebnis.imErgebnis && auswertung ? (
           <div>
-            {/* Gesamtpotenzial erst zeigen, wenn mindestens ein Hebel quantifiziert ist (§7). */}
-            {ergebnis.aggregat.max > 0 && (
-              <VerdichtetesErgebnis
-                routing={auswertung.routingErgebnis}
-                stufen={auswertung.stufen}
-                gesamtSpanne={ergebnis.aggregat}
-                laufzeiten={ergebnis.relevanteHebel}
-              />
-            )}
-            <Treppe
+            {/* Verdichtetes Ergebnis: zeigt den persona-basierten Hauptweg (auch Partnerprogramm).
+                Die Euro-Spanne blendet die Komponente selbst erst bei Quantifizierung ein (§7). */}
+            <VerdichtetesErgebnis
               routing={auswertung.routingErgebnis}
               stufen={auswertung.stufen}
-              laufzeiten={ergebnis.relevanteHebel}
-              hebelIdsWithVideo={hebelIdsMitVideo}
               gesamtSpanne={ergebnis.aggregat}
+              laufzeiten={ergebnis.relevanteHebel}
             />
+            {/* Treppe nur für Bestands-/Entwicklungs-Pfade; Multiplikatoren → Partnerprogramm (§10.2). */}
+            {auswertung.routingErgebnis.endAusgang !== 'partnerprogramm' && (
+              <Treppe
+                routing={auswertung.routingErgebnis}
+                stufen={auswertung.stufen}
+                laufzeiten={ergebnis.relevanteHebel}
+                hebelIdsWithVideo={hebelIdsMitVideo}
+                gesamtSpanne={ergebnis.aggregat}
+              />
+            )}
             {ergebnis.rollen[0] && (
               <OptInFormular
                 rolle={ergebnis.rollen[0]}

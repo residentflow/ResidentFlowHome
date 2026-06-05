@@ -51,6 +51,13 @@ export function GroesseSchritt({
     <div data-testid="schritt-groesse">
       <h2 style={{ marginBottom: '1.5rem' }}>Wie groß ist Ihr Bestand?</h2>
 
+      {taetigkeiten.length === 0 && (
+        <p style={{ marginBottom: '2rem', color: 'var(--farbe-text-leise, #666)' }}>
+          Für Ihre Tätigkeit ist die Bestandsgröße nicht entscheidend — Sie können direkt
+          fortfahren.
+        </p>
+      )}
+
       <div
         style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}
       >

@@ -26,9 +26,7 @@ describe('E2E — keine Euro-Zahl vor Selbstauskunft (§7/§17)', () => {
     render(<LandingPage />);
 
     // Tätigkeit A
-    await user.click(
-      await screen.findByRole('checkbox', { name: /Verwaltung eigener Immobilien/i }),
-    );
+    await user.click(await screen.findByRole('checkbox', { name: /Eigener Bestand/i }));
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
     // Größe
     const input = screen.getByRole('spinbutton');

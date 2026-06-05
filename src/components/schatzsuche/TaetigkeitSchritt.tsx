@@ -1,41 +1,22 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
-import type { Taetigkeit } from '@/domain/enums';
+import { TAETIGKEITSPROFILE, type ProfilId } from '@/content/taetigkeitsprofile';
 
 interface TaetigkeitSchrittProps {
-  gewaehlt: Taetigkeit[];
-  onWeiter: (taetigkeiten: Taetigkeit[]) => void;
+  gewaehlt: ProfilId[];
+  onWeiter: (profile: ProfilId[]) => void;
 }
 
-const TAETIGKEIT_OPTIONEN: Array<{ taetigkeit: Taetigkeit; label: string; beschreibung: string }> =
-  [
-    {
-      taetigkeit: 'A',
-      label: 'Verwaltung eigener Immobilien',
-      beschreibung: 'Buy & Hold, Bestandshaltung, Family Office',
-    },
-    {
-      taetigkeit: 'B',
-      label: 'Betreuung fremder Bestände',
-      beschreibung: 'Hausverwaltung, Asset Management, Immobilienberatung, Makler, Steuerberater',
-    },
-    {
-      taetigkeit: 'C',
-      label: 'Entwicklung / Fix & Flip',
-      beschreibung: 'Projektentwicklung, Fix & Flip',
-    },
-  ];
-
 /**
- * Schritt 1: Tätigkeit (Mehrfachauswahl A/B/C) — §8.1 / §3.2.
+ * Schritt 1: Tätigkeitsprofil (Mehrfachauswahl) — §3.2/§3.3/§8.1.
+ * Vier getrennte Profile, damit der Multiplikator-Pfad (Steuerberater/Makler → Partnerprogramm)
+ * von der reinen Bestandsverwaltung unterscheidbar ist.
  */
 export function TaetigkeitSchritt({ gewaehlt, onWeiter }: TaetigkeitSchrittProps) {
-  const [ausgewaehlt, setAusgewaehlt] = useState<Taetigkeit[]>(gewaehlt);
+  const [ausgewaehlt, setAusgewaehlt] = useState<ProfilId[]>(gewaehlt);
 
-  function toggle(taetigkeit: Taetigkeit) {
-    setAusgewaehlt((prev) =>
-      prev.includes(taetigkeit) ? prev.filter((t) => t !== taetigkeit) : [...prev, taetigkeit],
-    );
+  function toggle(id: ProfilId) {
+    setAusgewaehlt((prev) => (prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]));
   }
 
   function handleWeiter() {
@@ -53,11 +34,11 @@ export function TaetigkeitSchritt({ gewaehlt, onWeiter }: TaetigkeitSchrittProps
       <div
         style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}
       >
-        {TAETIGKEIT_OPTIONEN.map(({ taetigkeit, label, beschreibung }) => {
-          const istGewaehlt = ausgewaehlt.includes(taetigkeit);
+        {TAETIGKEITSPROFILE.map(({ id, label, beschreibung }) => {
+          const istGewaehlt = ausgewaehlt.includes(id);
           return (
             <label
-              key={taetigkeit}
+              key={id}
               style={{
                 display: 'flex',
                 alignItems: 'flex-start',
@@ -72,7 +53,7 @@ export function TaetigkeitSchritt({ gewaehlt, onWeiter }: TaetigkeitSchrittProps
               <input
                 type="checkbox"
                 checked={istGewaehlt}
-                onChange={() => toggle(taetigkeit)}
+                onChange={() => toggle(id)}
                 aria-label={label}
                 style={{ marginTop: '2px', flexShrink: 0 }}
               />

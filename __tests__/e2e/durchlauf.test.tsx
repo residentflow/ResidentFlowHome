@@ -12,7 +12,7 @@ async function durchlaufBisDetail(
   groesse: string,
   bereich: RegExp,
 ) {
-  // Schritt 1: Tätigkeit
+  // Schritt 1: Tätigkeitsprofil
   await user.click(await screen.findByRole('checkbox', { name: taetigkeitLabel }));
   await user.click(screen.getByRole('button', { name: /Weiter/i }));
   // Schritt 2: Größe
@@ -27,22 +27,22 @@ async function durchlaufBisDetail(
 }
 
 describe('E2E — Durchlauf je Segment (§3.3/§10)', () => {
-  it('Bestandshalter (A) mit ≥ 50 Einheiten → volle Treppe inkl. Stufe 3 und Terminlink', async () => {
+  it('Eigener Bestand mit ≥ 50 Einheiten → volle Treppe inkl. Stufe 3 und Terminlink', async () => {
     const user = userEvent.setup();
     render(<LandingPage />);
 
-    await durchlaufBisDetail(user, /Verwaltung eigener Immobilien/i, '60', /Ertrag & Rendite/);
+    await durchlaufBisDetail(user, /Eigener Bestand/i, '60', /Ertrag & Rendite/);
 
     const ergebnis = await screen.findByTestId('abschnitt-7-ergebnis');
     expect(within(ergebnis).getByTestId('stufe3')).toBeInTheDocument();
     expect(within(ergebnis).getAllByText(TERMINLINK_TEXT).length).toBeGreaterThan(0);
   });
 
-  it('Bestandshalter (A) mit < 50 Einheiten → Selbermacher-Weg ohne Stufe 3', async () => {
+  it('Eigener Bestand mit < 50 Einheiten → Selbermacher-Weg ohne Stufe 3', async () => {
     const user = userEvent.setup();
     render(<LandingPage />);
 
-    await durchlaufBisDetail(user, /Verwaltung eigener Immobilien/i, '30', /Ertrag & Rendite/);
+    await durchlaufBisDetail(user, /Eigener Bestand/i, '30', /Ertrag & Rendite/);
 
     const ergebnis = await screen.findByTestId('abschnitt-7-ergebnis');
     expect(within(ergebnis).getByTestId('stufe1')).toBeInTheDocument();
@@ -50,13 +50,34 @@ describe('E2E — Durchlauf je Segment (§3.3/§10)', () => {
     expect(within(ergebnis).queryByTestId('stufe3')).not.toBeInTheDocument();
   });
 
-  it('Entwicklung / Fix & Flip (C) → Nebenstrang ohne Stufe 3', async () => {
+  it('Projektentwicklung / Fix & Flip → Nebenstrang ohne Stufe 3', async () => {
     const user = userEvent.setup();
     render(<LandingPage />);
 
-    await durchlaufBisDetail(user, /Entwicklung \/ Fix & Flip/i, '40', /Vermarktung & Leerstand/);
+    await durchlaufBisDetail(
+      user,
+      /Projektentwicklung \/ Fix & Flip/i,
+      '40',
+      /Vermarktung & Leerstand/,
+    );
 
     const ergebnis = await screen.findByTestId('abschnitt-7-ergebnis');
     expect(within(ergebnis).queryByTestId('stufe3')).not.toBeInTheDocument();
+  });
+
+  it('Mandantenbetreuung (Steuerberater/Makler) → Partnerprogramm-Link, keine Treppe (§10.2)', async () => {
+    const user = userEvent.setup();
+    render(<LandingPage />);
+
+    // Profil „Betreuung von Mandanten" → größenunabhängig → direkt zum Partner-Ergebnis
+    await user.click(await screen.findByRole('checkbox', { name: /Betreuung von Mandanten/i }));
+    await user.click(screen.getByRole('button', { name: /Weiter/i }));
+    // Größe-Schritt ist größenunabhängig (kein Eingabefeld) → direkt weiter
+    await user.click(screen.getByRole('button', { name: /Weiter/i }));
+
+    const ergebnis = await screen.findByTestId('abschnitt-7-ergebnis');
+    expect(within(ergebnis).getByTestId('partnerprogramm-link')).toBeInTheDocument();
+    expect(within(ergebnis).queryByTestId('stufe3')).not.toBeInTheDocument();
+    expect(within(ergebnis).queryByTestId('stufe1')).not.toBeInTheDocument();
   });
 });

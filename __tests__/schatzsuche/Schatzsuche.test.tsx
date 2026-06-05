@@ -15,7 +15,7 @@ describe('Schatzsuche — Flow & Reihenfolge (§8.1)', () => {
     expect(screen.queryByTestId('schritt-groesse')).not.toBeInTheDocument();
 
     // Tätigkeit A wählen und weiter
-    await user.click(screen.getByRole('checkbox', { name: /Verwaltung eigener Immobilien/i }));
+    await user.click(screen.getByRole('checkbox', { name: /Eigener Bestand/i }));
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
 
     // Schritt 2: Größe-Schritt ist sichtbar
@@ -38,7 +38,7 @@ describe('Schatzsuche — Flow & Reihenfolge (§8.1)', () => {
     const wache = installiereWaechter();
     render(<Schatzsuche config={schatzsucheConfig} />);
 
-    await user.click(screen.getByRole('checkbox', { name: /Verwaltung eigener Immobilien/i }));
+    await user.click(screen.getByRole('checkbox', { name: /Eigener Bestand/i }));
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
 
     wache.erwarteKeinNetzwerk();
@@ -50,7 +50,7 @@ describe('Schatzsuche — Flow & Reihenfolge (§8.1)', () => {
     const wache = installiereWaechter();
     render(<Schatzsuche config={schatzsucheConfig} />);
 
-    await user.click(screen.getByRole('checkbox', { name: /Verwaltung eigener Immobilien/i }));
+    await user.click(screen.getByRole('checkbox', { name: /Eigener Bestand/i }));
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
 
     wache.erwarteKeinCookie();
@@ -62,7 +62,7 @@ describe('Schatzsuche — Flow & Reihenfolge (§8.1)', () => {
     const wache = installiereWaechter();
     render(<Schatzsuche config={schatzsucheConfig} />);
 
-    await user.click(screen.getByRole('checkbox', { name: /Verwaltung eigener Immobilien/i }));
+    await user.click(screen.getByRole('checkbox', { name: /Eigener Bestand/i }));
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
 
     wache.erwarteKeineSpeicherung();

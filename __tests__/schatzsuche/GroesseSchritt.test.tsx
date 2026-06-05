@@ -53,4 +53,18 @@ describe('GroesseSchritt (§3.3 / §8.1)', () => {
     expect(screen.getByLabelText(/eigene.*Einheiten|Einheiten.*eigene/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/betreute.*Einheiten|Einheiten.*betreut/i)).toBeInTheDocument();
   });
+
+  it('ist bei größenunabhängiger Tätigkeit (kein Bucket) direkt fortsetzbar', () => {
+    render(
+      <GroesseSchritt
+        taetigkeiten={[] as Taetigkeit[]}
+        groessen={{}}
+        onGroesseAendern={vi.fn()}
+        onWeiter={vi.fn()}
+      />,
+    );
+    // Kein Eingabefeld, aber ein aktiver Weiter-Button (größenunabhängig, z.B. Mandantenbetreuung)
+    expect(screen.queryByRole('spinbutton')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Weiter/i })).toBeEnabled();
+  });
 });
