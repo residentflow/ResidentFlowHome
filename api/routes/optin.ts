@@ -1,11 +1,12 @@
 import type { FastifyInstance } from 'fastify';
 import { OptInPayloadSchema } from '@/services/optin-payload';
-import { erzeugePotenzialPdf } from '@/services/pdf-export';
-import { sendeOptIn } from '@/services/brevo-client';
 
 /**
  * POST /api/optin — validiert Payload via OptInPayloadSchema,
  * erzeugt PDF, ruft brevo-client auf; antwortet 200 mit Bestätigung oder 400 bei ungültig (§11).
+ *
+ * pdf-export und brevo-client werden per dynamischem Import geladen, damit vi.mock()
+ * in Tests die Module korrekt ersetzen kann, ohne TDZ-Probleme bei der Hoistierung.
  */
 export async function optinRoute(app: FastifyInstance): Promise<void> {
   app.post('/api/optin', async (request, reply) => {
@@ -19,6 +20,10 @@ export async function optinRoute(app: FastifyInstance): Promise<void> {
     }
 
     const payload = parseResult.data;
+
+    // Dynamische Imports ermöglichen vi.mock() in Tests
+    const { erzeugePotenzialPdf } = await import('@/services/pdf-export');
+    const { sendeOptIn } = await import('@/services/brevo-client');
 
     // PDF erzeugen und transaktional senden
     const pdfBytes = await erzeugePotenzialPdf({
