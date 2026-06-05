@@ -2,8 +2,8 @@
  * Zentrale Copy-Konstanten — eine einzige Quelle für lasttragende deutsche Strings (§9/§10/§17).
  * Tests prüfen gegen diese Konstanten, Komponenten importieren sie → exakte Texte driften nie.
  *
- * ⚠️ Rote Linien (§17): „Skool"/„Community"/„Skill"/„Potenzial validieren" dürfen hier (und im
- * gesamten src/) NICHT vorkommen. „ResidentFlowAI" ausschließlich in der Stufe-3-Komponente.
+ * ⚠️ Rote Linien (§17): verbotene Begriffe dürfen weder hier noch im gesamten src/ vorkommen.
+ * Der Produktname ist ausschließlich in der Stufe-3-Komponente erlaubt.
  */
 
 // — Hero (§9 #1) —
@@ -20,7 +20,7 @@ export const ENTLASTUNGEN = ['Keine Registrierung.', 'Keine Dokumente.', 'Keine 
 
 // — Erkenntnis-Liste (§8.2) —
 export const ERKENNTNIS_HEADER = 'Bereits identifizierte Hebel:';
-export const FUND_LABEL = 'Hebel'; // niemals „Skill"
+export const FUND_LABEL = 'Hebel'; // (§17: nur dieses Label, nie ein anderes)
 
 // — Treppe & Ergebnis (§10) —
 export const TERMINLINK_TEXT = 'Ihren Bestand gemeinsam ansehen';
