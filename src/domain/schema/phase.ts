@@ -1,10 +1,15 @@
 import { z } from 'zod';
 
-/** Lebenszyklus-Phase (1–8), ordnet die Hebel/Lösungen (§6). */
+/**
+ * Schwerpunkt der Methodenbibliothek (Playbook) — ordnet die Hebel/Lösungen (§6).
+ * Sechs ergebnisorientierte Schwerpunkte entlang des Immobilien-Lebenszyklus.
+ * `beschreibung` liefert den Einleitungstext der jeweiligen Schwerpunkt-Karte (Stufe 1).
+ */
 export const PhaseSchema = z.object({
   id: z.number().int().positive(),
   name: z.string().min(1),
   reihenfolge: z.number().int().nonnegative(),
+  beschreibung: z.string().min(1).optional(),
 });
 
 export type Phase = z.infer<typeof PhaseSchema>;

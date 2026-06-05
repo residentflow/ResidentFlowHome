@@ -79,8 +79,10 @@ describe('HebelEditor', () => {
     const speichernButton = screen.queryByRole('button', { name: /speichern|sichern/i });
     if (speichernButton) {
       fireEvent.click(speichernButton);
-      // Es muss ein Hinweis auf nutzenAussage erscheinen
-      const fehler = screen.queryByText(/nutzen|nutzenaussage|pflicht|erforderlich/i);
+      // Das nutzenAussage-Feld ist bei qualitativem Hebel als Pflicht ausgewiesen.
+      // (Spezifischer Text statt /nutzen/i, das sonst mit der Schwerpunkt-Option
+      // „KI professionell nutzen" im Phasen-Dropdown kollidiert.)
+      const fehler = screen.queryByText(/Pflicht bei qualitativem Hebel/i);
       expect(fehler).toBeTruthy();
     } else {
       // Das Feld für nutzenAussage muss sichtbar/required sein

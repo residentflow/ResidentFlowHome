@@ -21,16 +21,51 @@ export const schatzsucheConfig: Config = {
     { id: 'unsicher', name: 'weiß ich nicht genau', reihenfolge: 7 },
   ],
 
-  // Lebenszyklus-Phasen 1–8 (§6)
+  // Methodenbibliothek: 6 ergebnisorientierte Schwerpunkte entlang des Lebenszyklus (§6).
+  // Beschreibungen in Sie-Form; ordnen die Hebel und erscheinen als Karten in Stufe 1.
   phasen: [
-    { id: 1, name: 'Akquise & Ankaufprüfung', reihenfolge: 1 },
-    { id: 2, name: 'Finanzierung & Investorenkommunikation', reihenfolge: 2 },
-    { id: 3, name: 'Vermarktung & Neuvermietung', reihenfolge: 3 },
-    { id: 4, name: 'Mietermanagement & Kommunikation', reihenfolge: 4 },
-    { id: 5, name: 'Objektverwaltung & Betriebskosten', reihenfolge: 5 },
-    { id: 6, name: 'Buchhaltung & Controlling', reihenfolge: 6 },
-    { id: 7, name: 'Projektentwicklung & Sanierung', reihenfolge: 7 },
-    { id: 8, name: 'Automatisierung & Prozesse', reihenfolge: 8 },
+    {
+      id: 1,
+      name: 'Bessere Deals finden',
+      reihenfolge: 1,
+      beschreibung:
+        'Prüfen Sie Immobilien 10x schneller und finden Sie bessere Deals. Lernen Sie, wie Sie KI für die Objektsuche, Standortanalyse und Ankaufprüfung einsetzen. Analysieren Sie Exposés, Mietlisten, Teilungserklärungen, Grundbuchauszüge und Wirtschaftlichkeitsberechnungen in wenigen Minuten. Erkennen Sie Risiken frühzeitig, vergleichen Sie mehrere Objekte gleichzeitig und konzentrieren Sie sich auf Investments mit echtem Potenzial. Sparen Sie Zeit, reduzieren Sie Fehlentscheidungen und treffen Sie fundierte Kaufentscheidungen auf Basis belastbarer Daten.',
+    },
+    {
+      id: 2,
+      name: 'Cashflow & Rendite steigern',
+      reihenfolge: 2,
+      beschreibung:
+        'Treffen Sie bessere Finanzentscheidungen und steigern Sie die Performance Ihres Portfolios. Nutzen Sie KI zur Analyse von Finanzierungen, Cashflow, Liquidität, Eigenkapitalrendite und Wirtschaftlichkeit. Erstellen Sie Finanzierungsvergleiche, erkennen Sie Optimierungspotenziale und überwachen Sie die Entwicklung Ihrer Immobilien mit aussagekräftigen Kennzahlen. Lernen Sie, wie Sie datenbasierte Entscheidungen treffen und sowohl laufende Erträge als auch langfristigen Vermögensaufbau gezielt verbessern.',
+    },
+    {
+      id: 3,
+      name: 'Leerstand reduzieren',
+      reihenfolge: 3,
+      beschreibung:
+        'Vermieten Sie schneller und präsentieren Sie Immobilien professioneller. Erstellen Sie mit KI hochwertige Exposés, virtuelle Stagings, digitale Grundrisse und überzeugende Vermarktungsunterlagen. Optimieren Sie Inserate für Immobilienportale, steigern Sie die Sichtbarkeit Ihrer Angebote und erhöhen Sie die Anzahl qualifizierter Interessenten. Reduzieren Sie Vermarktungszeiten, senken Sie Leerstandskosten und verbessern Sie die Präsentation Ihrer Immobilien nachhaltig.',
+    },
+    {
+      id: 4,
+      name: 'Verwaltung automatisieren',
+      reihenfolge: 4,
+      beschreibung:
+        'Sparen Sie Stunden bei Verwaltung, Kommunikation und Routineaufgaben. Erfahren Sie, wie Sie KI für Mieterkommunikation, Dokumentenmanagement, Fristenüberwachung, Betriebskosten, Aufgabenverwaltung und operative Abläufe einsetzen. Automatisieren Sie wiederkehrende Prozesse, bearbeiten Sie Anfragen effizienter und behalten Sie jederzeit den Überblick über Ihr Immobilienportfolio. So schaffen Sie professionelle Strukturen und reduzieren den Verwaltungsaufwand erheblich.',
+    },
+    {
+      id: 5,
+      name: 'Projekte erfolgreich entwickeln',
+      reihenfolge: 5,
+      beschreibung:
+        'Treffen Sie bessere Entscheidungen bei Projektentwicklung, Umbau und Wertsteigerung. Nutzen Sie KI für Machbarkeitsanalysen, Nutzungskonzepte, Standortbewertungen, Projektkalkulationen, Sanierungsstrategien und Wirtschaftlichkeitsberechnungen. Simulieren Sie verschiedene Szenarien, erkennen Sie Risiken frühzeitig und entwickeln Sie fundierte Entscheidungsgrundlagen für Bestandsoptimierungen, Nachverdichtungen, Aufteilungen oder Neubauprojekte. So reduzieren Sie Risiken und maximieren das Entwicklungspotenzial Ihrer Immobilien.',
+    },
+    {
+      id: 6,
+      name: 'KI professionell nutzen',
+      reihenfolge: 6,
+      beschreibung:
+        'Nutzen Sie KI sicher, professionell und rechtssicher in Ihrem Immobiliengeschäft. Lernen Sie bewährte Methoden für den produktiven Einsatz von KI im Alltag und verstehen Sie die wichtigsten Anforderungen rund um Datenschutz, Datensicherheit und Compliance. Erfahren Sie, welche Daten verarbeitet werden dürfen, wie Dokumente anonymisiert werden und welche Prozesse sich bedenkenlos automatisieren lassen. So arbeiten Sie effizienter, minimieren Risiken und schaffen eine solide Grundlage für den langfristigen KI-Einsatz.',
+    },
   ],
 
   // Probleme (Stufe B), in Nutzer-Sprache, an Rolle+Größe gebunden (§5.2/§5.3)
@@ -138,7 +173,7 @@ export const schatzsucheConfig: Config = {
     {
       id: 'mietpotenzial',
       name: 'Mietpotenzial-Erkennung',
-      lebenszyklusPhase: 5,
+      lebenszyklusPhase: 2, // Cashflow & Rendite steigern
       wertKategorie: 'ertrag',
       rahmung: 'chance',
       quantifizierbar: true,
@@ -208,7 +243,7 @@ export const schatzsucheConfig: Config = {
     {
       id: 'belegerkennung',
       name: 'Belegerkennung & Buchungsvorschläge',
-      lebenszyklusPhase: 6,
+      lebenszyklusPhase: 4, // Verwaltung automatisieren
       wertKategorie: 'effizienz',
       rahmung: 'chance',
       quantifizierbar: false,
@@ -221,7 +256,7 @@ export const schatzsucheConfig: Config = {
     {
       id: 'fristenueberwachung',
       name: 'Fristenüberwachung',
-      lebenszyklusPhase: 5,
+      lebenszyklusPhase: 4, // Verwaltung automatisieren
       wertKategorie: 'risiko',
       rahmung: 'verlust',
       quantifizierbar: false,
@@ -234,7 +269,7 @@ export const schatzsucheConfig: Config = {
     {
       id: 'aufgabensteuerung',
       name: 'Aufgabensteuerung',
-      lebenszyklusPhase: 5,
+      lebenszyklusPhase: 4, // Verwaltung automatisieren
       wertKategorie: 'effizienz',
       rahmung: 'chance',
       quantifizierbar: false,
@@ -248,7 +283,7 @@ export const schatzsucheConfig: Config = {
     {
       id: 'workflow-automatisierung',
       name: 'Workflow-Automatisierung',
-      lebenszyklusPhase: 8,
+      lebenszyklusPhase: 4, // Verwaltung automatisieren
       wertKategorie: 'effizienz',
       rahmung: 'chance',
       quantifizierbar: false,
