@@ -21,9 +21,7 @@ const basisRouten: RouteObject[] = [
   { path: '/datenschutz', element: <App /> },
 ];
 
-const devRouten: RouteObject[] = import.meta.env.DEV
-  ? [{ path: CMS_PFAD, element: <App /> }]
-  : [];
+const devRouten: RouteObject[] = import.meta.env.DEV ? [{ path: CMS_PFAD, element: <App /> }] : [];
 
 export const routes: RouteObject[] = [...basisRouten, ...devRouten];
 
