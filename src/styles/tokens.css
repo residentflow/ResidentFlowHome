@@ -1,0 +1,33 @@
+/**
+ * Design-Tokens — Light Editorial (§15.5): hell, ruhig, ein einzelner edler Akzent,
+ * Serifen-Headlines + ruhige Sans, großzügiger Weißraum, präzise Typo-Hierarchie.
+ */
+:root {
+  /* Farbpalette — hell & zurückhaltend */
+  --farbe-papier: #fbfaf7;
+  --farbe-flaeche: #ffffff;
+  --farbe-tinte: #1a1a17;
+  --farbe-tinte-weich: #4a4a44;
+  --farbe-linie: #e6e3dc;
+  --farbe-akzent: #8a6d3b; /* edler, gedeckter Messing-/Bronze-Akzent */
+  --farbe-akzent-weich: #f1ebdd;
+  --farbe-erfolg: #2f6f4f;
+  --farbe-warnung: #9a5b2e;
+
+  /* Typografie */
+  --serif: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+  --sans: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  /* Skala / Weißraum */
+  --raum-1: 0.5rem;
+  --raum-2: 1rem;
+  --raum-3: 1.5rem;
+  --raum-4: 2.5rem;
+  --raum-5: 4rem;
+  --raum-6: 6rem;
+
+  --breite-inhalt: 72rem;
+  --breite-text: 42rem;
+  --radius: 10px;
+  --linie: 1px solid var(--farbe-linie);
+}
