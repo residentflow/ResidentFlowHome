@@ -1,4 +1,4 @@
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+import { type RouteObject } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
@@ -38,5 +38,3 @@ const devRouten: RouteObject[] = import.meta.env.DEV
   : [];
 
 export const routes: RouteObject[] = [...basisRouten, ...devRouten];
-
-export const router = createBrowserRouter(routes);

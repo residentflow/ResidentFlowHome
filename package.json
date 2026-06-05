@@ -5,8 +5,8 @@
   "type": "module",
   "description": "ResidentFlowAI Landingpage & Bestandspotenzial-Suche (Schatzsuche)",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite-react-ssg dev",
+    "build": "tsc -b && vite-react-ssg build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
