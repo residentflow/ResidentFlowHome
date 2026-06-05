@@ -1,3 +1,10 @@
+// Lokale Typ-Deklarationen für Node.js-Globals (kein @types/node erforderlich)
+declare const process: {
+  env: Record<string, string | undefined>;
+  argv: readonly string[];
+  exit: (code?: number) => never;
+};
+
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import { optinRoute } from './routes/optin';
@@ -26,7 +33,7 @@ if (process.argv[1] === import.meta.url?.replace('file://', '')) {
     .then(() => {
       console.log(`API läuft auf Port ${PORT}`);
     })
-    .catch((err) => {
+    .catch((err: unknown) => {
       console.error('Serverfehler:', err);
       process.exit(1);
     });

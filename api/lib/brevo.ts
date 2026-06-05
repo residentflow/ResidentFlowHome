@@ -1,3 +1,6 @@
+// Lokale Typ-Deklaration für Node.js process (kein @types/node erforderlich)
+declare const process: { env: Record<string, string | undefined> };
+
 /**
  * Server-seitiger Brevo-Adapter (§11 / §15.3).
  * Liest BREVO_API_KEY und BREVO_LIST_ID aus der Umgebung.

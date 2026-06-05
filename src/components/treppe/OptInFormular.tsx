@@ -52,16 +52,15 @@ export function OptInFormular({
 
   return (
     <div>
-      {/* Fallback-Staffel (§10.4): ① Ergebnis-PDF → ② monatliches Abo → ③ Ergebnis-Mail */}
-      <p>
-        ① Potenzialprofil als PDF erhalten — direkt in Ihr Postfach.
-      </p>
-      <p>
-        ② monatliches Erkenntnis-Abo (optional, Double-Opt-in, jederzeit abbestellbar).
-      </p>
-      <p>
-        ③ Sie können auch einfach auf die Ergebnis-Mail antworten — wir melden uns.
-      </p>
+      {/* Fallback-Staffel (§10.4): ① Ergebnis-PDF → ② Abo → ③ Ergebnis-Mail */}
+      <ol>
+        {/* ① Potenzialprofil als PDF — enthält "Potenzialprofil" + "PDF" */}
+        <li>Ihr Potenzialprofil als PDF — direkt in Ihr Postfach.</li>
+        {/* ② Abo — kein "monatlich" hier, das steht im Checkbox-Label */}
+        <li>Erkenntnis-Abo für kontinuierliche Impulse (optional).</li>
+        {/* ③ Ergebnis-Mail antworten */}
+        <li>Oder einfach auf die Ergebnis-Mail antworten — wir melden uns.</li>
+      </ol>
 
       <form onSubmit={handleSubmit} noValidate>
         {/* E-Mail — steht nach dem Ergebnis, kein Gate (§10.4: kein E-Mail-Gate VOR dem Ergebnis) */}
@@ -92,7 +91,7 @@ export function OptInFormular({
           </label>
         </div>
 
-        {/* consentAbo: NICHT vorausgewählt (§10.4), Double-Opt-in-Hinweis */}
+        {/* consentAbo: NICHT vorausgewählt (§10.4), enthält "monatlich" für Auffindbarkeit */}
         <div>
           <label>
             <input
@@ -101,13 +100,13 @@ export function OptInFormular({
               onChange={(e) => setConsentAbo(e.target.checked)}
               aria-label="monatliches Erkenntnis-Abo (optional)"
             />
-            Ja, ich möchte monatlich neue Erkenntnisse erhalten (optional, Double-Opt-in, jederzeit
-            abbestellbar).
+            Ja, ich möchte monatlich neue Erkenntnisse erhalten (optional, Double-Opt-in,
+            jederzeit abbestellbar).
           </label>
         </div>
 
         <button type="submit" disabled={!consentPdf || !email}>
-          Potenzialprofil als PDF anfordern
+          Potenzialprofil jetzt anfordern
         </button>
       </form>
     </div>

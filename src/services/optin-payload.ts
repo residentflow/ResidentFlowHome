@@ -16,6 +16,6 @@ export const OptInPayloadSchema = z
     relevanteEinheiten: z.number().int().nonnegative(),
     ergebnisSpanne: SpanneSchema,
   })
-  .strict();
+  .strip();
 
 export type OptInPayload = z.infer<typeof OptInPayloadSchema>;

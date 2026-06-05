@@ -1,4 +1,4 @@
-import { PDFDocument, StandardFonts, PDFName, PDFArray, PDFRef } from 'pdf-lib';
+import { PDFDocument, StandardFonts, PDFName, PDFArray } from 'pdf-lib';
 import { PDF_RAHMUNG } from '@/content/texte';
 import type { Rolle } from '@/domain/enums';
 import type { Spanne } from '@/domain/schema/spanne';
@@ -106,6 +106,3 @@ export async function erzeugePotenzialPdf(daten: PotenzialDaten): Promise<Uint8A
   const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
   return pdfBytes;
 }
-
-// Benötigte Re-Exports für TypeScript (werden intern verwendet)
-export { PDFRef };

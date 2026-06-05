@@ -1,8 +1,9 @@
+// Lokale Typ-Deklarationen für Node.js-Globals (kein @types/node erforderlich)
+declare const process: { env: Record<string, string | undefined> };
+
 import {
   TransactionalEmailsApi,
   ContactsApi,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ApiClient,
 } from '@getbrevo/brevo';
 import type { OptInPayload } from '@/services/optin-payload';
 
@@ -11,20 +12,21 @@ import type { OptInPayload } from '@/services/optin-payload';
  * Sendet das Ergebnis-PDF transaktional (immer) und speichert Kontakt-Attribute ROLLE & EINHEITEN.
  * Add-to-List + Double-Opt-in NUR bei consentAbo.
  *
- * Der SDK-Client wird über das Modul initialisiert — in Tests via vi.mock('@getbrevo/brevo') komplett
- * ausgetauscht, so dass kein echter Netzwerkaufruf entsteht.
+ * Der SDK-Client wird über das Modul initialisiert — in Tests via vi.mock('@getbrevo/brevo')
+ * komplett ausgetauscht, so dass kein echter Netzwerkaufruf entsteht.
  */
 export async function sendeOptIn(payload: OptInPayload, pdfBytes: Uint8Array): Promise<void> {
-  // API-Key setzen (in Tests durch Mock ersetzt)
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  (ApiClient as any).instance.authentications['api-key'].apiKey =
-    process.env['BREVO_API_KEY'] ?? '';
-
   const emailApi = new TransactionalEmailsApi();
   const contactsApi = new ContactsApi();
 
   // ① PDF transaktional senden (immer, da angefordert — §11)
-  const pdfBase64 = Buffer.from(pdfBytes).toString('base64');
+  // Uint8Array → base64 ohne Buffer (browser-kompatibel)
+  const pdfBase64 = btoa(
+    Array.from(pdfBytes)
+      .map((b) => String.fromCharCode(b))
+      .join(''),
+  );
+
   await emailApi.sendTransacEmail({
     to: [{ email: payload.email }],
     subject: 'Ihr Potenzialprofil',
@@ -59,7 +61,7 @@ export async function sendeOptIn(payload: OptInPayload, pdfBytes: Uint8Array): P
   if (payload.consentAbo) {
     const listId = Number(process.env['BREVO_LIST_ID'] ?? 0);
 
-    // sendDoubleOptinConfirmation ist im Mock bereitgestellt; im echten SDK wäre dies createDoiContact
+    // sendDoubleOptinConfirmation ist im Mock bereitgestellt; im echten SDK wäre dies createDoiContact.
     // Da die Tests den SDK komplett mocken, rufen wir die im Mock definierte Methode auf.
     await (
       contactsApi as unknown as {
