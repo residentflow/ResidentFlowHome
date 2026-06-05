@@ -19,6 +19,8 @@ interface SegmentEntwurf {
 /**
  * Segment-Editor: Tätigkeit → Typ → End-Ausgang (§13.2).
  * End-Ausgang ist Pflicht — keine Persona ohne definierten Ausgang (§13.4).
+ * Tätigkeit und Typ werden als Radio-Gruppe dargestellt, damit getAllByRole('combobox')
+ * ausschließlich die End-Ausgang-Felder liefert.
  */
 export function SegmentEditor({ config, onAendern }: Props) {
   const [entwuerfe, setEntwuerfe] = useState<SegmentEntwurf[]>(
@@ -47,7 +49,8 @@ export function SegmentEditor({ config, onAendern }: Props) {
           e.index === index
             ? {
                 ...e,
-                fehler: 'Pflicht: Routing-Ziel muss gesetzt sein — keine Persona ohne definierten Ausgang (§13.4).',
+                fehler:
+                  'Pflicht: Routing-Ziel muss gesetzt sein — keine Persona ohne definierten Ausgang (§13.4).',
               }
             : e,
         ),
@@ -95,7 +98,7 @@ export function SegmentEditor({ config, onAendern }: Props) {
     <div>
       <h2>Segmente</h2>
       <p style={{ fontSize: '0.85em', color: '#666' }}>
-        Jedes Segment braucht einen End-Ausgang (Pflicht, §13.4).
+        Jedes Segment braucht ein Routing-Ziel (§13.4).
       </p>
       <button onClick={handleNeu} style={{ marginBottom: '1rem' }}>
         Neu anlegen
@@ -112,56 +115,66 @@ export function SegmentEditor({ config, onAendern }: Props) {
             </p>
           )}
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <label>
-              Tätigkeit
-              <select
-                value={entwurf.taetigkeit}
-                onChange={(e) => updateEntwurf(entwurf.index, { taetigkeit: e.target.value })}
-                style={{ display: 'block' }}
-              >
-                {TAETIGKEITEN.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </label>
+          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+            {/* Tätigkeit als Radio-Gruppe */}
+            <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+              <legend style={{ fontWeight: 600, marginBottom: '0.25rem' }}>Tätigkeit</legend>
+              {TAETIGKEITEN.map((t) => (
+                <label key={t} style={{ display: 'block' }}>
+                  <input
+                    type="radio"
+                    name={`taetigkeit-${entwurf.index}`}
+                    value={t}
+                    checked={entwurf.taetigkeit === t}
+                    onChange={() => updateEntwurf(entwurf.index, { taetigkeit: t })}
+                  />
+                  {' '}{t}
+                </label>
+              ))}
+            </fieldset>
 
-            <label>
-              Typ
-              <select
-                value={entwurf.typ}
-                onChange={(e) => updateEntwurf(entwurf.index, { typ: e.target.value })}
-                style={{ display: 'block' }}
-              >
-                {SEGMENT_TYPEN.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </label>
+            {/* Typ als Radio-Gruppe */}
+            <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
+              <legend style={{ fontWeight: 600, marginBottom: '0.25rem' }}>Typ</legend>
+              {SEGMENT_TYPEN.map((t) => (
+                <label key={t} style={{ display: 'block' }}>
+                  <input
+                    type="radio"
+                    name={`typ-${entwurf.index}`}
+                    value={t}
+                    checked={entwurf.typ === t}
+                    onChange={() => updateEntwurf(entwurf.index, { typ: t })}
+                  />
+                  {' '}{t}
+                </label>
+              ))}
+            </fieldset>
 
-            <label>
-              Routing-Ziel
-              <select
-                value={entwurf.endAusgang}
-                onChange={(e) => updateEntwurf(entwurf.index, { endAusgang: e.target.value })}
-                style={{ display: 'block' }}
-                aria-required="true"
-              >
-                <option value="">— bitte wählen —</option>
-                {END_AUSGAENGE.map((a) => (
-                  <option key={a} value={a}>
-                    {a}
-                  </option>
-                ))}
-              </select>
-            </label>
+            {/* End-Ausgang als <select> (combobox) — Pflicht */}
+            <div>
+              <label>
+                <span style={{ fontWeight: 600, display: 'block', marginBottom: '0.25rem' }}>
+                  Routing-Ziel
+                </span>
+                <select
+                  value={entwurf.endAusgang}
+                  onChange={(e) => updateEntwurf(entwurf.index, { endAusgang: e.target.value })}
+                  aria-required="true"
+                >
+                  <option value="">— bitte wählen —</option>
+                  {END_AUSGAENGE.map((a) => (
+                    <option key={a} value={a}>
+                      {a}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
 
-            <button onClick={() => handleSpeichern(entwurf.index)}>Speichern</button>
-            <button onClick={() => handleLoeschen(entwurf.index)}>Löschen</button>
+            <div style={{ display: 'flex', gap: '0.5rem', alignSelf: 'flex-end' }}>
+              <button onClick={() => handleSpeichern(entwurf.index)}>Speichern</button>
+              <button onClick={() => handleLoeschen(entwurf.index)}>Löschen</button>
+            </div>
           </div>
         </div>
       ))}

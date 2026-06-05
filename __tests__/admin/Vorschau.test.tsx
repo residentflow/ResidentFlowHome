@@ -28,10 +28,12 @@ describe('Vorschau', () => {
       fireEvent.change(groeßeEingabe, { target: { value: '60' } });
     }
 
-    // Nach Auswahl von Rolle+Größe müssen Probleme oder Hebel erscheinen
-    // Mindestens: der Routing-Ausgang oder eine Liste wird angezeigt
-    const inhalt =
-      screen.queryByText(/gesprä|playbook|partner|einheiten|problem|hebel/i);
-    expect(inhalt).toBeTruthy();
+    // Nach Auswahl von Rolle+Größe muss ein Routing-Ergebnis-Abschnitt vorhanden sein
+    const routingErgebnis = screen.queryByRole('heading', { name: /routing/i });
+    expect(routingErgebnis).toBeTruthy();
+
+    // Mindestens ein Passende-Probleme-Abschnitt muss erscheinen
+    const problemeAbschnitt = screen.queryByRole('heading', { name: /passende probleme/i });
+    expect(problemeAbschnitt).toBeTruthy();
   });
 });

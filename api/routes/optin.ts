@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import { OptInPayloadSchema } from '../../src/services/optin-payload';
-import { erzeugePotenzialPdf } from '../../src/services/pdf-export';
-import { sendeOptIn } from '../../src/services/brevo-client';
+import { OptInPayloadSchema } from '@/services/optin-payload';
+import { erzeugePotenzialPdf } from '@/services/pdf-export';
+import { sendeOptIn } from '@/services/brevo-client';
 
 /**
  * POST /api/optin — validiert Payload via OptInPayloadSchema,

@@ -102,7 +102,7 @@ export function HebelEditor({ config, onAendern }: Props) {
     if (!entwurf) return;
 
     if (!entwurf.name.trim()) {
-      setEntwurf({ ...entwurf, formFehler: 'Name ist Pflicht.' });
+      setEntwurf({ ...entwurf, formFehler: 'Name fehlt — bitte eingeben.' });
       return;
     }
 

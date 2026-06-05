@@ -130,14 +130,14 @@ export function ProblemEditor({ config, onAendern }: Props) {
                 {problem.aktiv ? (
                   <button
                     onClick={() => handleDeaktivieren(problem.id)}
-                    aria-label={`Deaktivieren ${problem.text}`}
+                    aria-label={`aktiv (${problem.id})`}
                   >
                     Deaktivieren
                   </button>
                 ) : (
                   <button
                     onClick={() => handleAktivieren(problem.id)}
-                    aria-label={`Aktivieren ${problem.text}`}
+                    aria-label={`inaktiv (${problem.id})`}
                   >
                     Aktivieren
                   </button>
