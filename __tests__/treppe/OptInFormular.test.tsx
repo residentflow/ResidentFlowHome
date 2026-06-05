@@ -75,4 +75,18 @@ describe('OptInFormular M5 (§10.4/§11)', () => {
       }),
     );
   });
+
+  it('zeigt nach dem Absenden eine Bestätigung mit der E-Mail-Adresse', async () => {
+    render(<OptInFormular {...DEFAULT_PROPS} onSubmit={vi.fn()} />);
+
+    await userEvent.type(screen.getByRole('textbox', { name: /e-mail/i }), 'max@muster.de');
+    await userEvent.click(screen.getByRole('checkbox', { name: /Verarbeitung/i }));
+    await userEvent.click(screen.getByRole('button', { name: /potenzialprofil/i }));
+
+    const bestaetigung = await screen.findByTestId('optin-bestaetigung');
+    expect(bestaetigung).toHaveTextContent(/Vielen Dank/i);
+    expect(bestaetigung).toHaveTextContent('max@muster.de');
+    // Formular ist nach dem Absenden nicht mehr sichtbar
+    expect(screen.queryByRole('textbox', { name: /e-mail/i })).not.toBeInTheDocument();
+  });
 });

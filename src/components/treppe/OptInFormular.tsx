@@ -32,6 +32,7 @@ export function OptInFormular({
   const [email, setEmail] = useState('');
   const [consentPdf, setConsentPdf] = useState(false);
   const [consentAbo, setConsentAbo] = useState(false);
+  const [gesendet, setGesendet] = useState(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,6 +49,23 @@ export function OptInFormular({
       relevanteEinheiten,
       ergebnisSpanne,
     });
+    setGesendet(true);
+  }
+
+  if (gesendet) {
+    return (
+      <div data-testid="optin-bestaetigung" role="status">
+        <p>
+          <strong>Vielen Dank — Ihr Potenzialprofil ist unterwegs.</strong>
+        </p>
+        <p>
+          Wir senden es an <strong>{email}</strong>.
+          {consentAbo
+            ? ' Für das Erkenntnis-Abo bestätigen Sie bitte die separate Double-Opt-in-Mail.'
+            : ' Sie können jederzeit auf die Ergebnis-Mail antworten — wir melden uns.'}
+        </p>
+      </div>
+    );
   }
 
   return (
