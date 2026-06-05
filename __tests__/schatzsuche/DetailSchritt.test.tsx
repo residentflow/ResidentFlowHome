@@ -72,6 +72,6 @@ describe('DetailSchritt (§7 / §8.4)', () => {
     await user.clear(input);
     await user.type(input, '10');
 
-    expect(onDetailAngabe).toHaveBeenCalledWith('mietpotenzial', 'einheitenMitPotenzial', 10);
+    expect(onDetailAngabe).toHaveBeenLastCalledWith('mietpotenzial', 'einheitenMitPotenzial', 10);
   });
 });

@@ -108,7 +108,7 @@ export function DetailSchritt({
                     type="number"
                     min={0}
                     step={1}
-                    value={angabenFuerHebel[frageKey] ?? ''}
+                    defaultValue={angabenFuerHebel[frageKey] ?? ''}
                     onChange={(e) => {
                       const wert = parseInt(e.target.value, 10);
                       if (!isNaN(wert)) {
