@@ -8,7 +8,6 @@ import { Fortschrittsbalken } from './Fortschrittsbalken';
 import { useSchatzsuche } from './useSchatzsuche';
 import type { Taetigkeit, Rolle } from '@/domain/enums';
 import type { Config } from '@/domain/schema/config';
-import type { RoutingGroessen } from '@/domain/types';
 
 type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail';
 
@@ -52,7 +51,6 @@ export function Schatzsuche({ config }: SchatzsucheProps) {
     waehleProbleme,
     setzeDetailAngabe,
     relevanteHebel,
-    aggregat,
     fortschrittStatus,
     groessen,
     rollen,

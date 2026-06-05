@@ -47,7 +47,7 @@ export function SegmentEditor({ config, onAendern }: Props) {
           e.index === index
             ? {
                 ...e,
-                fehler: 'End-Ausgang ist Pflicht — keine Persona ohne definierten Ausgang (§13.4).',
+                fehler: 'Pflicht: Routing-Ziel muss gesetzt sein — keine Persona ohne definierten Ausgang (§13.4).',
               }
             : e,
         ),
@@ -144,7 +144,7 @@ export function SegmentEditor({ config, onAendern }: Props) {
             </label>
 
             <label>
-              End-Ausgang (Pflicht)
+              Routing-Ziel
               <select
                 value={entwurf.endAusgang}
                 onChange={(e) => updateEntwurf(entwurf.index, { endAusgang: e.target.value })}

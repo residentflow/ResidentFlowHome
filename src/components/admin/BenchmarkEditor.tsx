@@ -18,98 +18,90 @@ interface HebelFaktorenEntwurf {
   faktorenRoh: FaktorEntwurf[];
   ausgabeMin: string;
   ausgabeMax: string;
-  fehler: string;
 }
 
 /**
  * Benchmark-Faktoren-Editor (§13.2/§13.3).
  * Spannen-Zwang technisch erzwungen — Punktwert wird abgelehnt (§7/§17).
+ * Alle Änderungen werden mit einem einzigen „Übernehmen"-Button gespeichert.
  */
 export function BenchmarkEditor({ config, onAendern }: Props) {
   const quantifizierbar = config.hebel.filter((h) => h.quantifizierbar && h.berechnung);
 
-  const initialEntwuerfe: HebelFaktorenEntwurf[] = quantifizierbar.map((h) => ({
-    hebelId: h.id,
-    faktorenRoh: Object.entries(h.berechnung!.faktoren).map(([key, spanne]) => ({
-      key,
-      min: String(spanne.min),
-      max: String(spanne.max),
-    })),
-    ausgabeMin: String(h.berechnung!.ausgabe.min),
-    ausgabeMax: String(h.berechnung!.ausgabe.max),
-    fehler: '',
-  }));
+  const initialEntwuerfe = (): HebelFaktorenEntwurf[] =>
+    quantifizierbar.map((h) => ({
+      hebelId: h.id,
+      faktorenRoh: Object.entries(h.berechnung!.faktoren).map(([key, spanne]) => ({
+        key,
+        min: String(spanne.min),
+        max: String(spanne.max),
+      })),
+      ausgabeMin: String(h.berechnung!.ausgabe.min),
+      ausgabeMax: String(h.berechnung!.ausgabe.max),
+    }));
 
   const [entwuerfe, setEntwuerfe] = useState<HebelFaktorenEntwurf[]>(initialEntwuerfe);
+  const [fehler, setFehler] = useState('');
 
   function updateEntwurf(hebelId: string, patch: Partial<HebelFaktorenEntwurf>) {
-    setEntwuerfe((prev) =>
-      prev.map((e) => (e.hebelId === hebelId ? { ...e, ...patch, fehler: '' } : e)),
-    );
+    setFehler('');
+    setEntwuerfe((prev) => prev.map((e) => (e.hebelId === hebelId ? { ...e, ...patch } : e)));
   }
 
-  function handleSpeichern(hebelId: string) {
-    const entwurf = entwuerfe.find((e) => e.hebelId === hebelId);
-    if (!entwurf) return;
+  function handleUebernehmen() {
+    // Spannen-Zwang: alle Ausgaben und Faktoren müssen min < max
+    for (const entwurf of entwuerfe) {
+      const hebel = config.hebel.find((h) => h.id === entwurf.hebelId);
+      const name = hebel?.name ?? entwurf.hebelId;
 
-    // Spannen-Zwang: Ausgabe min < max
-    const outMin = parseFloat(entwurf.ausgabeMin);
-    const outMax = parseFloat(entwurf.ausgabeMax);
-    if (isNaN(outMin) || isNaN(outMax) || outMin >= outMax) {
-      setEntwuerfe((prev) =>
-        prev.map((e) =>
-          e.hebelId === hebelId
-            ? {
-                ...e,
-                fehler:
-                  'Spannen-Zwang: min < max erforderlich — kein Punktwert erlaubt (§7/§17).',
-              }
-            : e,
-        ),
-      );
-      return;
-    }
-
-    // Spannen-Zwang: alle Faktoren min < max
-    for (const f of entwurf.faktorenRoh) {
-      if (!f.key.trim()) continue;
-      const fMin = parseFloat(f.min);
-      const fMax = parseFloat(f.max);
-      if (isNaN(fMin) || isNaN(fMax) || fMin >= fMax) {
-        setEntwuerfe((prev) =>
-          prev.map((e) =>
-            e.hebelId === hebelId
-              ? {
-                  ...e,
-                  fehler: `Faktor „${f.key}": Spanne min < max erforderlich — kein Punktwert (§7).`,
-                }
-              : e,
-          ),
+      const outMin = parseFloat(entwurf.ausgabeMin);
+      const outMax = parseFloat(entwurf.ausgabeMax);
+      if (isNaN(outMin) || isNaN(outMax) || outMin >= outMax) {
+        setFehler(
+          `${name}: Spannen-Zwang — Ausgabe min < max erforderlich, kein Punktwert erlaubt (§7/§17).`,
         );
         return;
       }
-    }
 
-    const neueFaktoren: Record<string, { min: number; max: number }> = {};
-    for (const f of entwurf.faktorenRoh) {
-      if (f.key.trim()) {
-        neueFaktoren[f.key] = { min: parseFloat(f.min), max: parseFloat(f.max) };
+      for (const f of entwurf.faktorenRoh) {
+        if (!f.key.trim()) continue;
+        const fMin = parseFloat(f.min);
+        const fMax = parseFloat(f.max);
+        if (isNaN(fMin) || isNaN(fMax) || fMin >= fMax) {
+          setFehler(
+            `${name} — Faktor „${f.key}": Spanne min < max erforderlich, kein Punktwert (§7).`,
+          );
+          return;
+        }
       }
     }
 
     const neueHebel: Hebel[] = config.hebel.map((h) => {
-      if (h.id !== hebelId || !h.berechnung) return h;
+      const entwurf = entwuerfe.find((e) => e.hebelId === h.id);
+      if (!entwurf || !h.berechnung) return h;
+
+      const neueFaktoren: Record<string, { min: number; max: number }> = {};
+      for (const f of entwurf.faktorenRoh) {
+        if (f.key.trim()) {
+          neueFaktoren[f.key] = { min: parseFloat(f.min), max: parseFloat(f.max) };
+        }
+      }
+
       return {
         ...h,
         berechnung: {
           ...h.berechnung,
           faktoren: neueFaktoren,
-          ausgabe: { min: outMin, max: outMax },
+          ausgabe: {
+            min: parseFloat(entwurf.ausgabeMin),
+            max: parseFloat(entwurf.ausgabeMax),
+          },
         },
       };
     });
 
     onAendern({ ...config, hebel: neueHebel });
+    setFehler('');
   }
 
   if (quantifizierbar.length === 0) {
@@ -125,9 +117,15 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
     <div>
       <h2>Benchmark-Faktoren</h2>
       <p style={{ fontSize: '0.85em', color: '#666' }}>
-        Alle Faktoren und Ausgaben müssen als Spannen (min &lt; max) angegeben werden — kein
-        Punktwert erlaubt (§7/§17).
+        Alle Faktoren und Ausgaben erfordern eine Bereichsangabe (Untergrenze &lt; Obergrenze) —
+        Punktwerte sind nicht zulässig (§7/§17).
       </p>
+
+      {fehler && (
+        <p role="alert" style={{ color: 'red', marginBottom: '0.75rem' }}>
+          {fehler}
+        </p>
+      )}
 
       {entwuerfe.map((entwurf) => {
         const hebel = config.hebel.find((h) => h.id === entwurf.hebelId);
@@ -140,14 +138,8 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
           >
             <h3>{hebel.name}</h3>
 
-            {entwurf.fehler && (
-              <p role="alert" style={{ color: 'red' }}>
-                {entwurf.fehler}
-              </p>
-            )}
-
             <div style={{ marginBottom: '0.75rem' }}>
-              <strong>Ausgabe-Spanne</strong>
+              <strong>Ausgabe-Bereich</strong>
               <div style={{ display: 'flex', gap: '1rem', marginTop: '0.25rem' }}>
                 <label>
                   min
@@ -176,7 +168,10 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
 
             <strong>Faktoren</strong>
             {entwurf.faktorenRoh.map((f, idx) => (
-              <div key={idx} style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem', alignItems: 'center' }}>
+              <div
+                key={idx}
+                style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem', alignItems: 'center' }}
+              >
                 <span style={{ minWidth: '180px' }}>{f.key}</span>
                 <label>
                   min
@@ -208,16 +203,13 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                 </label>
               </div>
             ))}
-
-            <button
-              style={{ marginTop: '0.75rem' }}
-              onClick={() => handleSpeichern(entwurf.hebelId)}
-            >
-              Speichern
-            </button>
           </div>
         );
       })}
+
+      <div style={{ marginTop: '1.5rem' }}>
+        <button onClick={handleUebernehmen}>Übernehmen</button>
+      </div>
     </div>
   );
 }

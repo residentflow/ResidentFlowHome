@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Config } from '@/domain/schema/config';
+import type { Problem } from '@/domain/schema/problem';
 
 interface Props {
   config: Config;
@@ -8,14 +9,18 @@ interface Props {
 
 /**
  * Problem↔Hebel n:m-Mapping-Editor (§13.2).
- * Problem auswählen → Hebel-Checkboxen → Mapping pflegen.
+ * Lokaler Zustand synchronisiert Mapping-Änderungen ohne Re-Render vom Elternteil.
  */
 export function MappingEditor({ config, onAendern }: Props) {
+  // Lokale Kopie der Probleme — damit Mapping-Änderungen sofort im UI sichtbar sind
+  const [lokalProbleme, setLokalProbleme] = useState<Problem[]>(() =>
+    JSON.parse(JSON.stringify(config.probleme)),
+  );
   const [gewaehlteProblemId, setGewaehlteProblemId] = useState<string>(
     config.probleme[0]?.id ?? '',
   );
 
-  const gewaehltProblem = config.probleme.find((p) => p.id === gewaehlteProblemId);
+  const gewaehltProblem = lokalProbleme.find((p) => p.id === gewaehlteProblemId);
 
   function handleProblemWechsel(id: string) {
     setGewaehlteProblemId(id);
@@ -36,10 +41,15 @@ export function MappingEditor({ config, onAendern }: Props) {
       neueHebel = [...aktuelleHebel, hebelId];
     }
 
-    const neuProbleme = config.probleme.map((p) =>
+    const neueLokalProbleme = lokalProbleme.map((p) =>
       p.id === gewaehlteProblemId ? { ...p, verknuepfteHebel: neueHebel } : p,
     );
-    onAendern({ ...config, probleme: neuProbleme });
+    setLokalProbleme(neueLokalProbleme);
+
+    const neueConfigProbleme = config.probleme.map((p) =>
+      p.id === gewaehlteProblemId ? { ...p, verknuepfteHebel: neueHebel } : p,
+    );
+    onAendern({ ...config, probleme: neueConfigProbleme });
   }
 
   return (
@@ -51,13 +61,13 @@ export function MappingEditor({ config, onAendern }: Props) {
           <h3>Probleme</h3>
           <select
             data-testid="problem-select"
-            size={Math.min(config.probleme.length, 10)}
+            size={Math.min(lokalProbleme.length, 10)}
             value={gewaehlteProblemId}
             onChange={(e) => handleProblemWechsel(e.target.value)}
             style={{ width: '100%', display: 'block' }}
             aria-label="Problem auswählen"
           >
-            {config.probleme.map((p) => (
+            {lokalProbleme.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.text || p.id} {!p.aktiv ? '(inaktiv)' : ''}
               </option>
@@ -79,7 +89,11 @@ export function MappingEditor({ config, onAendern }: Props) {
                 return (
                   <label
                     key={h.id}
-                    style={{ display: 'block', marginBottom: '0.25rem', opacity: istEinzig ? 0.5 : 1 }}
+                    style={{
+                      display: 'block',
+                      marginBottom: '0.25rem',
+                      opacity: istEinzig ? 0.5 : 1,
+                    }}
                     title={istEinzig ? 'Letzter Hebel — kann nicht entfernt werden' : undefined}
                   >
                     <input

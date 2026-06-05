@@ -76,7 +76,7 @@ describe('ProblemSchritt (§5.1 / §8.1)', () => {
     expect(checkboxen.length).toBeGreaterThan(0);
 
     // Problem auswählen
-    await user.click(checkboxen[0]);
+    await user.click(checkboxen[0]!);
     // Problem ist jetzt ausgewählt (Checkbox checked)
     expect(checkboxen[0]).toBeChecked();
 
@@ -88,13 +88,13 @@ describe('ProblemSchritt (§5.1 / §8.1)', () => {
 
     // Weitere Checkbox auswählen
     const checkboxen2 = screen.getAllByRole('checkbox');
-    await user.click(checkboxen2[0]);
+    await user.click(checkboxen2[0]!);
     expect(checkboxen2[0]).toBeChecked();
 
     await user.click(screen.getByRole('button', { name: /Weiter/i }));
     expect(onWeiter).toHaveBeenCalled();
     // Beide Probleme (aus zwei Bereichen) sind gewählt
-    const gewaehlteIds: string[] = onWeiter.mock.calls[0][0];
+    const gewaehlteIds = onWeiter.mock.calls[0]?.[0] as string[];
     expect(gewaehlteIds.length).toBeGreaterThan(1);
   });
 });
