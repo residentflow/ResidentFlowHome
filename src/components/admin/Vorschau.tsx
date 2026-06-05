@@ -113,12 +113,18 @@ export function Vorschau({ config }: Props) {
         </label>
       </div>
 
-      <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#f9f9f9', borderRadius: '4px' }}>
+      <div
+        style={{ marginTop: '1.5rem', padding: '1rem', background: '#f9f9f9', borderRadius: '4px' }}
+      >
         <h3>Routing-Ergebnis</h3>
-        <dl style={{ display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '0.25rem 1rem' }}>
+        <dl
+          style={{ display: 'grid', gridTemplateColumns: 'max-content 1fr', gap: '0.25rem 1rem' }}
+        >
           <dt>End-Ausgang:</dt>
           <dd>
-            <strong>{END_AUSGANG_LABELS[routingErgebnis.endAusgang] ?? routingErgebnis.endAusgang}</strong>
+            <strong>
+              {END_AUSGANG_LABELS[routingErgebnis.endAusgang] ?? routingErgebnis.endAusgang}
+            </strong>
           </dd>
           <dt>Relevante Einheiten:</dt>
           <dd>{routingErgebnis.relevanteEinheiten}</dd>
@@ -136,10 +142,13 @@ export function Vorschau({ config }: Props) {
             {gefiltertProbleme.map((p) => (
               <li key={p.id} style={{ marginBottom: '0.25rem' }}>
                 <button
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
-                  onClick={() =>
-                    setGewaehltesProblemId(gewaehltesProblemId === p.id ? '' : p.id)
-                  }
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                  }}
+                  onClick={() => setGewaehltesProblemId(gewaehltesProblemId === p.id ? '' : p.id)}
                 >
                   {p.text}
                 </button>
@@ -158,8 +167,7 @@ export function Vorschau({ config }: Props) {
           <ul>
             {relevanteHebel.map((h) => (
               <li key={h.id} style={{ marginBottom: '0.5rem' }}>
-                <strong>{h.name}</strong>
-                {' '}
+                <strong>{h.name}</strong>{' '}
                 <span style={{ color: '#666', fontSize: '0.85em' }}>
                   (Phase {h.lebenszyklusPhase} · {h.wertKategorie} · {h.rahmung})
                 </span>

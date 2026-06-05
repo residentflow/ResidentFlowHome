@@ -30,7 +30,9 @@ export function ProblemSchritt({
   const [gewaehlterBereich, setGewaehlterBereich] = useState<string | null>(null);
   const [gewaehlteProbleme, setGewaehlteProbleme] = useState<string[]>(gewaehlt);
 
-  const sortierteSchmerzBereiche = [...schmerzBereiche].sort((a, b) => a.reihenfolge - b.reihenfolge);
+  const sortierteSchmerzBereiche = [...schmerzBereiche].sort(
+    (a, b) => a.reihenfolge - b.reihenfolge,
+  );
 
   const gefilterteProblemeStufeB = gewaehlterBereich
     ? filterProbleme(probleme, {
@@ -111,9 +113,7 @@ export function ProblemSchritt({
         ← Zurück zu den Bereichen
       </button>
 
-      <h2 style={{ marginBottom: '0.5rem' }}>
-        {aktuellerBereich?.name ?? 'Konkrete Probleme'}
-      </h2>
+      <h2 style={{ marginBottom: '0.5rem' }}>{aktuellerBereich?.name ?? 'Konkrete Probleme'}</h2>
       <p style={{ marginBottom: '1rem', color: 'var(--farbe-text-leise, #666)' }}>
         Was beschreibt Ihre Situation am besten? (Mehrfachauswahl)
       </p>

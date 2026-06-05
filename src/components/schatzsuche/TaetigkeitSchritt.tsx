@@ -7,23 +7,24 @@ interface TaetigkeitSchrittProps {
   onWeiter: (taetigkeiten: Taetigkeit[]) => void;
 }
 
-const TAETIGKEIT_OPTIONEN: Array<{ taetigkeit: Taetigkeit; label: string; beschreibung: string }> = [
-  {
-    taetigkeit: 'A',
-    label: 'Verwaltung eigener Immobilien',
-    beschreibung: 'Buy & Hold, Bestandshaltung, Family Office',
-  },
-  {
-    taetigkeit: 'B',
-    label: 'Betreuung fremder Bestände',
-    beschreibung: 'Hausverwaltung, Asset Management, Immobilienberatung, Makler, Steuerberater',
-  },
-  {
-    taetigkeit: 'C',
-    label: 'Entwicklung / Fix & Flip',
-    beschreibung: 'Projektentwicklung, Fix & Flip',
-  },
-];
+const TAETIGKEIT_OPTIONEN: Array<{ taetigkeit: Taetigkeit; label: string; beschreibung: string }> =
+  [
+    {
+      taetigkeit: 'A',
+      label: 'Verwaltung eigener Immobilien',
+      beschreibung: 'Buy & Hold, Bestandshaltung, Family Office',
+    },
+    {
+      taetigkeit: 'B',
+      label: 'Betreuung fremder Bestände',
+      beschreibung: 'Hausverwaltung, Asset Management, Immobilienberatung, Makler, Steuerberater',
+    },
+    {
+      taetigkeit: 'C',
+      label: 'Entwicklung / Fix & Flip',
+      beschreibung: 'Projektentwicklung, Fix & Flip',
+    },
+  ];
 
 /**
  * Schritt 1: Tätigkeit (Mehrfachauswahl A/B/C) — §8.1 / §3.2.
@@ -49,7 +50,9 @@ export function TaetigkeitSchritt({ gewaehlt, onWeiter }: TaetigkeitSchrittProps
         Mehrfachauswahl möglich.
       </p>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '2rem' }}
+      >
         {TAETIGKEIT_OPTIONEN.map(({ taetigkeit, label, beschreibung }) => {
           const istGewaehlt = ausgewaehlt.includes(taetigkeit);
           return (
@@ -75,7 +78,13 @@ export function TaetigkeitSchritt({ gewaehlt, onWeiter }: TaetigkeitSchrittProps
               />
               <div>
                 <span style={{ fontWeight: 600 }}>{label}</span>
-                <p style={{ margin: '0.25rem 0 0', fontSize: '0.85rem', color: 'var(--farbe-text-leise, #666)' }}>
+                <p
+                  style={{
+                    margin: '0.25rem 0 0',
+                    fontSize: '0.85rem',
+                    color: 'var(--farbe-text-leise, #666)',
+                  }}
+                >
                   {beschreibung}
                 </p>
               </div>

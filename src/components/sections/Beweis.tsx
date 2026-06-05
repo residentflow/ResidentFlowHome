@@ -44,10 +44,23 @@ export function Beweis() {
             background: '#fff',
           }}
         >
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: 'var(--farbe-text-sekundaer)' }}>
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.8rem',
+              color: 'var(--farbe-text-sekundaer)',
+            }}
+          >
             Mietpotenzial (nicht gezogene Indexmieten)
           </p>
-          <p style={{ margin: '0 0 0.75rem', fontSize: '1.75rem', fontWeight: 700, color: 'var(--farbe-akzent)' }}>
+          <p
+            style={{
+              margin: '0 0 0.75rem',
+              fontSize: '1.75rem',
+              fontWeight: 700,
+              color: 'var(--farbe-akzent)',
+            }}
+          >
             18.000 – 42.000 €
           </p>
           <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>
@@ -63,10 +76,23 @@ export function Beweis() {
             background: '#fff',
           }}
         >
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: 'var(--farbe-text-sekundaer)' }}>
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.8rem',
+              color: 'var(--farbe-text-sekundaer)',
+            }}
+          >
             Betriebskosten-Korrekturen
           </p>
-          <p style={{ margin: '0 0 0.75rem', fontSize: '1.75rem', fontWeight: 700, color: 'var(--farbe-akzent)' }}>
+          <p
+            style={{
+              margin: '0 0 0.75rem',
+              fontSize: '1.75rem',
+              fontWeight: 700,
+              color: 'var(--farbe-akzent)',
+            }}
+          >
             4.500 – 12.000 €
           </p>
           <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>
@@ -82,10 +108,23 @@ export function Beweis() {
             background: '#fff',
           }}
         >
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.8rem', color: 'var(--farbe-text-sekundaer)' }}>
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.8rem',
+              color: 'var(--farbe-text-sekundaer)',
+            }}
+          >
             Leerstandsoptimierung
           </p>
-          <p style={{ margin: '0 0 0.75rem', fontSize: '1.75rem', fontWeight: 700, color: 'var(--farbe-akzent)' }}>
+          <p
+            style={{
+              margin: '0 0 0.75rem',
+              fontSize: '1.75rem',
+              fontWeight: 700,
+              color: 'var(--farbe-akzent)',
+            }}
+          >
             6.000 – 19.000 €
           </p>
           <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>

@@ -65,9 +65,7 @@ export function ProblemEditor({ config, onAendern }: Props) {
     }
 
     const gespeichert: Problem = { ...entwurf, verknuepfteHebel: hebel };
-    const neuProbleme = config.probleme.map((p) =>
-      p.id === gespeichert.id ? gespeichert : p,
-    );
+    const neuProbleme = config.probleme.map((p) => (p.id === gespeichert.id ? gespeichert : p));
     onAendern({ ...config, probleme: neuProbleme });
     setEditiertesId(null);
     setEntwurf(null);
@@ -81,16 +79,12 @@ export function ProblemEditor({ config, onAendern }: Props) {
   }
 
   function handleDeaktivieren(id: string) {
-    const neuProbleme = config.probleme.map((p) =>
-      p.id === id ? { ...p, aktiv: false } : p,
-    );
+    const neuProbleme = config.probleme.map((p) => (p.id === id ? { ...p, aktiv: false } : p));
     onAendern({ ...config, probleme: neuProbleme });
   }
 
   function handleAktivieren(id: string) {
-    const neuProbleme = config.probleme.map((p) =>
-      p.id === id ? { ...p, aktiv: true } : p,
-    );
+    const neuProbleme = config.probleme.map((p) => (p.id === id ? { ...p, aktiv: true } : p));
     onAendern({ ...config, probleme: neuProbleme });
   }
 
@@ -202,12 +196,12 @@ export function ProblemEditor({ config, onAendern }: Props) {
                     onChange={(e) => {
                       const aktuelle = entwurf.rollenFilter;
                       const neu = e.target.checked
-                        ? ([...aktuelle, rolle] as typeof ROLLEN[number][])
+                        ? ([...aktuelle, rolle] as (typeof ROLLEN)[number][])
                         : aktuelle.filter((r) => r !== rolle);
                       handleFeldAendern('rollenFilter', neu);
                     }}
-                  />
-                  {' '}{rolle}
+                  />{' '}
+                  {rolle}
                 </label>
               ))}
             </fieldset>
@@ -233,8 +227,8 @@ export function ProblemEditor({ config, onAendern }: Props) {
                 type="checkbox"
                 checked={entwurf.aktiv}
                 onChange={(e) => handleFeldAendern('aktiv', e.target.checked)}
-              />
-              {' '}Aktiv
+              />{' '}
+              Aktiv
             </label>
           </div>
 

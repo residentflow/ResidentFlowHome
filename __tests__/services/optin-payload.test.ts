@@ -48,7 +48,14 @@ describe('OptInPayloadSchema (§11)', () => {
     if (result.success) {
       const keys = Object.keys(result.data);
       expect(keys).toEqual(
-        expect.arrayContaining(['email', 'consentPdf', 'consentAbo', 'rolle', 'relevanteEinheiten', 'ergebnisSpanne']),
+        expect.arrayContaining([
+          'email',
+          'consentPdf',
+          'consentAbo',
+          'rolle',
+          'relevanteEinheiten',
+          'ergebnisSpanne',
+        ]),
       );
       expect(keys.length).toBe(6);
     }

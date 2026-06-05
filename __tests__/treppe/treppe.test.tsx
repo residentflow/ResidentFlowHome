@@ -26,8 +26,18 @@ function routingMitStufen(
 }
 
 const HEBEL_MIT_VIDEO: HebelLaufzeit[] = [
-  { hebelId: 'mietpotenzial', zustand: 'quantifiziert', rahmung: 'chance', spanne: { min: 5000, max: 12000 } },
-  { hebelId: 'leerstand', zustand: 'quantifiziert', rahmung: 'chance', spanne: { min: 3000, max: 8000 } },
+  {
+    hebelId: 'mietpotenzial',
+    zustand: 'quantifiziert',
+    rahmung: 'chance',
+    spanne: { min: 5000, max: 12000 },
+  },
+  {
+    hebelId: 'leerstand',
+    zustand: 'quantifiziert',
+    rahmung: 'chance',
+    spanne: { min: 3000, max: 8000 },
+  },
 ];
 
 const HEBEL_OHNE_VIDEO: HebelLaufzeit[] = [
@@ -120,10 +130,7 @@ describe('Treppe M4 (§10)', () => {
 
   it('Stufe 3 zeigt ein Video pro Hebel', () => {
     render(
-      <Stufe3Automatisierung
-        laufzeiten={HEBEL_MIT_VIDEO}
-        hebelIdsWithVideo={HEBELIDS_MIT_VIDEO}
-      />,
+      <Stufe3Automatisierung laufzeiten={HEBEL_MIT_VIDEO} hebelIdsWithVideo={HEBELIDS_MIT_VIDEO} />,
     );
     // Jeder Hebel mit Video bekommt einen Video-Container
     const videos = screen.getAllByTestId(/video-hebel-/);
@@ -190,12 +197,7 @@ describe('Treppe M4 (§10)', () => {
     const { routing: r, stufen } = routingMitStufen(['steuerberater'], {});
     expect(r.endAusgang).toBe('partnerprogramm');
     render(
-      <VerdichtetesErgebnis
-        routing={r}
-        stufen={stufen}
-        gesamtSpanne={spanne}
-        laufzeiten={[]}
-      />,
+      <VerdichtetesErgebnis routing={r} stufen={stufen} gesamtSpanne={spanne} laufzeiten={[]} />,
     );
     expect(screen.getByTestId('partnerprogramm-link')).toBeInTheDocument();
   });

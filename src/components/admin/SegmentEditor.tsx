@@ -61,9 +61,9 @@ export function SegmentEditor({ config, onAendern }: Props) {
     const neueSegmente: Segment[] = config.segmente.map((s, i) =>
       i === index
         ? {
-            taetigkeit: entwurf.taetigkeit as typeof TAETIGKEITEN[number],
-            typ: entwurf.typ as typeof SEGMENT_TYPEN[number],
-            endAusgang: entwurf.endAusgang as typeof END_AUSGAENGE[number],
+            taetigkeit: entwurf.taetigkeit as (typeof TAETIGKEITEN)[number],
+            typ: entwurf.typ as (typeof SEGMENT_TYPEN)[number],
+            endAusgang: entwurf.endAusgang as (typeof END_AUSGAENGE)[number],
           }
         : s,
     );
@@ -115,7 +115,9 @@ export function SegmentEditor({ config, onAendern }: Props) {
             </p>
           )}
 
-          <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          <div
+            style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-start' }}
+          >
             {/* Tätigkeit als Radio-Gruppe */}
             <fieldset style={{ border: 'none', padding: 0, margin: 0 }}>
               <legend style={{ fontWeight: 600, marginBottom: '0.25rem' }}>Tätigkeit</legend>
@@ -127,8 +129,8 @@ export function SegmentEditor({ config, onAendern }: Props) {
                     value={t}
                     checked={entwurf.taetigkeit === t}
                     onChange={() => updateEntwurf(entwurf.index, { taetigkeit: t })}
-                  />
-                  {' '}{t}
+                  />{' '}
+                  {t}
                 </label>
               ))}
             </fieldset>
@@ -144,8 +146,8 @@ export function SegmentEditor({ config, onAendern }: Props) {
                     value={t}
                     checked={entwurf.typ === t}
                     onChange={() => updateEntwurf(entwurf.index, { typ: t })}
-                  />
-                  {' '}{t}
+                  />{' '}
+                  {t}
                 </label>
               ))}
             </fieldset>

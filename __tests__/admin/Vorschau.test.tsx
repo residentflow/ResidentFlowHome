@@ -8,14 +8,12 @@ describe('Vorschau', () => {
     render(<Vorschau config={schatzsucheConfig} />);
 
     // Rollen-Auswahl muss vorhanden sein
-    const rollenAuswahl =
-      screen.queryByLabelText(/rolle/i) ?? screen.queryByTestId('rolle-select');
+    const rollenAuswahl = screen.queryByLabelText(/rolle/i) ?? screen.queryByTestId('rolle-select');
     expect(rollenAuswahl).toBeTruthy();
 
     // Größen-Eingabe muss vorhanden sein
     const groeßeEingabe =
-      screen.queryByLabelText(/einheiten|größe|anzahl/i) ??
-      screen.queryByTestId('groesse-input');
+      screen.queryByLabelText(/einheiten|größe|anzahl/i) ?? screen.queryByTestId('groesse-input');
     expect(groeßeEingabe).toBeTruthy();
 
     // Eine Rolle auswählen (buyAndHold)

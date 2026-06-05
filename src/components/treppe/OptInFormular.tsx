@@ -100,8 +100,8 @@ export function OptInFormular({
               onChange={(e) => setConsentAbo(e.target.checked)}
               aria-label="monatliches Erkenntnis-Abo (optional)"
             />
-            Ja, ich möchte monatlich neue Erkenntnisse erhalten (optional, Double-Opt-in,
-            jederzeit abbestellbar).
+            Ja, ich möchte monatlich neue Erkenntnisse erhalten (optional, Double-Opt-in, jederzeit
+            abbestellbar).
           </label>
         </div>
 

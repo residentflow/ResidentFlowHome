@@ -50,7 +50,7 @@ export function ErkenntnisListe({ laufzeiten, hebelNamen }: ErkenntnisListeProps
           const name = hebelNamen[laufzeit.hebelId] ?? laufzeit.hebelId;
           const wertAnzeige = laufzeit.spanne
             ? `${formatierteSpanne(laufzeit.spanne.min, laufzeit.spanne.max)} p.a.`
-            : laufzeit.nutzenAussage ?? '(Potenzial wird berechnet …)';
+            : (laufzeit.nutzenAussage ?? '(Potenzial wird berechnet …)');
           return (
             <li
               key={laufzeit.hebelId}

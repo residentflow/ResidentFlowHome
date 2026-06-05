@@ -19,7 +19,9 @@ export function Fortschrittsbalken({ analysiert, gesamt }: FortschrittsbalkenPro
         borderRadius: 'var(--radius, 4px)',
       }}
     >
-      <p style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'var(--farbe-text-leise, #666)' }}>
+      <p
+        style={{ margin: '0 0 0.5rem', fontSize: '0.9rem', color: 'var(--farbe-text-leise, #666)' }}
+      >
         {analysiert} von {gesamt} relevanten Bereichen analysiert
       </p>
       <div

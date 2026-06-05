@@ -33,8 +33,8 @@ export function Stufe2ZweiWege({ privacyFlowDownloadUrl = '#download' }: Stufe2Z
         <div>
           <h3>Weg B — Gemeinsam im Termin</h3>
           <p>
-            Bevorzugen Sie eine geführte Analyse ohne Installation? Wir gehen Ihren Bestand in
-            einem gemeinsamen Termin durch — direkt und ohne technischen Aufwand Ihrerseits.
+            Bevorzugen Sie eine geführte Analyse ohne Installation? Wir gehen Ihren Bestand in einem
+            gemeinsamen Termin durch — direkt und ohne technischen Aufwand Ihrerseits.
           </p>
           <Terminlink />
         </div>

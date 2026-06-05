@@ -9,10 +9,9 @@ describe('Prerender-Konfiguration', () => {
     // Alle erwarteten Basis-Routen müssen vorhanden sein
     const erwartet = ['/', '/founder', '/faq', '/impressum', '/datenschutz'];
     for (const route of erwartet) {
-      expect(
-        ROUTEN_ZUM_PRERENDERN,
-        `Route "${route}" fehlt in ROUTEN_ZUM_PRERENDERN`,
-      ).toContain(route);
+      expect(ROUTEN_ZUM_PRERENDERN, `Route "${route}" fehlt in ROUTEN_ZUM_PRERENDERN`).toContain(
+        route,
+      );
     }
   });
 

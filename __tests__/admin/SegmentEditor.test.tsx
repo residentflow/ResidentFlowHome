@@ -28,7 +28,9 @@ describe('SegmentEditor', () => {
     });
 
     // Beim Versuch einen leeren End-Ausgang zu speichern → Fehler
-    const speichernButtons = screen.queryAllByRole('button', { name: /speichern|sichern|übernehmen/i });
+    const speichernButtons = screen.queryAllByRole('button', {
+      name: /speichern|sichern|übernehmen/i,
+    });
     if (speichernButtons.length > 0) {
       // Leerwert setzen
       fireEvent.change(endAusgangFelder[0], { target: { value: '' } });

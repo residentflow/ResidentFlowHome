@@ -1,10 +1,7 @@
 // Lokale Typ-Deklarationen für Node.js-Globals (kein @types/node erforderlich)
 declare const process: { env: Record<string, string | undefined> };
 
-import {
-  TransactionalEmailsApi,
-  ContactsApi,
-} from '@getbrevo/brevo';
+import { TransactionalEmailsApi, ContactsApi } from '@getbrevo/brevo';
 import type { OptInPayload } from '@/services/optin-payload';
 
 /**
@@ -47,8 +44,7 @@ export async function sendeOptIn(payload: OptInPayload, pdfBytes: Uint8Array): P
 
   // Optional: POTENZIAL_SPANNE
   if (payload.ergebnisSpanne) {
-    attributes['POTENZIAL_SPANNE'] =
-      `${payload.ergebnisSpanne.min}-${payload.ergebnisSpanne.max}`;
+    attributes['POTENZIAL_SPANNE'] = `${payload.ergebnisSpanne.min}-${payload.ergebnisSpanne.max}`;
   }
 
   await contactsApi.createContact({

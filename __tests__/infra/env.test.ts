@@ -27,15 +27,9 @@ describe('.env.example — Konfigurationsdokumentation', () => {
     const inhalt = leseEnvExample();
     const variablen = parseEnvZeilen(inhalt);
 
-    expect(
-      variablen.has('BREVO_API_KEY'),
-      'BREVO_API_KEY fehlt in .env.example',
-    ).toBe(true);
+    expect(variablen.has('BREVO_API_KEY'), 'BREVO_API_KEY fehlt in .env.example').toBe(true);
 
-    expect(
-      variablen.has('BREVO_LIST_ID'),
-      'BREVO_LIST_ID fehlt in .env.example',
-    ).toBe(true);
+    expect(variablen.has('BREVO_LIST_ID'), 'BREVO_LIST_ID fehlt in .env.example').toBe(true);
   });
 
   it('die .env.example enthält keine echten Secret-Werte (Werte leer oder Platzhalter)', () => {

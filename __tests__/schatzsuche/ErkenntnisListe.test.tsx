@@ -32,10 +32,7 @@ const hebelNamen: Record<string, string> = {
 describe('ErkenntnisListe (§8.2)', () => {
   it('zeigt die Erkenntnis-Liste mit "Bereits identifizierte Hebel: N"', () => {
     render(
-      <ErkenntnisListe
-        laufzeiten={[hebelOhneSpanne, hebelQualitativ]}
-        hebelNamen={hebelNamen}
-      />,
+      <ErkenntnisListe laufzeiten={[hebelOhneSpanne, hebelQualitativ]} hebelNamen={hebelNamen} />,
     );
     expect(screen.getByText(new RegExp(`${ERKENNTNIS_HEADER}\\s*2`))).toBeInTheDocument();
   });
@@ -57,10 +54,7 @@ describe('ErkenntnisListe (§8.2)', () => {
   it('stellt Euro-Spanne und qualitativen Nutzen gleich stark dar', () => {
     // Beide Hebel erscheinen in der Liste — qualitativer Nutzen und Euro-Spanne sind gleichrangig
     const { container } = render(
-      <ErkenntnisListe
-        laufzeiten={[hebelMitSpanne, hebelQualitativ]}
-        hebelNamen={hebelNamen}
-      />,
+      <ErkenntnisListe laufzeiten={[hebelMitSpanne, hebelQualitativ]} hebelNamen={hebelNamen} />,
     );
     // Beide Einträge in der Liste vorhanden
     expect(screen.getByText(/Mietpotenzial-Erkennung/)).toBeInTheDocument();

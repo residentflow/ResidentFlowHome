@@ -43,7 +43,9 @@ describe('HebelEditor', () => {
     // Der Spannen-Zwang ist in der UI erkennbar (Label mit min/max vorhanden)
     const alleInputs = document.querySelectorAll('input[type="number"]');
     // Wenn Zahlenfelder vorhanden, müssen sie paarweise (min+max) sein oder Punktwert-Eingabe ist blockiert
-    expect(punktwertHinweis !== null || alleInputs.length === 0 || alleInputs.length % 2 === 0).toBe(true);
+    expect(
+      punktwertHinweis !== null || alleInputs.length === 0 || alleInputs.length % 2 === 0,
+    ).toBe(true);
   });
 
   it('verlangt bei qualitativem Hebel eine nutzenAussage', () => {
@@ -59,8 +61,9 @@ describe('HebelEditor', () => {
     fireEvent.click(neuButton);
 
     // "quantifizierbar = false" auswählen (qualitativ)
-    const qualitativOption = screen.queryByRole('radio', { name: /qualitativ|nicht quantifizierbar/i })
-      ?? screen.queryByLabelText(/qualitativ/i);
+    const qualitativOption =
+      screen.queryByRole('radio', { name: /qualitativ|nicht quantifizierbar/i }) ??
+      screen.queryByLabelText(/qualitativ/i);
 
     if (qualitativOption) {
       fireEvent.click(qualitativOption);
@@ -81,8 +84,9 @@ describe('HebelEditor', () => {
       expect(fehler).toBeTruthy();
     } else {
       // Das Feld für nutzenAussage muss sichtbar/required sein
-      const nutzenFeld = screen.queryByLabelText(/nutzen|nutzenaussage/i)
-        ?? screen.queryByPlaceholderText(/nutzen/i);
+      const nutzenFeld =
+        screen.queryByLabelText(/nutzen|nutzenaussage/i) ??
+        screen.queryByPlaceholderText(/nutzen/i);
       expect(nutzenFeld).toBeTruthy();
     }
   });

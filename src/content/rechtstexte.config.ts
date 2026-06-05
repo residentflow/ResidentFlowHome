@@ -87,7 +87,7 @@ export const DATENSCHUTZ: DatenschutzDaten = {
     {
       titel: 'Brevo als Auftragsverarbeiter (AVV)',
       inhalt:
-        'Für den E-Mail-Versand setzen wir Brevo (ehemals Sendinblue, Brevo SAS, 55 rue d\'Amsterdam, ' +
+        "Für den E-Mail-Versand setzen wir Brevo (ehemals Sendinblue, Brevo SAS, 55 rue d'Amsterdam, " +
         '75008 Paris, Frankreich) ein. Brevo verarbeitet Ihre E-Mail-Adresse sowie die übermittelten ' +
         'Kontaktattribute (Rolle, Einheitenanzahl) als Auftragsverarbeiter in unserem Auftrag. ' +
         'Mit Brevo besteht ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO. ' +

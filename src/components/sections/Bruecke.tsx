@@ -1,8 +1,4 @@
-import {
-  ENTLASTUNGEN,
-  CTA_ANALYSE,
-  CTA_ANALYSE_SUBTEXT,
-} from '@/content/texte';
+import { ENTLASTUNGEN, CTA_ANALYSE, CTA_ANALYSE_SUBTEXT } from '@/content/texte';
 import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 

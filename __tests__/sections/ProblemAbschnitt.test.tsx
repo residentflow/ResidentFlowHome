@@ -5,9 +5,7 @@ import { ProblemAbschnitt } from '../../src/components/sections/ProblemAbschnitt
 describe('ProblemAbschnitt', () => {
   it('entlastet das Team (kein System, das es systematisch findet)', () => {
     render(<ProblemAbschnitt />);
-    expect(
-      screen.getByText(/kein System.*systematisch findet/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/kein System.*systematisch findet/i)).toBeInTheDocument();
   });
 
   it('zeigt eine Merk-Zahl als Spanne (€ – €)', () => {

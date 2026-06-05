@@ -93,9 +93,7 @@ export function VerdichtetesErgebnis({
               <li>ResidentPrivacyFlow herunterladen — lokale Analyse ohne Installation</li>
             </>
           )}
-          {istMultiplikator && (
-            <li>Kontaktaufnahme für individuelle Partnerkonditionen</li>
-          )}
+          {istMultiplikator && <li>Kontaktaufnahme für individuelle Partnerkonditionen</li>}
           {stufen.stufe3 && !istMultiplikator && (
             <li>Vollautomatisierung mit Stufe 3 — Video-Demo je Hebel</li>
           )}

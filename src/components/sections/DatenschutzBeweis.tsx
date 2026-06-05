@@ -70,7 +70,9 @@ export function DatenschutzBeweis() {
               borderRadius: 'var(--radius)',
             }}
           >
-            <p style={{ margin: '0 0 0.4rem', fontWeight: 700, fontSize: '0.9rem' }}>EU/self-hosted</p>
+            <p style={{ margin: '0 0 0.4rem', fontWeight: 700, fontSize: '0.9rem' }}>
+              EU/self-hosted
+            </p>
             <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>
               Hosting in Europa — nie US-Cloud
             </p>

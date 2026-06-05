@@ -64,8 +64,7 @@ const META_DATEN: Record<string, RouteMeta> = {
     twitter: {
       card: 'summary_large_image',
       title: 'Founder — ResidentFlow',
-      description:
-        'Eigener Bestandshalter, eigenes Geld im Spiel — das Problem aus erster Hand.',
+      description: 'Eigener Bestandshalter, eigenes Geld im Spiel — das Problem aus erster Hand.',
     },
   },
 

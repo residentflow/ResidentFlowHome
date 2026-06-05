@@ -74,7 +74,10 @@ export function ChanceKarte({
         <p style={{ margin: '0 0 0.25rem' }}>
           <strong>Im Playbook erfahren Sie:</strong> {playbookHinweis}
         </p>
-        <a href={playbookLink} style={{ color: 'var(--farbe-akzent, #b8860b)', fontSize: '0.9rem' }}>
+        <a
+          href={playbookLink}
+          style={{ color: 'var(--farbe-akzent, #b8860b)', fontSize: '0.9rem' }}
+        >
           Zum Playbook →
         </a>
       </section>

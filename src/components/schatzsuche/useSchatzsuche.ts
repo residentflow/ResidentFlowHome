@@ -69,15 +69,12 @@ export function useSchatzsuche(config: Config): SchatzSucheApi {
     setGewaehlteProbleme(problemIds);
   }, []);
 
-  const setzeDetailAngabe = useCallback(
-    (hebelId: string, frageKey: string, wert: number) => {
-      setDetailAngaben((prev) => ({
-        ...prev,
-        [hebelId]: { ...(prev[hebelId] ?? {}), [frageKey]: wert },
-      }));
-    },
-    [],
-  );
+  const setzeDetailAngabe = useCallback((hebelId: string, frageKey: string, wert: number) => {
+    setDetailAngaben((prev) => ({
+      ...prev,
+      [hebelId]: { ...(prev[hebelId] ?? {}), [frageKey]: wert },
+    }));
+  }, []);
 
   // Relevante Einheiten aus Größen (§3.2)
   const einheiten = useMemo(() => relevanteEinheiten(groessen), [groessen]);
@@ -91,9 +88,7 @@ export function useSchatzsuche(config: Config): SchatzSucheApi {
   // Gewählte Problem-Objekte (nur aktive, die auch gefiltert sind)
   const gewaehlteProblemobjekte = useMemo(() => {
     const erlaubteIds = new Set(gefilterteProblemObjekte.map((p) => p.id));
-    return config.probleme.filter(
-      (p) => gewaehlteProbleme.includes(p.id) && erlaubteIds.has(p.id),
-    );
+    return config.probleme.filter((p) => gewaehlteProbleme.includes(p.id) && erlaubteIds.has(p.id));
   }, [config.probleme, gewaehlteProbleme, gefilterteProblemObjekte]);
 
   // Relevante Hebel aus gewählten Problemen

@@ -49,7 +49,10 @@ export function VerlustKarte({
       <section>
         <p style={{ margin: '0 0 0.25rem', fontWeight: 600 }}>Was droht:</p>
         <p style={{ margin: '0 0 0.75rem' }}>{wasDroht}</p>
-        <a href={playbookLink} style={{ color: 'var(--farbe-risiko, #d97706)', fontSize: '0.9rem' }}>
+        <a
+          href={playbookLink}
+          style={{ color: 'var(--farbe-risiko, #d97706)', fontSize: '0.9rem' }}
+        >
           Im Playbook erfahren →
         </a>
       </section>

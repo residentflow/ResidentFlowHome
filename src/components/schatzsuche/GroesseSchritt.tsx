@@ -51,7 +51,9 @@ export function GroesseSchritt({
     <div data-testid="schritt-groesse">
       <h2 style={{ marginBottom: '1.5rem' }}>Wie groß ist Ihr Bestand?</h2>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
+      <div
+        style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}
+      >
         {taetigkeiten.map((taetigkeit) => {
           const konfig = GROESSEN_KONFIGURATION[taetigkeit];
           return (

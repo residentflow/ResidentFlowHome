@@ -52,9 +52,7 @@ describe('VerlustKarte (§8.3)', () => {
 
     expect(screen.getByText(/⚠️/)).toBeInTheDocument();
     expect(screen.getByText('Fristenüberwachung')).toBeInTheDocument();
-    expect(
-      screen.getByText(/Übersehene Fristen können teuer werden/),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Übersehene Fristen können teuer werden/)).toBeInTheDocument();
     expect(screen.getByText(/Was droht/i)).toBeInTheDocument();
     expect(screen.getByText(/Vertragsstrafen/)).toBeInTheDocument();
   });

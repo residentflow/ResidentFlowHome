@@ -84,8 +84,7 @@ export function MappingEditor({ config, onAendern }: Props) {
               </p>
               {config.hebel.map((h) => {
                 const istVerknuepft = gewaehltProblem.verknuepfteHebel.includes(h.id);
-                const istEinzig =
-                  istVerknuepft && gewaehltProblem.verknuepfteHebel.length === 1;
+                const istEinzig = istVerknuepft && gewaehltProblem.verknuepfteHebel.length === 1;
                 return (
                   <label
                     key={h.id}
@@ -102,10 +101,8 @@ export function MappingEditor({ config, onAendern }: Props) {
                       checked={istVerknuepft}
                       disabled={istEinzig}
                       onChange={() => handleHebelToggle(h.id)}
-                    />
-                    {' '}
-                    {h.name}
-                    {' '}
+                    />{' '}
+                    {h.name}{' '}
                     <span style={{ color: '#999', fontSize: '0.8em' }}>
                       (Phase {h.lebenszyklusPhase} · {h.wertKategorie})
                     </span>

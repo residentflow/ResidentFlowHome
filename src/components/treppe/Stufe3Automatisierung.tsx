@@ -13,7 +13,10 @@ interface Stufe3AutomatisierungProps {
  * EINZIGE Stelle im gesamten Quellcode, an der der Produktname vorkommt (§17).
  * Video pro Hebel; Hebel ohne fertiges Video → direkt Terminlink (Übergangszustand).
  */
-export function Stufe3Automatisierung({ laufzeiten, hebelIdsWithVideo }: Stufe3AutomatisierungProps) {
+export function Stufe3Automatisierung({
+  laufzeiten,
+  hebelIdsWithVideo,
+}: Stufe3AutomatisierungProps) {
   const hebelIdsWithVideoSet = new Set(hebelIdsWithVideo);
 
   return (
@@ -27,7 +30,10 @@ export function Stufe3Automatisierung({ laufzeiten, hebelIdsWithVideo }: Stufe3A
         {laufzeiten.map((hebel) => {
           const hatVideo = hebelIdsWithVideoSet.has(hebel.hebelId);
           return (
-            <div key={hebel.hebelId} style={{ borderTop: '1px solid var(--farbe-linie, #e5e7eb)', paddingTop: '1rem' }}>
+            <div
+              key={hebel.hebelId}
+              style={{ borderTop: '1px solid var(--farbe-linie, #e5e7eb)', paddingTop: '1rem' }}
+            >
               <h4>{hebel.hebelId}</h4>
               {hatVideo ? (
                 <div data-testid={`video-hebel-${hebel.hebelId}`} style={{ marginTop: '0.5rem' }}>

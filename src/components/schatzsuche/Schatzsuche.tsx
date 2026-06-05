@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TaetigkeitSchritt } from './TaetigkeitSchritt';
 import { GroesseSchritt } from './GroesseSchritt';
 import { ProblemSchritt } from './ProblemSchritt';
@@ -8,11 +8,25 @@ import { Fortschrittsbalken } from './Fortschrittsbalken';
 import { useSchatzsuche } from './useSchatzsuche';
 import type { Taetigkeit, Rolle } from '@/domain/enums';
 import type { Config } from '@/domain/schema/config';
+import type { HebelLaufzeit, RoutingGroessen } from '@/domain/types';
+import type { Spanne } from '@/domain/schema/spanne';
 
 type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail';
 
+/** Live-Ergebnis der Suche, das die LandingPage für Treppe/Opt-in (§10) konsumiert. */
+export interface SchatzsucheErgebnis {
+  rollen: Rolle[];
+  groessen: RoutingGroessen;
+  relevanteHebel: HebelLaufzeit[];
+  aggregat: Spanne;
+  /** true, sobald der Detail-Schritt erreicht ist (Ergebnis-/Treppe-Bereich anzeigen). */
+  imErgebnis: boolean;
+}
+
 interface SchatzsucheProps {
   config: Config;
+  /** Optionaler Callback: meldet das aktuelle Such-Ergebnis nach außen (für die Verdrahtung). */
+  onErgebnis?: (ergebnis: SchatzsucheErgebnis) => void;
 }
 
 /** Alle Rollen, die primär einer Tätigkeit zugehören (für Problemfilter). */
@@ -41,7 +55,7 @@ function hebelNamenAusConfig(config: Config): Record<string, string> {
  * Reihenfolge: Tätigkeit → Größe → Probleme → Detail.
  * Kein fetch, kein Cookie, kein Storage, keine E-Mail (§8.5).
  */
-export function Schatzsuche({ config }: SchatzsucheProps) {
+export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
   const [schritt, setSchritt] = useState<Schritt>('taetigkeit');
   const [gewaehlteTaetigkeiten, setGewaehlteTaetigkeiten] = useState<Taetigkeit[]>([]);
 
@@ -51,12 +65,33 @@ export function Schatzsuche({ config }: SchatzsucheProps) {
     waehleProbleme,
     setzeDetailAngabe,
     relevanteHebel,
+    aggregat,
     fortschrittStatus,
     groessen,
     rollen,
     gewaehlteProbleme,
     detailAngaben,
   } = useSchatzsuche(config);
+
+  // Stabiler Schlüssel: feuert onErgebnis nur bei echten Wert-Änderungen (kein Render-Loop).
+  const ergebnisKey = JSON.stringify({
+    rollen,
+    groessen,
+    hl: relevanteHebel.map((l) => [l.hebelId, l.zustand, l.spanne]),
+    aggregat,
+    schritt,
+  });
+  useEffect(() => {
+    onErgebnis?.({
+      rollen,
+      groessen,
+      relevanteHebel,
+      aggregat,
+      imErgebnis: schritt === 'detail',
+    });
+    // ergebnisKey kapselt die relevanten Werte; onErgebnis sollte vom Aufrufer memoisiert werden.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ergebnisKey]);
 
   function handleTaetigkeitWeiter(taetigkeiten: Taetigkeit[]) {
     setGewaehlteTaetigkeiten(taetigkeiten);

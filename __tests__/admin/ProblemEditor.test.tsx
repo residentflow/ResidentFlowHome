@@ -11,9 +11,7 @@ describe('ProblemEditor', () => {
       aktuelleConfig = neu;
     };
 
-    const { rerender } = render(
-      <ProblemEditor config={aktuelleConfig} onAendern={onAendern} />,
-    );
+    const { rerender } = render(<ProblemEditor config={aktuelleConfig} onAendern={onAendern} />);
 
     // Neues Problem anlegen
     const neuButton = screen.getByRole('button', { name: /neu|hinzufügen|anlegen/i });

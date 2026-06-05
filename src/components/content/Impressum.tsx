@@ -16,17 +16,14 @@ export function Impressum() {
           <p>{IMPRESSUM.plzOrt}</p>
           <p>{IMPRESSUM.land}</p>
           <p>
-            E-Mail:{' '}
-            <a href={`mailto:${IMPRESSUM.email}`}>{IMPRESSUM.email}</a>
+            E-Mail: <a href={`mailto:${IMPRESSUM.email}`}>{IMPRESSUM.email}</a>
           </p>
         </address>
 
         <h3 style={{ marginTop: '1.5rem' }}>Umsatzsteuer-Identifikationsnummer</h3>
         <p>{IMPRESSUM.ustIdNr}</p>
 
-        <h3 style={{ marginTop: '1.5rem' }}>
-          Verantwortlicher gemäß § 18 Abs. 2 MStV
-        </h3>
+        <h3 style={{ marginTop: '1.5rem' }}>Verantwortlicher gemäß § 18 Abs. 2 MStV</h3>
         <p>{IMPRESSUM.verantwortlicher}</p>
 
         <p

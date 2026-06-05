@@ -24,7 +24,8 @@ export function ProblemAbschnitt() {
           }}
         >
           Mieterhöhungen werden übersehen. Indexklauseln laufen ab. Betriebskostenabrechnungen
-          enthalten Fehler, die niemand findet — weil alle mit der nächsten Aufgabe beschäftigt sind.
+          enthalten Fehler, die niemand findet — weil alle mit der nächsten Aufgabe beschäftigt
+          sind.
         </p>
 
         <p
@@ -35,9 +36,7 @@ export function ProblemAbschnitt() {
           }}
         >
           Das liegt nicht daran, dass Ihr Team schlecht arbeitet —{' '}
-          <strong>
-            sondern weil kein System es systematisch findet.
-          </strong>
+          <strong>sondern weil kein System es systematisch findet.</strong>
         </p>
 
         {/* Merk-Zahl als Spanne */}
@@ -49,7 +48,13 @@ export function ProblemAbschnitt() {
             marginBottom: '1.5rem',
           }}
         >
-          <p style={{ margin: '0 0 0.5rem', fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>
+          <p
+            style={{
+              margin: '0 0 0.5rem',
+              fontSize: '0.875rem',
+              color: 'var(--farbe-text-sekundaer)',
+            }}
+          >
             Typisches ungenutztes Potenzial bei ~150 Einheiten
           </p>
           <p
@@ -62,7 +67,13 @@ export function ProblemAbschnitt() {
           >
             25.000–90.000 €
           </p>
-          <p style={{ margin: '0.5rem 0 0', fontSize: '0.875rem', color: 'var(--farbe-text-sekundaer)' }}>
+          <p
+            style={{
+              margin: '0.5rem 0 0',
+              fontSize: '0.875rem',
+              color: 'var(--farbe-text-sekundaer)',
+            }}
+          >
             p.a. — als konservative Spanne, aus eigenem Bestand abgeleitet
           </p>
         </div>

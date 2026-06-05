@@ -19,7 +19,13 @@ interface TreppeProps {
  *   Stufe 1 (IMMER) + Stufe 2 (IMMER) + Stufe 3 (NUR ab Schwelle).
  * Höhere Stufen ersetzen keine niedrigeren — der wertvollste Besucher bekommt die meiste Wertschöpfung.
  */
-export function Treppe({ routing, stufen, laufzeiten, hebelIdsWithVideo, gesamtSpanne }: TreppeProps) {
+export function Treppe({
+  routing,
+  stufen,
+  laufzeiten,
+  hebelIdsWithVideo,
+  gesamtSpanne,
+}: TreppeProps) {
   return (
     <div>
       <VerdichtetesErgebnis
@@ -42,10 +48,7 @@ export function Treppe({ routing, stufen, laufzeiten, hebelIdsWithVideo, gesamtS
       {/* Stufe 3 — NUR ab Schwelle (vollerTreppe=true) */}
       {stufen.stufe3 && (
         <div data-testid="stufe3">
-          <Stufe3Automatisierung
-            laufzeiten={laufzeiten}
-            hebelIdsWithVideo={hebelIdsWithVideo}
-          />
+          <Stufe3Automatisierung laufzeiten={laufzeiten} hebelIdsWithVideo={hebelIdsWithVideo} />
         </div>
       )}
     </div>

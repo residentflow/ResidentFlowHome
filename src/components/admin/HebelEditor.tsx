@@ -43,14 +43,13 @@ function neuerEntwurf(): HebelEntwurf {
 }
 
 function entwurfAusHebel(h: Hebel): HebelEntwurf {
-  const faktorenRoh =
-    h.berechnung
-      ? Object.entries(h.berechnung.faktoren).map(([key, spanne]) => ({
-          key,
-          min: String(spanne.min),
-          max: String(spanne.max),
-        }))
-      : [{ key: '', min: '', max: '' }];
+  const faktorenRoh = h.berechnung
+    ? Object.entries(h.berechnung.faktoren).map(([key, spanne]) => ({
+        key,
+        min: String(spanne.min),
+        max: String(spanne.max),
+      }))
+    : [{ key: '', min: '', max: '' }];
 
   return {
     id: h.id,
@@ -126,8 +125,7 @@ export function HebelEditor({ config, onAendern }: Props) {
       if (outMin >= outMax) {
         setEntwurf({
           ...entwurf,
-          formFehler:
-            'Spannen-Zwang: min < max erforderlich — kein Punktwert erlaubt (§7/§17).',
+          formFehler: 'Spannen-Zwang: min < max erforderlich — kein Punktwert erlaubt (§7/§17).',
         });
         return;
       }
@@ -269,7 +267,10 @@ export function HebelEditor({ config, onAendern }: Props) {
               <select
                 value={entwurf.wertKategorie}
                 onChange={(e) =>
-                  setEntwurfFeld('wertKategorie', e.target.value as typeof WERT_KATEGORIEN[number])
+                  setEntwurfFeld(
+                    'wertKategorie',
+                    e.target.value as (typeof WERT_KATEGORIEN)[number],
+                  )
                 }
                 style={{ display: 'block' }}
               >
@@ -286,7 +287,7 @@ export function HebelEditor({ config, onAendern }: Props) {
               <select
                 value={entwurf.rahmung}
                 onChange={(e) =>
-                  setEntwurfFeld('rahmung', e.target.value as typeof RAHMUNGEN[number])
+                  setEntwurfFeld('rahmung', e.target.value as (typeof RAHMUNGEN)[number])
                 }
                 style={{ display: 'block' }}
               >
@@ -307,8 +308,8 @@ export function HebelEditor({ config, onAendern }: Props) {
                   value="qualitativ"
                   checked={!entwurf.quantifizierbar}
                   onChange={() => setEntwurfFeld('quantifizierbar', false)}
-                />
-                {' '}Qualitativ (nicht quantifizierbar)
+                />{' '}
+                Qualitativ (nicht quantifizierbar)
               </label>
               <label style={{ marginLeft: '1rem' }}>
                 <input
@@ -317,8 +318,8 @@ export function HebelEditor({ config, onAendern }: Props) {
                   value="quantifizierbar"
                   checked={entwurf.quantifizierbar}
                   onChange={() => setEntwurfFeld('quantifizierbar', true)}
-                />
-                {' '}Quantifizierbar (Euro-Spanne)
+                />{' '}
+                Quantifizierbar (Euro-Spanne)
               </label>
             </fieldset>
 
@@ -332,12 +333,12 @@ export function HebelEditor({ config, onAendern }: Props) {
                     onChange={(e) => {
                       const aktuelle = entwurf.taetigkeiten;
                       const neu = e.target.checked
-                        ? ([...aktuelle, t] as typeof TAETIGKEITEN[number][])
+                        ? ([...aktuelle, t] as (typeof TAETIGKEITEN)[number][])
                         : aktuelle.filter((x) => x !== t);
                       setEntwurfFeld('taetigkeiten', neu);
                     }}
-                  />
-                  {' '}{t}
+                  />{' '}
+                  {t}
                 </label>
               ))}
             </fieldset>
@@ -451,7 +452,10 @@ export function HebelEditor({ config, onAendern }: Props) {
                         type="button"
                         onClick={() => {
                           const neu = entwurf.faktorenRoh.filter((_, i) => i !== idx);
-                          setEntwurfFeld('faktorenRoh', neu.length > 0 ? neu : [{ key: '', min: '', max: '' }]);
+                          setEntwurfFeld(
+                            'faktorenRoh',
+                            neu.length > 0 ? neu : [{ key: '', min: '', max: '' }],
+                          );
                         }}
                       >
                         ×

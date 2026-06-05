@@ -25,9 +25,7 @@ const TABS: { id: Tab; label: string }[] = [
  * Tab-Navigation über alle Editoren.
  */
 export function CmsApp() {
-  const [config, setConfig] = useState<Config>(() =>
-    JSON.parse(JSON.stringify(schatzsucheConfig)),
-  );
+  const [config, setConfig] = useState<Config>(() => JSON.parse(JSON.stringify(schatzsucheConfig)));
   const [aktuellerTab, setAktuellerTab] = useState<Tab>('probleme');
   const [exportFehler, setExportFehler] = useState('');
   const [importFehler, setImportFehler] = useState('');
@@ -76,7 +74,8 @@ export function CmsApp() {
             style={{
               padding: '0.4rem 1rem',
               fontWeight: aktuellerTab === tab.id ? 700 : 400,
-              borderBottom: aktuellerTab === tab.id ? '2px solid currentColor' : '2px solid transparent',
+              borderBottom:
+                aktuellerTab === tab.id ? '2px solid currentColor' : '2px solid transparent',
               background: 'none',
               border: 'none',
               cursor: 'pointer',
@@ -94,7 +93,12 @@ export function CmsApp() {
         </button>
         <label>
           JSON importieren
-          <input type="file" accept=".json" onChange={handleImport} style={{ marginLeft: '0.5rem' }} />
+          <input
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            style={{ marginLeft: '0.5rem' }}
+          />
         </label>
         {exportFehler && <span style={{ color: 'red' }}>{exportFehler}</span>}
         {importFehler && <span style={{ color: 'red' }}>{importFehler}</span>}
@@ -102,24 +106,12 @@ export function CmsApp() {
 
       <hr />
 
-      {aktuellerTab === 'probleme' && (
-        <ProblemEditor config={config} onAendern={setConfig} />
-      )}
-      {aktuellerTab === 'hebel' && (
-        <HebelEditor config={config} onAendern={setConfig} />
-      )}
-      {aktuellerTab === 'mapping' && (
-        <MappingEditor config={config} onAendern={setConfig} />
-      )}
-      {aktuellerTab === 'benchmark' && (
-        <BenchmarkEditor config={config} onAendern={setConfig} />
-      )}
-      {aktuellerTab === 'segmente' && (
-        <SegmentEditor config={config} onAendern={setConfig} />
-      )}
-      {aktuellerTab === 'vorschau' && (
-        <Vorschau config={config} />
-      )}
+      {aktuellerTab === 'probleme' && <ProblemEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'hebel' && <HebelEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'mapping' && <MappingEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'benchmark' && <BenchmarkEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'segmente' && <SegmentEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'vorschau' && <Vorschau config={config} />}
     </div>
   );
 }

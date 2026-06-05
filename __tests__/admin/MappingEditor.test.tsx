@@ -39,8 +39,9 @@ describe('MappingEditor', () => {
 
     if (verfuegbareHebel.length > 0) {
       // Checkbox für den ersten verfügbaren (noch nicht verknüpften) Hebel aktivieren
-      const hebelCheckbox = screen.queryByTestId(`hebel-${verfuegbareHebel[0].id}`)
-        ?? screen.queryByLabelText(verfuegbareHebel[0].name);
+      const hebelCheckbox =
+        screen.queryByTestId(`hebel-${verfuegbareHebel[0].id}`) ??
+        screen.queryByLabelText(verfuegbareHebel[0].name);
       if (hebelCheckbox) {
         fireEvent.click(hebelCheckbox);
         expect(aktuelleConfig.probleme[0].verknuepfteHebel.length).toBeGreaterThan(vorher);
@@ -51,8 +52,9 @@ describe('MappingEditor', () => {
     const verknuepfteId = aktuelleConfig.probleme[0].verknuepfteHebel[0];
     const verknuepfterHebel = aktuelleConfig.hebel.find((h) => h.id === verknuepfteId);
     if (verknuepfterHebel) {
-      const verknuepfteCheckbox = screen.queryByTestId(`hebel-${verknuepfterHebel.id}`)
-        ?? screen.queryByLabelText(verknuepfterHebel.name);
+      const verknuepfteCheckbox =
+        screen.queryByTestId(`hebel-${verknuepfterHebel.id}`) ??
+        screen.queryByLabelText(verknuepfterHebel.name);
       if (verknuepfteCheckbox && (verknuepfteCheckbox as HTMLInputElement).checked) {
         // Nur entfernen wenn mehr als 1 Hebel verknüpft (Schema-Gate: min 1)
         if (aktuelleConfig.probleme[0].verknuepfteHebel.length > 1) {

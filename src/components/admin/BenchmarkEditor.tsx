@@ -147,9 +147,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                     type="number"
                     aria-label={`${hebel.name} Ausgabe min`}
                     value={entwurf.ausgabeMin}
-                    onChange={(e) =>
-                      updateEntwurf(entwurf.hebelId, { ausgabeMin: e.target.value })
-                    }
+                    onChange={(e) => updateEntwurf(entwurf.hebelId, { ausgabeMin: e.target.value })}
                   />
                 </label>
                 <label>
@@ -158,9 +156,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                     type="number"
                     aria-label={`${hebel.name} Ausgabe max`}
                     value={entwurf.ausgabeMax}
-                    onChange={(e) =>
-                      updateEntwurf(entwurf.hebelId, { ausgabeMax: e.target.value })
-                    }
+                    onChange={(e) => updateEntwurf(entwurf.hebelId, { ausgabeMax: e.target.value })}
                   />
                 </label>
               </div>
@@ -170,7 +166,12 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
             {entwurf.faktorenRoh.map((f, idx) => (
               <div
                 key={idx}
-                style={{ display: 'flex', gap: '0.5rem', marginTop: '0.25rem', alignItems: 'center' }}
+                style={{
+                  display: 'flex',
+                  gap: '0.5rem',
+                  marginTop: '0.25rem',
+                  alignItems: 'center',
+                }}
               >
                 <span style={{ minWidth: '180px' }}>{f.key}</span>
                 <label>
