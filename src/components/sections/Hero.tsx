@@ -1,75 +1,53 @@
 import { HERO_TOPLINE, HERO_SUBLINE, HERO_VERSPRECHEN, CTA_ANALYSE } from '@/content/texte';
-import { Button } from '@/components/ui/Button';
-import { Section } from '@/components/ui/Section';
+import { CTA_ANALYSE_SUBTEXT } from '@/content/texte';
 
 /**
- * Hero-Abschnitt (§9 #1):
- * - Topline: HERO_TOPLINE
- * - Breite Subline (nicht ausschließend)
- * - Versprechen-Satz
- * - CTA „Bestand analysieren"
+ * Hero-Abschnitt (§9 #1) — Richtung A „Editorial Report":
+ * Eyebrow (Topline) · große Serif-Headline · breite Subline · ruhige Primär-CTA mit Microcopy.
  * Kein Produktname, kein Softwarebegriff in dieser Komponente.
  */
 export function Hero() {
+  function zurSuche() {
+    document.getElementById('schatzsuche')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
-    <Section id="hero" ariaLabel="Einstieg">
+    <section id="hero" aria-label="Einstieg">
       <div
         style={{
-          maxWidth: '760px',
-          padding: 'var(--raum-6) 0',
+          maxWidth: 'var(--breite-inhalt)',
+          margin: '0 auto',
+          padding: 'var(--raum-6) var(--raum-3)',
         }}
       >
-        {/* Topline */}
+        <p className="rf-eyebrow">{HERO_TOPLINE}</p>
+
+        <h1 style={{ maxWidth: '16ch', margin: '0 0 var(--raum-3)' }}>{HERO_SUBLINE}</h1>
+
         <p
           style={{
-            margin: '0 0 1.5rem',
-            fontSize: '0.875rem',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            color: 'var(--farbe-akzent)',
-          }}
-        >
-          {HERO_TOPLINE}
-        </p>
-
-        {/* Subline — breit, niemanden ausschließend */}
-        <h1
-          style={{
-            margin: '0 0 1.5rem',
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            lineHeight: 1.1,
-            fontWeight: 700,
-          }}
-        >
-          {HERO_SUBLINE}
-        </h1>
-
-        {/* Versprechen */}
-        <p
-          style={{
-            margin: '0 0 2.5rem',
-            fontSize: '1.125rem',
+            margin: '0 0 var(--raum-4)',
+            fontSize: '1.2rem',
             lineHeight: 1.6,
-            color: 'var(--farbe-text-sekundaer)',
-            maxWidth: '560px',
+            color: 'var(--farbe-tinte-weich)',
+            maxWidth: '46ch',
           }}
         >
-          {HERO_VERSPRECHEN}
+          {HERO_VERSPRECHEN} Keine Registrierung, keine Dokumente, keine E-Mail.
         </p>
 
-        {/* CTA */}
-        <Button
-          variante="primär"
-          style={{ fontSize: '1.05rem', padding: '0.875rem 2rem' }}
-          onClick={() => {
-            const el = document.getElementById('schatzsuche');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
+        <div
+          style={{ display: 'flex', alignItems: 'center', gap: 'var(--raum-3)', flexWrap: 'wrap' }}
         >
-          {CTA_ANALYSE}
-        </Button>
+          <button type="button" className="rf-btn" onClick={zurSuche}>
+            {CTA_ANALYSE}
+          </button>
+          <span style={{ fontSize: '0.85rem', color: 'var(--farbe-tinte-weich)' }}>
+            {CTA_ANALYSE_SUBTEXT}
+          </span>
+        </div>
       </div>
-    </Section>
+      <div className="rf-hairline" />
+    </section>
   );
 }
