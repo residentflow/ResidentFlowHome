@@ -1,0 +1,30 @@
+{
+  "name": "residentflow-admin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "payload": "payload",
+    "seed": "tsx src/seed.ts",
+    "export-config": "tsx src/export-config.ts"
+  },
+  "dependencies": {
+    "@payloadcms/db-postgres": "^3.85.1",
+    "@payloadcms/next": "^3.85.1",
+    "@payloadcms/richtext-lexical": "^3.85.1",
+    "graphql": "^16.14.2",
+    "next": ">=15.4.11 <15.5.0",
+    "payload": "^3.85.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

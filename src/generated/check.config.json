@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-06-09T21:29:00.420Z",
+  "settings": {
+    "thresholdHigh": {
+      "buyAndHold": 3,
+      "hausverwaltung": 2,
+      "makler": 2,
+      "projektentwickler": 2
+    },
+    "scoreWeights": {
+      "w1Size": 1,
+      "w2Value": 1,
+      "w3RoleFit": 1
+    },
+    "scarcityTrue": false,
+    "monthlySlots": 0,
+    "proofBandEnabled": false,
+    "privacyflowReady": false,
+    "calComUrl": null,
+    "stundensatzDefault": {
+      "min": 60,
+      "max": 90
+    }
+  },
+  "roles": [
+    {
+      "slug": "buyAndHold",
+      "label": "Buy & Hold / eigener Bestand",
+      "sizeMetric": {
+        "slug": "eigene-einheiten",
+        "frageWortlaut": "Wie viele Einheiten umfasst Ihr eigener Bestand ungefähr?",
+        "buckets": [
+          {
+            "id": "6a28853802d2b44fbcbf3a72",
+            "label": "1–10",
+            "rank": 0,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a73",
+            "label": "11–29",
+            "rank": 1,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a74",
+            "label": "30–49",
+            "rank": 2,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a75",
+            "label": "50–99",
+            "rank": 3,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a76",
+            "label": "100–249",
+            "rank": 4,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a77",
+            "label": "250–600",
+            "rank": 5,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a78",
+            "label": "600+",
+            "rank": 5,
+            "unitsMid": null
+          }
+        ]
+      },
+      "endAusgang": "gespraech",
+      "allowMandatsCTA": true,
+      "sizeIndependent": false
+    },
+    {
+      "slug": "hausverwaltung",
+      "label": "Hausverwaltung",
+      "sizeMetric": {
+        "slug": "betreute-einheiten",
+        "frageWortlaut": "Wie viele Einheiten verwalten oder betreuen Sie ungefähr?",
+        "buckets": [
+          {
+            "id": "6a28853802d2b44fbcbf3a79",
+            "label": "1–49",
+            "rank": 0,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a7a",
+            "label": "50–199",
+            "rank": 2,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a7b",
+            "label": "200–499",
+            "rank": 3,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a7c",
+            "label": "500–999",
+            "rank": 4,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a7d",
+            "label": "1000+",
+            "rank": 5,
+            "unitsMid": null
+          }
+        ]
+      },
+      "endAusgang": "gespraech",
+      "allowMandatsCTA": true,
+      "sizeIndependent": false
+    },
+    {
+      "slug": "makler",
+      "label": "Makler",
+      "sizeMetric": {
+        "slug": "vermarktungen-pro-jahr",
+        "frageWortlaut": "Wie viele Verkäufe oder Vermarktungen begleiten Sie ungefähr pro Jahr?",
+        "buckets": [
+          {
+            "id": "6a28853802d2b44fbcbf3a7e",
+            "label": "1–5",
+            "rank": 0,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a7f",
+            "label": "6–15",
+            "rank": 2,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a80",
+            "label": "16–30",
+            "rank": 3,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a81",
+            "label": "31–75",
+            "rank": 4,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a82",
+            "label": "75+",
+            "rank": 5,
+            "unitsMid": null
+          }
+        ]
+      },
+      "endAusgang": "vermarktungsprozess",
+      "allowMandatsCTA": false,
+      "sizeIndependent": false
+    },
+    {
+      "slug": "projektentwickler",
+      "label": "Projektentwickler / Fix & Flip",
+      "sizeMetric": {
+        "slug": "projekte-pro-jahr",
+        "frageWortlaut": "Wie viele Projekte oder Vermarktungen bearbeiten Sie ungefähr pro Jahr?",
+        "buckets": [
+          {
+            "id": "6a28853802d2b44fbcbf3a83",
+            "label": "1–2",
+            "rank": 0,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a84",
+            "label": "3–5",
+            "rank": 2,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a85",
+            "label": "6–10",
+            "rank": 3,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a86",
+            "label": "11–25",
+            "rank": 4,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a87",
+            "label": "25+",
+            "rank": 5,
+            "unitsMid": null
+          }
+        ]
+      },
+      "endAusgang": "projektprozess",
+      "allowMandatsCTA": true,
+      "sizeIndependent": false
+    },
+    {
+      "slug": "steuerberater",
+      "label": "Steuerberater",
+      "sizeMetric": {
+        "slug": "mandanten-immobilien",
+        "frageWortlaut": "Wie viele Mandanten mit relevantem Immobilienbestand betreuen Sie?",
+        "buckets": [
+          {
+            "id": "6a28853802d2b44fbcbf3a88",
+            "label": "1–5",
+            "rank": 0,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a89",
+            "label": "6–20",
+            "rank": 2,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a8a",
+            "label": "21–50",
+            "rank": 3,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a8b",
+            "label": "51–100",
+            "rank": 4,
+            "unitsMid": null
+          },
+          {
+            "id": "6a28853802d2b44fbcbf3a8c",
+            "label": "100+",
+            "rank": 5,
+            "unitsMid": null
+          }
+        ]
+      },
+      "endAusgang": "partnerprogramm",
+      "allowMandatsCTA": false,
+      "sizeIndependent": true
+    }
+  ],
+  "problems": [
+    {
+      "slug": "mieten-indexmieten-pruefen",
+      "title": "Mieten/Indexmieten/Staffeln nicht systematisch geprüft",
+      "userFacingDescription": "Ihre Mieten wirken nicht ausgeschöpft und Vertragsdaten liegen verstreut.",
+      "roleFilters": [
+        1,
+        2
+      ],
+      "valueCategory": [
+        "ertrag"
+      ],
+      "priority": "P1",
+      "solutions": [
+        {
+          "slug": "indexmieten-staffelmieten-pruefen",
+          "title": "Index-/Staffelmieten & Vertragslogik prüfen",
+          "shortDescription": "Index- und Staffelmieten systematisch prüfen, nicht gezogene Anpassungen finden.",
+          "valueCategory": "ertrag",
+          "scaleBreakNote": "Diese Prüfung funktioniert für eine Handvoll Verträge. Bei größeren Beständen ist der Wert ein wiederholbarer Prozess: Erkennen, rechtssicher anschreiben, Fristen überwachen — über alle Gesellschaften.",
+          "nutzenAussage": null,
+          "calculationModel": 1
+        },
+        {
+          "slug": "mietspiegel-begruendung",
+          "title": "Mietspiegel-Begründung vorbereiten",
+          "shortDescription": "Begründungen für Mietanpassungen nach Mietspiegel strukturiert vorbereiten.",
+          "valueCategory": "ertrag",
+          "scaleBreakNote": "Einzeln machbar; über viele Verträge lohnt der wiederholbare Prozess mit Fristenüberwachung.",
+          "nutzenAussage": "Liefert nachvollziehbare, prüfbare Anpassungsbegründungen.",
+          "calculationModel": null
+        }
+      ],
+      "calculationModel": 1
+    }
+  ],
+  "calculationModels": [
+    {
+      "modelId": "indexmieten-check",
+      "valueCategory": "ertrag",
+      "formula": "M1",
+      "requiredInputs": [
+        "sizeBucket"
+      ],
+      "optionalInputs": [
+        "contractCount",
+        "lastReviewBucket"
+      ],
+      "explanationText": "{units} Einheiten × {share} % typischer Anteil ohne Anpassung × {uplift} €/Monat konservative Anpassung × 12 — Benchmark aus unserem eigenen Portfolio.",
+      "sourceNote": "Benchmark aus unserem eigenen Portfolio",
+      "benchmarks": []
+    }
+  ],
+  "ctaRules": [],
+  "copy": {
+    "copy.chipsMicro": "Für eine konservative €-Einschätzung — bleibt in Ihrem Browser.",
+    "cta.give.short": "30 Minuten. Wir prüfen Ihre Liste vor Ihren Augen und priorisieren die 3 größten Bestandspotenziale. Kein Upload. Kein Pitch.",
+    "cta.highIntent": "Ihren Bestand gemeinsam ansehen",
+    "cta.header": "Ihren Bestand gemeinsam ansehen",
+    "copy.systemSatz": "Gefunden ist nicht realisiert. ResidentFlow zeigt nicht nur Potenziale, sondern priorisiert den nächsten umsetzbaren Schritt.",
+    "copy.checkIntro": "Was trifft auf Sie zu? Ergebnis sofort — ohne Registrierung, ohne Upload.",
+    "copy.trustline": "3 Minuten · keine Registrierung · keine Datenübertragung · kein Upload",
+    "copy.h1.C": "Finden Sie die Lösungen, die in Ihrem Bestand wirklich Wirkung haben.",
+    "copy.h1.B": "Wo verliert Ihr Bestand Geld, ohne dass Sie es sehen?",
+    "copy.h1.A": "Wo bleiben in Ihrem Bestand Ertrag, Zeit und Kontrolle liegen?",
+    "copy.eyebrow": "ANONYME BESTANDSDIAGNOSE"
+  },
+  "proofFindings": [],
+  "experiments": [],
+  "designVariants": []
+}
