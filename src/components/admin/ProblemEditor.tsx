@@ -14,7 +14,7 @@ function leeresProblem(): Problem {
     schmerzBereich: '',
     text: '',
     rollenFilter: ['buyAndHold'],
-    verknuepfteHebel: [''],
+    verknuepfteLoesung: [''],
     aktiv: true,
   };
 }
@@ -58,13 +58,13 @@ export function ProblemEditor({ config, onAendern }: Props) {
       setFehler('Schmerzbereich ist Pflicht.');
       return;
     }
-    const hebel = entwurf.verknuepfteHebel.filter((h) => h.trim() !== '');
-    if (hebel.length === 0) {
-      setFehler('Mindestens ein verknüpfter Hebel ist Pflicht.');
+    const loesung = entwurf.verknuepfteLoesung.filter((h) => h.trim() !== '');
+    if (loesung.length === 0) {
+      setFehler('Mindestens eine verknüpfte Lösung ist Pflicht.');
       return;
     }
 
-    const gespeichert: Problem = { ...entwurf, verknuepfteHebel: hebel };
+    const gespeichert: Problem = { ...entwurf, verknuepfteLoesung: loesung };
     const neuProbleme = config.probleme.map((p) => (p.id === gespeichert.id ? gespeichert : p));
     onAendern({ ...config, probleme: neuProbleme });
     setEditiertesId(null);
@@ -207,14 +207,14 @@ export function ProblemEditor({ config, onAendern }: Props) {
             </fieldset>
 
             <label>
-              Verknüpfte Hebel (kommagetrennte IDs)
+              Verknüpfte Loesung (kommagetrennte IDs)
               <input
                 type="text"
-                value={entwurf.verknuepfteHebel.join(', ')}
+                value={entwurf.verknuepfteLoesung.join(', ')}
                 placeholder="z.B. mietpotenzial, virtuelles-staging"
                 onChange={(e) =>
                   handleFeldAendern(
-                    'verknuepfteHebel',
+                    'verknuepfteLoesung',
                     e.target.value.split(',').map((s) => s.trim()),
                   )
                 }

@@ -87,7 +87,7 @@ export function Bruecke() {
               }}
             >
               <span style={{ color: 'var(--farbe-akzent)', fontWeight: 700, flexShrink: 0 }}>
-                ✓
+                ·
               </span>
               <span>{nutzen}</span>
             </li>

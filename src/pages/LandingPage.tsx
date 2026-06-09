@@ -30,8 +30,8 @@ export function LandingPage() {
     setErgebnis(e);
   }, []);
 
-  const hebelIdsMitVideo = useMemo(
-    () => schatzsucheConfig.hebel.filter((h) => h.videoLink).map((h) => h.id),
+  const loesungIdsMitVideo = useMemo(
+    () => schatzsucheConfig.loesung.filter((h) => h.videoLink).map((h) => h.id),
     [],
   );
 
@@ -94,15 +94,15 @@ export function LandingPage() {
               routing={auswertung.routingErgebnis}
               stufen={auswertung.stufen}
               gesamtSpanne={ergebnis.aggregat}
-              laufzeiten={ergebnis.relevanteHebel}
+              laufzeiten={ergebnis.relevanteLoesung}
             />
             {/* Treppe nur für Bestands-/Entwicklungs-Pfade; Multiplikatoren → Partnerprogramm (§10.2). */}
             {auswertung.routingErgebnis.endAusgang !== 'partnerprogramm' && (
               <Treppe
                 routing={auswertung.routingErgebnis}
                 stufen={auswertung.stufen}
-                laufzeiten={ergebnis.relevanteHebel}
-                hebelIdsWithVideo={hebelIdsMitVideo}
+                laufzeiten={ergebnis.relevanteLoesung}
+                loesungIdsWithVideo={loesungIdsMitVideo}
                 gesamtSpanne={ergebnis.aggregat}
               />
             )}

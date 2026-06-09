@@ -25,7 +25,7 @@ describe('ChanceKarte (§8.3)', () => {
     expect(screen.getByText(/Wie Sie systematisch alle Potenziale heben/)).toBeInTheDocument();
   });
 
-  it('verwendet das Label "Hebel" und nie "Skill"', () => {
+  it('verwendet das Label "Lösung" und nie "Skill"', () => {
     const { container } = render(
       <ChanceKarte
         titel="Virtuelles Staging"
@@ -40,7 +40,7 @@ describe('ChanceKarte (§8.3)', () => {
 });
 
 describe('VerlustKarte (§8.3)', () => {
-  it('die Verlust-Karte zeigt ⚠️, Wahrscheinlichkeit/Grund und "Was droht"', () => {
+  it('die Verlust-Karte zeigt das Risiko-Label, Wahrscheinlichkeit/Grund und "Was droht"', () => {
     render(
       <VerlustKarte
         titel="Fristenüberwachung"
@@ -50,16 +50,16 @@ describe('VerlustKarte (§8.3)', () => {
       />,
     );
 
-    expect(screen.getByText(/⚠️/)).toBeInTheDocument();
+    expect(screen.getByText('Lösung erkannt')).toBeInTheDocument();
     expect(screen.getByText('Fristenüberwachung')).toBeInTheDocument();
     expect(screen.getByText(/Übersehene Fristen können teuer werden/)).toBeInTheDocument();
     expect(screen.getByText(/Was droht/i)).toBeInTheDocument();
     expect(screen.getByText(/Vertragsstrafen/)).toBeInTheDocument();
   });
 
-  it('verwendet die Verlust-Rahmung nur bei Risiko-Hebeln', () => {
-    // VerlustKarte existiert nur für Risiko-Hebel — das ist durch den Typ erzwungen.
-    // Dieser Test prüft, dass die Karte das ⚠️ und "Was droht" immer zeigt,
+  it('verwendet die Verlust-Rahmung nur bei Risiko-Lösungen', () => {
+    // VerlustKarte existiert nur für Risiko-Lösungen — das ist durch den Typ erzwungen.
+    // Dieser Test prüft, dass die Karte das Risiko-Label und "Was droht" immer zeigt,
     // und dass kein "Potenzial" oder CHANCE-Vokabular auftaucht.
     const { container } = render(
       <VerlustKarte
@@ -69,12 +69,12 @@ describe('VerlustKarte (§8.3)', () => {
         playbookLink="#"
       />,
     );
-    expect(container.textContent).toContain('⚠️');
+    expect(container.textContent).toContain('Lösung erkannt');
     // Verlust-Karte zeigt kein CHANCE-Wording
     expect(container.textContent).not.toMatch(/Typische Ursache/i);
   });
 
-  it('verwendet das Label "Hebel" und nie "Skill"', () => {
+  it('verwendet das Label "Lösung" und nie "Skill"', () => {
     const { container } = render(
       <VerlustKarte
         titel="Fristenüberwachung"

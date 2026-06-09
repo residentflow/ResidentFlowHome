@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { filterProbleme, haeufigsteHebelDerRolle } from '@/domain/engine/filterProbleme';
+import { filterProbleme, haeufigsteLoesungDerRolle } from '@/domain/engine/filterProbleme';
 import type { Problem } from '@/domain/schema/problem';
 
 const probleme: Problem[] = [
@@ -8,7 +8,7 @@ const probleme: Problem[] = [
     schmerzBereich: 'ertrag',
     text: 'A',
     rollenFilter: ['buyAndHold'],
-    verknuepfteHebel: ['h1'],
+    verknuepfteLoesung: ['h1'],
     aktiv: true,
   },
   {
@@ -16,7 +16,7 @@ const probleme: Problem[] = [
     schmerzBereich: 'ertrag',
     text: 'B',
     rollenFilter: ['hausverwaltung'],
-    verknuepfteHebel: ['h2'],
+    verknuepfteLoesung: ['h2'],
     aktiv: true,
   },
   {
@@ -25,7 +25,7 @@ const probleme: Problem[] = [
     text: 'C nur große',
     rollenFilter: ['buyAndHold'],
     groessenBedingung: { minEinheiten: 50 },
-    verknuepfteHebel: ['h3'],
+    verknuepfteLoesung: ['h3'],
     aktiv: true,
   },
   {
@@ -33,7 +33,7 @@ const probleme: Problem[] = [
     schmerzBereich: 'ertrag',
     text: 'D inaktiv',
     rollenFilter: ['buyAndHold'],
-    verknuepfteHebel: ['h4'],
+    verknuepfteLoesung: ['h4'],
     aktiv: false,
   },
 ];
@@ -69,9 +69,9 @@ describe('filterProbleme (§5.1/§5.3)', () => {
   });
 });
 
-describe('haeufigsteHebelDerRolle ("weiß ich nicht genau", §5.1)', () => {
-  it('liefert die Hebel der zur Rolle passenden aktiven Probleme', () => {
-    const ids = haeufigsteHebelDerRolle(probleme, ['buyAndHold']);
+describe('haeufigsteLoesungDerRolle ("weiß ich nicht genau", §5.1)', () => {
+  it('liefert die Loesung der zur Rolle passenden aktiven Probleme', () => {
+    const ids = haeufigsteLoesungDerRolle(probleme, ['buyAndHold']);
     expect(ids).toContain('h1');
     expect(ids).not.toContain('h2');
   });

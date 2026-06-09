@@ -3,12 +3,12 @@ import { TAETIGKEITEN, WERT_KATEGORIEN, RAHMUNGEN } from '../enums';
 import { FormelSchema } from './formel';
 
 /**
- * Hebel (§6/§6.1/§14) — extern sichtbarer Name einer Lösung. Gates:
+ * Loesung (§6/§6.1/§14) — extern sichtbarer Name einer Lösung. Gates:
  * - wertKategorie=risiko ⇒ rahmung=verlust (Verlust-Rahmung nur bei Risiko).
  * - quantifizierbar=true ⇒ berechnung (Formel) Pflicht.
  * - quantifizierbar=false ⇒ nutzenAussage Pflicht (qualitativer Nutzen statt Euro).
  */
-export const HebelSchema = z
+export const LoesungSchema = z
   .object({
     id: z.string().min(1),
     name: z.string().min(1),
@@ -26,16 +26,16 @@ export const HebelSchema = z
     kartenText: z.string().min(1),
   })
   .refine((h) => !(h.wertKategorie === 'risiko' && h.rahmung !== 'verlust'), {
-    message: 'Risiko-Hebel müssen die Verlust-Rahmung tragen (§6.1).',
+    message: 'Risiko-Lösungen müssen die Verlust-Rahmung tragen (§6.1).',
     path: ['rahmung'],
   })
   .refine((h) => !(h.quantifizierbar && !h.berechnung), {
-    message: 'Quantifizierbarer Hebel verlangt eine Berechnung (Formel) (§7).',
+    message: 'Quantifizierbare Lösung verlangt eine Berechnung (Formel) (§7).',
     path: ['berechnung'],
   })
   .refine((h) => !(!h.quantifizierbar && !h.nutzenAussage), {
-    message: 'Qualitativer Hebel verlangt eine nutzenAussage (§6.1).',
+    message: 'Qualitative Lösung verlangt eine nutzenAussage (§6.1).',
     path: ['nutzenAussage'],
   });
 
-export type Hebel = z.infer<typeof HebelSchema>;
+export type Loesung = z.infer<typeof LoesungSchema>;

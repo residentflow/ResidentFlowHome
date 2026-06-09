@@ -14,7 +14,7 @@ import {
 } from '@/content/taetigkeitsprofile';
 import type { Taetigkeit, Rolle } from '@/domain/enums';
 import type { Config } from '@/domain/schema/config';
-import type { HebelLaufzeit, RoutingGroessen } from '@/domain/types';
+import type { LoesungLaufzeit, RoutingGroessen } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 
 type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail' | 'ergebnis';
@@ -23,7 +23,7 @@ type Schritt = 'taetigkeit' | 'groesse' | 'probleme' | 'detail' | 'ergebnis';
 export interface SchatzsucheErgebnis {
   rollen: Rolle[];
   groessen: RoutingGroessen;
-  relevanteHebel: HebelLaufzeit[];
+  relevanteLoesung: LoesungLaufzeit[];
   aggregat: Spanne;
   /** true, sobald der Ergebnis-Bereich (Detail oder Partner-Ausgang) erreicht ist. */
   imErgebnis: boolean;
@@ -35,8 +35,8 @@ interface SchatzsucheProps {
   onErgebnis?: (ergebnis: SchatzsucheErgebnis) => void;
 }
 
-function hebelNamenAusConfig(config: Config): Record<string, string> {
-  return Object.fromEntries(config.hebel.map((h) => [h.id, h.name]));
+function loesungNamenAusConfig(config: Config): Record<string, string> {
+  return Object.fromEntries(config.loesung.map((h) => [h.id, h.name]));
 }
 
 /**
@@ -54,7 +54,7 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
     setzeGroesse,
     waehleProbleme,
     setzeDetailAngabe,
-    relevanteHebel,
+    relevanteLoesung,
     aggregat,
     fortschrittStatus,
     groessen,
@@ -72,7 +72,7 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
   const ergebnisKey = JSON.stringify({
     rollen,
     groessen,
-    hl: relevanteHebel.map((l) => [l.hebelId, l.zustand, l.spanne]),
+    hl: relevanteLoesung.map((l) => [l.loesungId, l.zustand, l.spanne]),
     aggregat,
     schritt,
   });
@@ -80,7 +80,7 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
     onErgebnis?.({
       rollen,
       groessen,
-      relevanteHebel,
+      relevanteLoesung,
       aggregat,
       imErgebnis: istErgebnis,
     });
@@ -112,18 +112,18 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
   // Relevante Einheiten (A+B summiert, §3.2)
   const einheiten = (groessen.A ?? 0) + (groessen.B ?? 0);
 
-  // Hebel-Objekte für DetailSchritt
-  const relevanteHebelObjekte = relevanteHebel
-    .map((l) => config.hebel.find((h) => h.id === l.hebelId))
+  // Loesung-Objekte für DetailSchritt
+  const relevanteLoesungObjekte = relevanteLoesung
+    .map((l) => config.loesung.find((h) => h.id === l.loesungId))
     .filter((h): h is NonNullable<typeof h> => h !== undefined);
 
-  const hebelNamen = hebelNamenAusConfig(config);
+  const loesungNamen = loesungNamenAusConfig(config);
 
   return (
     <div style={{ maxWidth: '680px', margin: '0 auto', padding: '1.5rem' }}>
       {/* Erkenntnis-Liste — immer sichtbar (§8.2 / §8.4) */}
-      {relevanteHebel.length > 0 && (
-        <ErkenntnisListe laufzeiten={relevanteHebel} hebelNamen={hebelNamen} />
+      {relevanteLoesung.length > 0 && (
+        <ErkenntnisListe laufzeiten={relevanteLoesung} loesungNamen={loesungNamen} />
       )}
 
       {/* Fortschrittsbalken (§8.4) */}
@@ -161,8 +161,8 @@ export function Schatzsuche({ config, onErgebnis }: SchatzsucheProps) {
 
       {schritt === 'detail' && (
         <DetailSchritt
-          hebel={relevanteHebelObjekte}
-          laufzeiten={relevanteHebel}
+          loesung={relevanteLoesungObjekte}
+          laufzeiten={relevanteLoesung}
           detailAngaben={detailAngaben}
           onDetailAngabe={setzeDetailAngabe}
         />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Config } from '@/domain/schema/config';
-import type { Hebel } from '@/domain/schema/hebel';
+import type { Loesung } from '@/domain/schema/loesung';
 import { TAETIGKEITEN, WERT_KATEGORIEN, RAHMUNGEN } from '@/domain/enums';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   onAendern: (neu: Config) => void;
 }
 
-type HebelEntwurf = Omit<Hebel, 'berechnung' | 'nutzenAussage'> & {
+type LoesungEntwurf = Omit<Loesung, 'berechnung' | 'nutzenAussage'> & {
   quantifizierbar: boolean;
   nutzenAussage: string;
   /** Faktor-Schlüssel → min/max als Strings (für Formular-Eingabe) */
@@ -20,9 +20,9 @@ type HebelEntwurf = Omit<Hebel, 'berechnung' | 'nutzenAussage'> & {
   formFehler: string;
 };
 
-function neuerEntwurf(): HebelEntwurf {
+function neuerEntwurf(): LoesungEntwurf {
   return {
-    id: `hebel-${Date.now()}`,
+    id: `loesung-${Date.now()}`,
     name: '',
     lebenszyklusPhase: 1,
     wertKategorie: 'ertrag',
@@ -42,7 +42,7 @@ function neuerEntwurf(): HebelEntwurf {
   };
 }
 
-function entwurfAusHebel(h: Hebel): HebelEntwurf {
+function entwurfAusLoesung(h: Loesung): LoesungEntwurf {
   const faktorenRoh = h.berechnung
     ? Object.entries(h.berechnung.faktoren).map(([key, spanne]) => ({
         key,
@@ -74,14 +74,14 @@ function entwurfAusHebel(h: Hebel): HebelEntwurf {
 }
 
 /**
- * CRUD-Editor für Hebel (§13.2).
+ * CRUD-Editor für Loesung (§13.2).
  * Blockiert Punktwert-Eingabe für Formel-Ausgabe/Faktoren → erzwingt Spanne (min < max).
- * Verlangt bei qualitativem Hebel eine nutzenAussage.
+ * Verlangt bei qualitativem Loesung eine nutzenAussage.
  */
-export function HebelEditor({ config, onAendern }: Props) {
-  const [entwurf, setEntwurf] = useState<HebelEntwurf | null>(null);
+export function LoesungEditor({ config, onAendern }: Props) {
+  const [entwurf, setEntwurf] = useState<LoesungEntwurf | null>(null);
 
-  function setEntwurfFeld<K extends keyof HebelEntwurf>(feld: K, wert: HebelEntwurf[K]) {
+  function setEntwurfFeld<K extends keyof LoesungEntwurf>(feld: K, wert: LoesungEntwurf[K]) {
     setEntwurf((e) => (e ? { ...e, [feld]: wert, formFehler: '' } : e));
   }
 
@@ -89,8 +89,8 @@ export function HebelEditor({ config, onAendern }: Props) {
     setEntwurf(neuerEntwurf());
   }
 
-  function handleBearbeiten(h: Hebel) {
-    setEntwurf(entwurfAusHebel(h));
+  function handleBearbeiten(h: Loesung) {
+    setEntwurf(entwurfAusLoesung(h));
   }
 
   function handleAbbrechen() {
@@ -109,7 +109,7 @@ export function HebelEditor({ config, onAendern }: Props) {
     if (!entwurf.quantifizierbar && !entwurf.nutzenAussage.trim()) {
       setEntwurf({
         ...entwurf,
-        formFehler: 'Qualitativer Hebel verlangt eine nutzenAussage (Pflicht).',
+        formFehler: 'Qualitative Lösung verlangt eine nutzenAussage (Pflicht).',
       });
       return;
     }
@@ -151,7 +151,7 @@ export function HebelEditor({ config, onAendern }: Props) {
       }
     }
 
-    const hebelGespeichert: Hebel = {
+    const loesungGespeichert: Loesung = {
       id: entwurf.id,
       name: entwurf.name,
       lebenszyklusPhase: entwurf.lebenszyklusPhase,
@@ -179,23 +179,23 @@ export function HebelEditor({ config, onAendern }: Props) {
         : { nutzenAussage: entwurf.nutzenAussage }),
     };
 
-    const bestehend = config.hebel.find((h) => h.id === hebelGespeichert.id);
-    const neueHebel = bestehend
-      ? config.hebel.map((h) => (h.id === hebelGespeichert.id ? hebelGespeichert : h))
-      : [...config.hebel, hebelGespeichert];
+    const bestehend = config.loesung.find((h) => h.id === loesungGespeichert.id);
+    const neueLoesung = bestehend
+      ? config.loesung.map((h) => (h.id === loesungGespeichert.id ? loesungGespeichert : h))
+      : [...config.loesung, loesungGespeichert];
 
-    onAendern({ ...config, hebel: neueHebel });
+    onAendern({ ...config, loesung: neueLoesung });
     setEntwurf(null);
   }
 
   function handleLoeschen(id: string) {
-    onAendern({ ...config, hebel: config.hebel.filter((h) => h.id !== id) });
+    onAendern({ ...config, loesung: config.loesung.filter((h) => h.id !== id) });
     if (entwurf?.id === id) setEntwurf(null);
   }
 
   return (
     <div>
-      <h2>Hebel</h2>
+      <h2>Loesung</h2>
       <button onClick={handleNeu} aria-label="Neu anlegen">
         Neu anlegen
       </button>
@@ -211,7 +211,7 @@ export function HebelEditor({ config, onAendern }: Props) {
           </tr>
         </thead>
         <tbody>
-          {config.hebel.map((h) => (
+          {config.loesung.map((h) => (
             <tr key={h.id}>
               <td>{h.name}</td>
               <td>{h.lebenszyklusPhase}</td>
@@ -228,7 +228,7 @@ export function HebelEditor({ config, onAendern }: Props) {
 
       {entwurf && (
         <div style={{ marginTop: '1.5rem', padding: '1rem', border: '1px solid #ccc' }}>
-          <h3>Hebel bearbeiten</h3>
+          <h3>Loesung bearbeiten</h3>
 
           {entwurf.formFehler && (
             <p role="alert" style={{ color: 'red' }}>
@@ -346,7 +346,7 @@ export function HebelEditor({ config, onAendern }: Props) {
             {/* Qualitativ: nutzenAussage Pflicht */}
             {!entwurf.quantifizierbar && (
               <label>
-                nutzenAussage (Pflicht bei qualitativem Hebel)
+                nutzenAussage (Pflicht bei qualitativem Loesung)
                 <textarea
                   value={entwurf.nutzenAussage}
                   placeholder="Nutzen-Aussage (qualitativ, kein Euro)"

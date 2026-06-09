@@ -2,7 +2,7 @@
  * Zentrale Copy-Konstanten — eine einzige Quelle für lasttragende deutsche Strings (§9/§10/§17).
  * Tests prüfen gegen diese Konstanten, Komponenten importieren sie → exakte Texte driften nie.
  *
- * ⚠️ Rote Linien (§17): verbotene Begriffe dürfen weder hier noch im gesamten src/ vorkommen.
+ * ACHTUNG Rote Linien (§17): verbotene Begriffe dürfen weder hier noch im gesamten src/ vorkommen.
  * Der Produktname ist ausschließlich in der Stufe-3-Komponente erlaubt.
  */
 
@@ -19,8 +19,8 @@ export const CTA_ANALYSE_SUBTEXT = '3 Minuten · keine Datenübertragung · kein
 export const ENTLASTUNGEN = ['Keine Registrierung.', 'Keine Dokumente.', 'Keine E-Mail.'] as const;
 
 // — Erkenntnis-Liste (§8.2) —
-export const ERKENNTNIS_HEADER = 'Bereits identifizierte Hebel:';
-export const FUND_LABEL = 'Hebel'; // (§17: nur dieses Label, nie ein anderes)
+export const ERKENNTNIS_HEADER = 'Bereits identifizierte Lösungen:';
+export const FUND_LABEL = 'Lösung'; // (§17: nur dieses Label, nie ein anderes)
 
 // — Treppe & Ergebnis (§10) —
 export const TERMINLINK_TEXT = 'Ihren Bestand gemeinsam ansehen';

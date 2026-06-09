@@ -3,7 +3,7 @@ export * from './schmerzBereich';
 export * from './phase';
 export * from './problem';
 export * from './formel';
-export * from './hebel';
+export * from './loesung';
 export * from './segment';
 export * from './globalConfig';
 export * from './config';

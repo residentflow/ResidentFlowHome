@@ -1,4 +1,4 @@
-import type { RoutingErgebnis, StufenFreigabe, HebelLaufzeit } from '@/domain/types';
+import type { RoutingErgebnis, StufenFreigabe, LoesungLaufzeit } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 import { Stufe1Playbook } from '@/components/treppe/Stufe1Playbook';
 import { Stufe2ZweiWege } from '@/components/treppe/Stufe2ZweiWege';
@@ -8,9 +8,9 @@ import { VerdichtetesErgebnis } from '@/components/treppe/VerdichtetesErgebnis';
 interface TreppeProps {
   routing: RoutingErgebnis;
   stufen: StufenFreigabe;
-  laufzeiten: HebelLaufzeit[];
-  /** Hebel-IDs, für die ein fertiges Video vorliegt (Übergangszustand §10.1). */
-  hebelIdsWithVideo: string[];
+  laufzeiten: LoesungLaufzeit[];
+  /** Loesung-IDs, für die ein fertiges Video vorliegt (Übergangszustand §10.1). */
+  loesungIdsWithVideo: string[];
   gesamtSpanne: Spanne;
 }
 
@@ -23,7 +23,7 @@ export function Treppe({
   routing,
   stufen,
   laufzeiten,
-  hebelIdsWithVideo,
+  loesungIdsWithVideo,
   gesamtSpanne,
 }: TreppeProps) {
   return (
@@ -48,7 +48,10 @@ export function Treppe({
       {/* Stufe 3 — NUR ab Schwelle (vollerTreppe=true) */}
       {stufen.stufe3 && (
         <div data-testid="stufe3">
-          <Stufe3Automatisierung laufzeiten={laufzeiten} hebelIdsWithVideo={hebelIdsWithVideo} />
+          <Stufe3Automatisierung
+            laufzeiten={laufzeiten}
+            loesungIdsWithVideo={loesungIdsWithVideo}
+          />
         </div>
       )}
     </div>

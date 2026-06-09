@@ -29,14 +29,14 @@ export function filterProbleme(probleme: Problem[], eingabe: ProblemFilterEingab
 }
 
 /**
- * „weiß ich nicht genau" → die Hebel der zur Rolle passenden aktiven Probleme (§5.1).
+ * „weiß ich nicht genau" → die Loesung der zur Rolle passenden aktiven Probleme (§5.1).
  * Dedupliziert, Reihenfolge stabil.
  */
-export function haeufigsteHebelDerRolle(probleme: Problem[], rollen: Rolle[]): string[] {
+export function haeufigsteLoesungDerRolle(probleme: Problem[], rollen: Rolle[]): string[] {
   const passend = filterProbleme(probleme, { rollen, relevanteEinheiten: Number.MAX_SAFE_INTEGER });
   const ids: string[] = [];
   for (const p of passend) {
-    for (const h of p.verknuepfteHebel) {
+    for (const h of p.verknuepfteLoesung) {
       if (!ids.includes(h)) ids.push(h);
     }
   }

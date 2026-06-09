@@ -16,7 +16,7 @@ export function Stufe1Playbook({ href = '#playbook' }: { href?: string }) {
     <Section titel="Stufe 1 — Methodik">
       <p>
         Im Playbook finden Sie die vollständige Methodenbibliothek — gebündelt in sechs
-        Schwerpunkten entlang Ihres Immobilien-Lebenszyklus, mit allen Hebeln, Benchmarks und
+        Schwerpunkten entlang Ihres Immobilien-Lebenszyklus, mit allen Loesungn, Benchmarks und
         Rechenwegen.
       </p>
 

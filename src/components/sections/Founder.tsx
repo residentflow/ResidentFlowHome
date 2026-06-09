@@ -33,9 +33,7 @@ export function Founder() {
               justifyContent: 'center',
               fontSize: '2.5rem',
             }}
-          >
-            👤
-          </div>
+          ></div>
           <p
             style={{
               margin: '0.75rem 0 0',

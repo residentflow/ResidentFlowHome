@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { initialerZustand, uebergang } from '@/domain/engine/zustandsmaschine';
-import type { Hebel } from '@/domain/schema/hebel';
+import type { Loesung } from '@/domain/schema/loesung';
 
-const quantHebel: Hebel = {
+const quantLoesung: Loesung = {
   id: 'staging',
   name: 'Virtuelles Staging',
   lebenszyklusPhase: 3,
@@ -25,7 +25,7 @@ const quantHebel: Hebel = {
   kartenText: 't',
 };
 
-const qualHebel: Hebel = {
+const qualLoesung: Loesung = {
   id: 'fristen',
   name: 'Fristenüberwachung',
   lebenszyklusPhase: 5,
@@ -40,41 +40,45 @@ const qualHebel: Hebel = {
 };
 
 describe('Zustandsmaschine relevant → quantifiziert → präzisiert (§7)', () => {
-  it('ein Hebel startet im Zustand relevant ohne Euro-Spanne', () => {
-    const z = initialerZustand(quantHebel);
+  it('ein Loesung startet im Zustand relevant ohne Euro-Spanne', () => {
+    const z = initialerZustand(quantLoesung);
     expect(z.zustand).toBe('relevant');
     expect(z.spanne).toBeUndefined();
   });
 
-  it('ein Risiko-Hebel zeigt im Zustand relevant einen Risiko-Hinweis und keine Euro-Zahl', () => {
-    const z = initialerZustand(qualHebel);
+  it('ein Risiko-Loesung zeigt im Zustand relevant einen Risiko-Hinweis und keine Euro-Zahl', () => {
+    const z = initialerZustand(qualLoesung);
     expect(z.risikoHinweis).toBeTruthy();
     expect(z.spanne).toBeUndefined();
   });
 
-  it('ein quantifizierbarer Hebel wechselt nach Detailangabe zu quantifiziert mit Spanne', () => {
-    const z = uebergang(initialerZustand(quantHebel), quantHebel, { neuvermietungenProJahr: 5 });
+  it('ein quantifizierbarer Loesung wechselt nach Detailangabe zu quantifiziert mit Spanne', () => {
+    const z = uebergang(initialerZustand(quantLoesung), quantLoesung, {
+      neuvermietungenProJahr: 5,
+    });
     expect(z.zustand).toBe('quantifiziert');
     expect(z.spanne).toBeDefined();
     expect(z.spanne!.min).toBeLessThan(z.spanne!.max);
   });
 
-  it('ein qualitativer Hebel bleibt relevant und trägt eine nutzenAussage statt Euro', () => {
-    const z = uebergang(initialerZustand(qualHebel), qualHebel, {});
+  it('ein qualitativer Loesung bleibt relevant und trägt eine nutzenAussage statt Euro', () => {
+    const z = uebergang(initialerZustand(qualLoesung), qualLoesung, {});
     expect(z.zustand).toBe('relevant');
     expect(z.nutzenAussage).toBeTruthy();
     expect(z.spanne).toBeUndefined();
   });
 
-  it('ohne vollständige Detailangaben bleibt der quantifizierbare Hebel relevant (keine Euro-Zahl)', () => {
-    const z = uebergang(initialerZustand(quantHebel), quantHebel, {});
+  it('ohne vollständige Detailangaben bleibt der quantifizierbare Loesung relevant (keine Euro-Zahl)', () => {
+    const z = uebergang(initialerZustand(quantLoesung), quantLoesung, {});
     expect(z.zustand).toBe('relevant');
     expect(z.spanne).toBeUndefined();
   });
 
   it('weitere Detailangaben präzisieren und verengen die Spanne', () => {
-    const erst = uebergang(initialerZustand(quantHebel), quantHebel, { neuvermietungenProJahr: 5 });
-    const praez = uebergang(erst, quantHebel, {
+    const erst = uebergang(initialerZustand(quantLoesung), quantLoesung, {
+      neuvermietungenProJahr: 5,
+    });
+    const praez = uebergang(erst, quantLoesung, {
       neuvermietungenProJahr: 5,
       mieteBekannt: 600,
     });

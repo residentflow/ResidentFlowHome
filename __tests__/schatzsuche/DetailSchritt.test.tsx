@@ -3,30 +3,30 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DetailSchritt } from '@/components/schatzsuche/DetailSchritt';
 import { schatzsucheConfig } from '@/content/schatzsuche.config';
-import type { HebelLaufzeit } from '@/domain/types';
+import type { LoesungLaufzeit } from '@/domain/types';
 
 const config = schatzsucheConfig;
 
-// Mietpotenzial-Hebel (quantifizierbar, Tätigkeit A/B)
-const mietpotenzialHebel = config.hebel.find((h) => h.id === 'mietpotenzial')!;
+// Mietpotenzial-Loesung (quantifizierbar, Tätigkeit A/B)
+const mietpotenzialLoesung = config.loesung.find((h) => h.id === 'mietpotenzial')!;
 
-const hebelRelevant: HebelLaufzeit = {
-  hebelId: 'mietpotenzial',
+const loesungRelevant: LoesungLaufzeit = {
+  loesungId: 'mietpotenzial',
   zustand: 'relevant',
   rahmung: 'chance',
 };
 
 describe('DetailSchritt (§7 / §8.4)', () => {
-  it('zeigt einen Hebel zunächst als relevant ohne Euro-Spanne', () => {
+  it('zeigt einen Loesung zunächst als relevant ohne Euro-Spanne', () => {
     render(
       <DetailSchritt
-        hebel={[mietpotenzialHebel]}
-        laufzeiten={[hebelRelevant]}
+        loesung={[mietpotenzialLoesung]}
+        laufzeiten={[loesungRelevant]}
         detailAngaben={{}}
         onDetailAngabe={vi.fn()}
       />,
     );
-    // Hebel-Name sichtbar
+    // Loesung-Name sichtbar
     expect(screen.getByText(/Mietpotenzial-Erkennung/)).toBeInTheDocument();
     // Noch keine Euro-Zahl
     expect(screen.queryByText(/€/)).not.toBeInTheDocument();
@@ -34,8 +34,8 @@ describe('DetailSchritt (§7 / §8.4)', () => {
   });
 
   it('zeigt die Euro-Spanne erst nach Selbstauskunft', () => {
-    const hebelQuantifiziert: HebelLaufzeit = {
-      hebelId: 'mietpotenzial',
+    const loesungQuantifiziert: LoesungLaufzeit = {
+      loesungId: 'mietpotenzial',
       zustand: 'quantifiziert',
       rahmung: 'chance',
       spanne: { min: 18000, max: 42000 },
@@ -43,8 +43,8 @@ describe('DetailSchritt (§7 / §8.4)', () => {
 
     render(
       <DetailSchritt
-        hebel={[mietpotenzialHebel]}
-        laufzeiten={[hebelQuantifiziert]}
+        loesung={[mietpotenzialLoesung]}
+        laufzeiten={[loesungQuantifiziert]}
         detailAngaben={{ mietpotenzial: { einheitenMitPotenzial: 10 } }}
         onDetailAngabe={vi.fn()}
       />,
@@ -55,14 +55,14 @@ describe('DetailSchritt (§7 / §8.4)', () => {
     expect(screen.getByText(/€/)).toBeInTheDocument();
   });
 
-  it('ruft onDetailAngabe mit Hebel-ID, Frage-Key und Wert auf', async () => {
+  it('ruft onDetailAngabe mit Loesung-ID, Frage-Key und Wert auf', async () => {
     const user = userEvent.setup();
     const onDetailAngabe = vi.fn();
 
     render(
       <DetailSchritt
-        hebel={[mietpotenzialHebel]}
-        laufzeiten={[hebelRelevant]}
+        loesung={[mietpotenzialLoesung]}
+        laufzeiten={[loesungRelevant]}
         detailAngaben={{}}
         onDetailAngabe={onDetailAngabe}
       />,

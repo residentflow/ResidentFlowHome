@@ -1,7 +1,7 @@
 /**
  * Rechtstexte-Entwurf — Impressum & Datenschutzerklärung (§12, §16).
  *
- * ⚠️ HINWEIS: Dieser Entwurf muss vor Veröffentlichung rechtlich prüfen lassen werden.
+ * ACHTUNG HINWEIS: Dieser Entwurf muss vor Veröffentlichung rechtlich prüfen lassen werden.
  * Alle mit [PLATZHALTER] markierten Felder sind durch echte Angaben zu ersetzen.
  * Nur ein Rechtsexperte kann die abschließende Konformität bestätigen.
  */

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { HebelSchema } from '@/domain/schema/hebel';
+import { LoesungSchema } from '@/domain/schema/loesung';
 
-const quantHebel = {
+const quantLoesung = {
   id: 'h1',
   name: 'Virtuelles Staging',
   lebenszyklusPhase: 3,
@@ -21,7 +21,7 @@ const quantHebel = {
   kartenText: 'Leerstand kostet — Staging verkürzt die Vermarktung.',
 };
 
-const qualHebel = {
+const qualLoesung = {
   id: 'h2',
   name: 'Fristenüberwachung',
   lebenszyklusPhase: 5,
@@ -35,33 +35,35 @@ const qualHebel = {
   kartenText: 'Fristen gehen unter — das Risiko ist real.',
 };
 
-describe('HebelSchema (§6.1/§14)', () => {
-  it('akzeptiert einen gültigen quantifizierbaren Hebel', () => {
-    expect(HebelSchema.safeParse(quantHebel).success).toBe(true);
+describe('LoesungSchema (§6.1/§14)', () => {
+  it('akzeptiert einen gültigen quantifizierbaren Loesung', () => {
+    expect(LoesungSchema.safeParse(quantLoesung).success).toBe(true);
   });
 
-  it('akzeptiert einen gültigen qualitativen Risiko-Hebel', () => {
-    expect(HebelSchema.safeParse(qualHebel).success).toBe(true);
+  it('akzeptiert einen gültigen qualitativen Risiko-Loesung', () => {
+    expect(LoesungSchema.safeParse(qualLoesung).success).toBe(true);
   });
 
   it('erzwingt rahmung=verlust bei wertKategorie=risiko', () => {
-    const falsch = { ...qualHebel, rahmung: 'chance' };
-    expect(HebelSchema.safeParse(falsch).success).toBe(false);
+    const falsch = { ...qualLoesung, rahmung: 'chance' };
+    expect(LoesungSchema.safeParse(falsch).success).toBe(false);
   });
 
   it('erlaubt rahmung=chance bei ertrag und effizienz', () => {
-    expect(HebelSchema.safeParse({ ...quantHebel, wertKategorie: 'effizienz' }).success).toBe(true);
+    expect(LoesungSchema.safeParse({ ...quantLoesung, wertKategorie: 'effizienz' }).success).toBe(
+      true,
+    );
   });
 
-  it('verlangt nutzenAussage bei qualitativem Hebel', () => {
-    const { nutzenAussage: _n, ...ohne } = qualHebel;
+  it('verlangt nutzenAussage bei qualitativem Loesung', () => {
+    const { nutzenAussage: _n, ...ohne } = qualLoesung;
     void _n;
-    expect(HebelSchema.safeParse(ohne).success).toBe(false);
+    expect(LoesungSchema.safeParse(ohne).success).toBe(false);
   });
 
-  it('verlangt berechnung (Formel) bei quantifizierbarem Hebel', () => {
-    const { berechnung: _b, ...ohne } = quantHebel;
+  it('verlangt berechnung (Formel) bei quantifizierbarem Loesung', () => {
+    const { berechnung: _b, ...ohne } = quantLoesung;
     void _b;
-    expect(HebelSchema.safeParse(ohne).success).toBe(false);
+    expect(LoesungSchema.safeParse(ohne).success).toBe(false);
   });
 });

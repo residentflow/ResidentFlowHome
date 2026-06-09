@@ -3,7 +3,7 @@ import type { Config } from '@/domain/schema/config';
 /**
  * Seed-Konfiguration der Schatzsuche — Single Source of Truth (§13).
  *
- * ⚠️ PLATZHALTER (§19): Alle Benchmark-Faktoren, Findings, Links und IDs sind konservative
+ * ACHTUNG PLATZHALTER (§19): Alle Benchmark-Faktoren, Findings, Links und IDs sind konservative
  * Platzhalter „aus unserem eigenen Portfolio"-Logik und müssen vor Live durch echte Werte
  * (Stefans realer Bestand) ersetzt werden. Spannen sind bewusst breit/konservativ gehalten.
  *
@@ -22,7 +22,7 @@ export const schatzsucheConfig: Config = {
   ],
 
   // Methodenbibliothek: 6 ergebnisorientierte Schwerpunkte entlang des Lebenszyklus (§6).
-  // Beschreibungen in Sie-Form; ordnen die Hebel und erscheinen als Karten in Stufe 1.
+  // Beschreibungen in Sie-Form; ordnen die Loesung und erscheinen als Karten in Stufe 1.
   phasen: [
     {
       id: 1,
@@ -82,7 +82,7 @@ export const schatzsucheConfig: Config = {
         'hausverwaltung',
         'externerAssetManager',
       ],
-      verknuepfteHebel: ['mietpotenzial'],
+      verknuepfteLoesung: ['mietpotenzial'],
       aktiv: true,
     },
     {
@@ -98,7 +98,7 @@ export const schatzsucheConfig: Config = {
         'projektentwicklung',
         'fixAndFlip',
       ],
-      verknuepfteHebel: ['virtuelles-staging', 'expose-optimierung'],
+      verknuepfteLoesung: ['virtuelles-staging', 'expose-optimierung'],
       aktiv: true,
     },
     {
@@ -106,7 +106,7 @@ export const schatzsucheConfig: Config = {
       schmerzBereich: 'zeit',
       text: 'Unzufrieden mit der (eigenen/externen) Hausverwaltung',
       rollenFilter: ['buyAndHold', 'bestandshaltung', 'familyOffice', 'assetManagementEigen'],
-      verknuepfteHebel: ['aufgabensteuerung', 'fristenueberwachung'],
+      verknuepfteLoesung: ['aufgabensteuerung', 'fristenueberwachung'],
       aktiv: true,
     },
     {
@@ -121,7 +121,7 @@ export const schatzsucheConfig: Config = {
         'hausverwaltung',
         'steuerberater',
       ],
-      verknuepfteHebel: ['belegerkennung'],
+      verknuepfteLoesung: ['belegerkennung'],
       aktiv: true,
     },
     {
@@ -137,7 +137,7 @@ export const schatzsucheConfig: Config = {
         'externerAssetManager',
         'immobilienberatung',
       ],
-      verknuepfteHebel: ['fristenueberwachung'],
+      verknuepfteLoesung: ['fristenueberwachung'],
       aktiv: true,
     },
     {
@@ -145,7 +145,7 @@ export const schatzsucheConfig: Config = {
       schmerzBereich: 'zeit',
       text: 'Ankaufprüfung kostet zu viel Zeit',
       rollenFilter: ['projektentwicklung', 'fixAndFlip', 'familyOffice', 'assetManagementEigen'],
-      verknuepfteHebel: ['deal-screening'],
+      verknuepfteLoesung: ['deal-screening'],
       aktiv: true,
     },
     {
@@ -163,7 +163,7 @@ export const schatzsucheConfig: Config = {
         'projektentwicklung',
         'fixAndFlip',
       ],
-      verknuepfteHebel: ['workflow-automatisierung', 'aufgabensteuerung'],
+      verknuepfteLoesung: ['workflow-automatisierung', 'aufgabensteuerung'],
       aktiv: true,
     },
     {
@@ -171,7 +171,7 @@ export const schatzsucheConfig: Config = {
       schmerzBereich: 'liquiditaet',
       text: 'Projektkalkulationen sind unsicher — Kostenüberschreitungen drohen',
       rollenFilter: ['projektentwicklung', 'fixAndFlip', 'familyOffice', 'assetManagementEigen'],
-      verknuepfteHebel: ['projekt-kalkulation', 'kostenrisiko-fruehwarnung'],
+      verknuepfteLoesung: ['projekt-kalkulation', 'kostenrisiko-fruehwarnung'],
       aktiv: true,
     },
     {
@@ -191,13 +191,13 @@ export const schatzsucheConfig: Config = {
         'projektentwicklung',
         'fixAndFlip',
       ],
-      verknuepfteHebel: ['ki-compliance', 'ki-befaehigung'],
+      verknuepfteLoesung: ['ki-compliance', 'ki-befaehigung'],
       aktiv: true,
     },
   ],
 
-  // Hebel (Funde), nach Phase geordnet, mit Wert-Kategorie (§6/§6.1)
-  hebel: [
+  // Loesung (Funde), nach Phase geordnet, mit Wert-Kategorie (§6/§6.1)
+  loesung: [
     {
       id: 'mietpotenzial',
       name: 'Mietpotenzial-Erkennung',
@@ -209,7 +209,7 @@ export const schatzsucheConfig: Config = {
       detailFragen: ['einheitenMitPotenzial'],
       berechnung: {
         inputs: ['einheitenMitPotenzial'],
-        // ⚠️ PLATZHALTER-Benchmarks aus eigenem Portfolio
+        // ACHTUNG PLATZHALTER-Benchmarks aus eigenem Portfolio
         faktoren: { mietdifferenzProMonat: { min: 40, max: 90 } },
         ausgabe: { min: 18000, max: 42000 },
         einheit: '€ p.a.',
@@ -229,7 +229,7 @@ export const schatzsucheConfig: Config = {
       detailFragen: ['neuvermietungenProJahr'],
       berechnung: {
         inputs: ['neuvermietungenProJahr'],
-        // ⚠️ PLATZHALTER: Ø-Miete 600 €, Verkürzung 3–4 Wochen (§7 Rechenbeispiel)
+        // ACHTUNG PLATZHALTER: Ø-Miete 600 €, Verkürzung 3–4 Wochen (§7 Rechenbeispiel)
         faktoren: {
           mieteProMonat: { min: 550, max: 650 },
           verkuerzungWochen: { min: 3, max: 4 },
@@ -389,7 +389,7 @@ export const schatzsucheConfig: Config = {
 
   globalConfig: {
     schwellenwertStufe3: 50,
-    // ⚠️ PLATZHALTER-Links (§19)
+    // ACHTUNG PLATZHALTER-Links (§19)
     terminLink: 'https://cal.com/residentflow/bestand-ansehen',
     partnerprogrammLink: '#partnerprogramm',
     brevoListId: 0,

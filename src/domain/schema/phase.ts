@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Schwerpunkt der Methodenbibliothek (Playbook) — ordnet die Hebel/Lösungen (§6).
+ * Schwerpunkt der Methodenbibliothek (Playbook) — ordnet die Loesung/Lösungen (§6).
  * Sechs ergebnisorientierte Schwerpunkte entlang des Immobilien-Lebenszyklus.
  * `beschreibung` liefert den Einleitungstext der jeweiligen Schwerpunkt-Karte (Stufe 1).
  */

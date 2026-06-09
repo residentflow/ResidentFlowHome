@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { findeRelevanteHebel } from '@/domain/engine/findeRelevanteHebel';
+import { findeRelevanteLoesung } from '@/domain/engine/findeRelevanteLoesung';
 import type { Problem } from '@/domain/schema/problem';
-import type { Hebel } from '@/domain/schema/hebel';
+import type { Loesung } from '@/domain/schema/loesung';
 
-const hebel: Hebel[] = [
+const loesung: Loesung[] = [
   {
     id: 'h-phase3',
     name: 'Staging',
@@ -45,28 +45,28 @@ const hebel: Hebel[] = [
   },
 ];
 
-const p = (id: string, hebelIds: string[]): Problem => ({
+const p = (id: string, loesungIds: string[]): Problem => ({
   id,
   schmerzBereich: 'x',
   text: id,
   rollenFilter: ['buyAndHold'],
-  verknuepfteHebel: hebelIds,
+  verknuepfteLoesung: loesungIds,
   aktiv: true,
 });
 
-describe('findeRelevanteHebel (§4/§6/§8.4)', () => {
-  it('findet Hebel phasenübergreifend über das Problem-Mapping (Phase 3 und 8)', () => {
-    const r = findeRelevanteHebel([p('p1', ['h-phase3', 'h-phase8'])], hebel);
+describe('findeRelevanteLoesung (§4/§6/§8.4)', () => {
+  it('findet Loesung phasenübergreifend über das Problem-Mapping (Phase 3 und 8)', () => {
+    const r = findeRelevanteLoesung([p('p1', ['h-phase3', 'h-phase8'])], loesung);
     expect(r.map((h) => h.id)).toEqual(expect.arrayContaining(['h-phase3', 'h-phase8']));
   });
 
-  it('liefert keinen unreferenzierten Hebel', () => {
-    const r = findeRelevanteHebel([p('p1', ['h-phase3'])], hebel);
+  it('liefert keinen unreferenzierten Loesung', () => {
+    const r = findeRelevanteLoesung([p('p1', ['h-phase3'])], loesung);
     expect(r.map((h) => h.id)).not.toContain('h-unreferenziert');
   });
 
-  it('dedupliziert Hebel, die von mehreren Problemen referenziert werden', () => {
-    const r = findeRelevanteHebel([p('p1', ['h-phase3']), p('p2', ['h-phase3'])], hebel);
+  it('dedupliziert Loesung, die von mehreren Problemen referenziert werden', () => {
+    const r = findeRelevanteLoesung([p('p1', ['h-phase3']), p('p2', ['h-phase3'])], loesung);
     expect(r.filter((h) => h.id === 'h-phase3')).toHaveLength(1);
   });
 });

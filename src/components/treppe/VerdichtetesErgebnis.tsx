@@ -1,4 +1,4 @@
-import type { RoutingErgebnis, StufenFreigabe, HebelLaufzeit } from '@/domain/types';
+import type { RoutingErgebnis, StufenFreigabe, LoesungLaufzeit } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 import { Section } from '@/components/ui/Section';
 import { Terminlink } from '@/components/treppe/Terminlink';
@@ -7,7 +7,7 @@ interface VerdichtetesErgebnisProps {
   routing: RoutingErgebnis;
   stufen: StufenFreigabe;
   gesamtSpanne: Spanne;
-  laufzeiten: HebelLaufzeit[];
+  laufzeiten: LoesungLaufzeit[];
 }
 
 /**
@@ -95,7 +95,7 @@ export function VerdichtetesErgebnis({
           )}
           {istMultiplikator && <li>Kontaktaufnahme für individuelle Partnerkonditionen</li>}
           {stufen.stufe3 && !istMultiplikator && (
-            <li>Vollautomatisierung mit Stufe 3 — Video-Demo je Hebel</li>
+            <li>Vollautomatisierung mit Stufe 3 — Videoanleitung je Lösung</li>
           )}
         </ul>
       </div>

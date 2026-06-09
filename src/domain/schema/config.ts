@@ -2,47 +2,47 @@ import { z } from 'zod';
 import { SchmerzBereichSchema } from './schmerzBereich';
 import { PhaseSchema } from './phase';
 import { ProblemSchema } from './problem';
-import { HebelSchema } from './hebel';
+import { LoesungSchema } from './loesung';
 import { SegmentSchema } from './segment';
 import { GlobalConfigSchema } from './globalConfig';
 
 /**
  * Gesamt-Config (Single Source of Truth, §13/§14). Zusätzlich zu den Einzel-Gates erzwingt
  * superRefine die Cross-Reference-Integrität:
- * - jeder verknüpfteHebel eines Problems existiert im Hebel-Katalog;
- * - die lebenszyklusPhase jedes Hebels existiert im Phasen-Katalog.
+ * - jeder verknüpfteLoesung eines Problems existiert im Loesung-Katalog;
+ * - die lebenszyklusPhase jedes Loesungs existiert im Phasen-Katalog.
  */
 export const ConfigSchema = z
   .object({
     schmerzBereiche: z.array(SchmerzBereichSchema),
     phasen: z.array(PhaseSchema),
     probleme: z.array(ProblemSchema),
-    hebel: z.array(HebelSchema),
+    loesung: z.array(LoesungSchema),
     segmente: z.array(SegmentSchema),
     globalConfig: GlobalConfigSchema,
   })
   .superRefine((config, ctx) => {
-    const hebelIds = new Set(config.hebel.map((h) => h.id));
+    const loesungIds = new Set(config.loesung.map((h) => h.id));
     const phasenIds = new Set(config.phasen.map((p) => p.id));
 
     config.probleme.forEach((problem, pi) => {
-      problem.verknuepfteHebel.forEach((hebelId, hi) => {
-        if (!hebelIds.has(hebelId)) {
+      problem.verknuepfteLoesung.forEach((loesungId, hi) => {
+        if (!loesungIds.has(loesungId)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
-            message: `Problem "${problem.id}" verweist auf unbekannten Hebel "${hebelId}".`,
-            path: ['probleme', pi, 'verknuepfteHebel', hi],
+            message: `Problem "${problem.id}" verweist auf unbekannte Lösung "${loesungId}".`,
+            path: ['probleme', pi, 'verknuepfteLoesung', hi],
           });
         }
       });
     });
 
-    config.hebel.forEach((hebel, hi) => {
-      if (!phasenIds.has(hebel.lebenszyklusPhase)) {
+    config.loesung.forEach((loesung, hi) => {
+      if (!phasenIds.has(loesung.lebenszyklusPhase)) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: `Hebel "${hebel.id}" verweist auf unbekannte Phase ${hebel.lebenszyklusPhase}.`,
-          path: ['hebel', hi, 'lebenszyklusPhase'],
+          message: `Lösung "${loesung.id}" verweist auf unbekannte Phase ${loesung.lebenszyklusPhase}.`,
+          path: ['loesung', hi, 'lebenszyklusPhase'],
         });
       }
     });

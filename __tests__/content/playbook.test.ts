@@ -33,10 +33,10 @@ describe('Playbook-Schwerpunkte (Methodenbibliothek)', () => {
     }
   });
 
-  it('jeder Hebel verweist auf einen existierenden Schwerpunkt (1–6)', () => {
+  it('jeder Loesung verweist auf einen existierenden Schwerpunkt (1–6)', () => {
     const ids = new Set(schatzsucheConfig.phasen.map((p) => p.id));
-    for (const h of schatzsucheConfig.hebel) {
-      expect(ids.has(h.lebenszyklusPhase), `Hebel "${h.id}" → ${h.lebenszyklusPhase}`).toBe(true);
+    for (const h of schatzsucheConfig.loesung) {
+      expect(ids.has(h.lebenszyklusPhase), `Loesung "${h.id}" → ${h.lebenszyklusPhase}`).toBe(true);
     }
   });
 

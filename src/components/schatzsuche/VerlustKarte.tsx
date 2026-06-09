@@ -7,9 +7,9 @@ interface VerlustKarteProps {
 
 /**
  * Risiko-Karte (VERLUST) — §8.3.
- * Zeigt: ⚠️ + Titel + Wahrscheinlichkeit/Grund + „Was droht: …".
- * Verlust-Rahmung ausschließlich bei Risiko-Hebeln (§6.1 / §17).
- * Verwendet das Label „Hebel" (§8.3 / §17).
+ * Zeigt: ACHTUNG + Titel + Wahrscheinlichkeit/Grund + „Was droht: …".
+ * Verlust-Rahmung ausschließlich bei Risiko-Loesungn (§6.1 / §17).
+ * Verwendet das Label „Loesung" (§8.3 / §17).
  */
 export function VerlustKarte({
   titel,
@@ -37,7 +37,7 @@ export function VerlustKarte({
             color: 'var(--farbe-risiko, #d97706)',
           }}
         >
-          ⚠️ Hebel entdeckt
+          Lösung erkannt
         </p>
         <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{titel}</h3>
       </header>

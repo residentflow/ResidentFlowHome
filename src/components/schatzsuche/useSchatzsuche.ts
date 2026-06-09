@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { findeRelevanteHebel } from '@/domain/engine/findeRelevanteHebel';
+import { findeRelevanteLoesung } from '@/domain/engine/findeRelevanteLoesung';
 import { filterProbleme } from '@/domain/engine/filterProbleme';
 import { relevanteEinheiten } from '@/domain/engine/routing';
 import { initialerZustand, uebergang } from '@/domain/engine/zustandsmaschine';
@@ -7,7 +7,7 @@ import { aggregiere } from '@/domain/engine/aggregiere';
 import { fortschritt } from '@/domain/engine/fortschritt';
 import type { Rolle, Taetigkeit } from '@/domain/enums';
 import type { Config } from '@/domain/schema/config';
-import type { HebelLaufzeit, Fortschritt, RoutingGroessen } from '@/domain/types';
+import type { LoesungLaufzeit, Fortschritt, RoutingGroessen } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 
 export interface SchatzSucheZustand {
@@ -17,7 +17,7 @@ export interface SchatzSucheZustand {
   groessen: RoutingGroessen;
   /** IDs der gewählten Probleme (Stufe B). */
   gewaehlteProbleme: string[];
-  /** Detailangaben: hebelId → { frageKey → wert }. */
+  /** Detailangaben: loesungId → { frageKey → wert }. */
   detailAngaben: Record<string, Record<string, number>>;
 }
 
@@ -28,10 +28,10 @@ export interface SchatzSucheApi {
   setzeGroesse: (taetigkeit: Taetigkeit, wert: number) => void;
   /** Problem-IDs (Stufe B) setzen. */
   waehleProbleme: (problemIds: string[]) => void;
-  /** Detailangabe für einen Hebel setzen (löst Zustandsübergang aus). */
-  setzeDetailAngabe: (hebelId: string, frageKey: string, wert: number) => void;
-  /** Aktuelle Laufzeit-Zustände der relevanten Hebel. */
-  relevanteHebel: HebelLaufzeit[];
+  /** Detailangabe für einen Loesung setzen (löst Zustandsübergang aus). */
+  setzeDetailAngabe: (loesungId: string, frageKey: string, wert: number) => void;
+  /** Aktuelle Laufzeit-Zustände der relevanten Loesung. */
+  relevanteLoesung: LoesungLaufzeit[];
   /** Aggregiertes Gesamtpotenzial (Spanne). */
   aggregat: Spanne;
   /** Fortschritt (analysiert/gesamt). */
@@ -48,7 +48,7 @@ export interface SchatzSucheApi {
 
 /**
  * Hook: kapselt die Engine, hält Zustand (rollen/groessen/probleme/detailAngaben),
- * liefert relevante HebelLaufzeit-Liste, Aggregat, Fortschritt.
+ * liefert relevante LoesungLaufzeit-Liste, Aggregat, Fortschritt.
  * KEIN fetch/Storage/Cookie — rein clientseitig über die Engine (§8.5).
  */
 export function useSchatzsuche(config: Config): SchatzSucheApi {
@@ -69,10 +69,10 @@ export function useSchatzsuche(config: Config): SchatzSucheApi {
     setGewaehlteProbleme(problemIds);
   }, []);
 
-  const setzeDetailAngabe = useCallback((hebelId: string, frageKey: string, wert: number) => {
+  const setzeDetailAngabe = useCallback((loesungId: string, frageKey: string, wert: number) => {
     setDetailAngaben((prev) => ({
       ...prev,
-      [hebelId]: { ...(prev[hebelId] ?? {}), [frageKey]: wert },
+      [loesungId]: { ...(prev[loesungId] ?? {}), [frageKey]: wert },
     }));
   }, []);
 
@@ -91,30 +91,30 @@ export function useSchatzsuche(config: Config): SchatzSucheApi {
     return config.probleme.filter((p) => gewaehlteProbleme.includes(p.id) && erlaubteIds.has(p.id));
   }, [config.probleme, gewaehlteProbleme, gefilterteProblemObjekte]);
 
-  // Relevante Hebel aus gewählten Problemen
-  const relevanteHebelObjekte = useMemo(() => {
-    return findeRelevanteHebel(gewaehlteProblemobjekte, config.hebel);
-  }, [gewaehlteProblemobjekte, config.hebel]);
+  // Relevante Loesung aus gewählten Problemen
+  const relevanteLoesungObjekte = useMemo(() => {
+    return findeRelevanteLoesung(gewaehlteProblemobjekte, config.loesung);
+  }, [gewaehlteProblemobjekte, config.loesung]);
 
   // Laufzeit-Zustände mit aktuellen Detailangaben
-  const relevanteHebel = useMemo<HebelLaufzeit[]>(() => {
-    return relevanteHebelObjekte.map((hebel) => {
-      const angaben = detailAngaben[hebel.id] ?? {};
-      const init = initialerZustand(hebel);
+  const relevanteLoesung = useMemo<LoesungLaufzeit[]>(() => {
+    return relevanteLoesungObjekte.map((loesung) => {
+      const angaben = detailAngaben[loesung.id] ?? {};
+      const init = initialerZustand(loesung);
       if (Object.keys(angaben).length === 0) return init;
-      return uebergang(init, hebel, angaben);
+      return uebergang(init, loesung, angaben);
     });
-  }, [relevanteHebelObjekte, detailAngaben]);
+  }, [relevanteLoesungObjekte, detailAngaben]);
 
-  const aggregat = useMemo(() => aggregiere(relevanteHebel), [relevanteHebel]);
-  const fortschrittStatus = useMemo(() => fortschritt(relevanteHebel), [relevanteHebel]);
+  const aggregat = useMemo(() => aggregiere(relevanteLoesung), [relevanteLoesung]);
+  const fortschrittStatus = useMemo(() => fortschritt(relevanteLoesung), [relevanteLoesung]);
 
   return {
     waehleRollen,
     setzeGroesse,
     waehleProbleme,
     setzeDetailAngabe,
-    relevanteHebel,
+    relevanteLoesung,
     aggregat,
     fortschrittStatus,
     groessen,

@@ -1,19 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { HebelEditor } from '@/components/admin/HebelEditor';
+import { LoesungEditor } from '@/components/admin/LoesungEditor';
 import { schatzsucheConfig } from '@/content/schatzsuche.config';
 import type { Config } from '@/domain/schema/config';
 
-describe('HebelEditor', () => {
+describe('LoesungEditor', () => {
   it('blockiert das Speichern eines Punktwerts und erzwingt eine Spanne', () => {
     let aktuelleConfig: Config = { ...schatzsucheConfig };
     const onAendern = (neu: Config) => {
       aktuelleConfig = neu;
     };
 
-    render(<HebelEditor config={aktuelleConfig} onAendern={onAendern} />);
+    render(<LoesungEditor config={aktuelleConfig} onAendern={onAendern} />);
 
-    // Neuen Hebel anlegen
+    // Neuen Loesung anlegen
     const neuButton = screen.getByRole('button', { name: /neu|hinzufügen|anlegen/i });
     fireEvent.click(neuButton);
 
@@ -48,15 +48,15 @@ describe('HebelEditor', () => {
     ).toBe(true);
   });
 
-  it('verlangt bei qualitativem Hebel eine nutzenAussage', () => {
+  it('verlangt bei qualitativem Loesung eine nutzenAussage', () => {
     let aktuelleConfig: Config = { ...schatzsucheConfig };
     const onAendern = (neu: Config) => {
       aktuelleConfig = neu;
     };
 
-    render(<HebelEditor config={aktuelleConfig} onAendern={onAendern} />);
+    render(<LoesungEditor config={aktuelleConfig} onAendern={onAendern} />);
 
-    // Neuen Hebel anlegen
+    // Neuen Loesung anlegen
     const neuButton = screen.getByRole('button', { name: /neu|hinzufügen|anlegen/i });
     fireEvent.click(neuButton);
 
@@ -79,10 +79,10 @@ describe('HebelEditor', () => {
     const speichernButton = screen.queryByRole('button', { name: /speichern|sichern/i });
     if (speichernButton) {
       fireEvent.click(speichernButton);
-      // Das nutzenAussage-Feld ist bei qualitativem Hebel als Pflicht ausgewiesen.
+      // Das nutzenAussage-Feld ist bei qualitativem Loesung als Pflicht ausgewiesen.
       // (Spezifischer Text statt /nutzen/i, das sonst mit der Schwerpunkt-Option
       // „KI professionell nutzen" im Phasen-Dropdown kollidiert.)
-      const fehler = screen.queryByText(/Pflicht bei qualitativem Hebel/i);
+      const fehler = screen.queryByText(/Pflicht bei qualitativem Loesung/i);
       expect(fehler).toBeTruthy();
     } else {
       // Das Feld für nutzenAussage muss sichtbar/required sein
