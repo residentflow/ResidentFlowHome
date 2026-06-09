@@ -1,130 +1,86 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import { Hero } from '@/components/sections/Hero';
+import type { ReactNode } from 'react';
 import { WahrnehmungsShift } from '@/components/sections/WahrnehmungsShift';
-import { ProblemAbschnitt } from '@/components/sections/ProblemAbschnitt';
 import { Beweis } from '@/components/sections/Beweis';
-import { Bruecke } from '@/components/sections/Bruecke';
 import { DatenschutzBeweis } from '@/components/sections/DatenschutzBeweis';
 import { Founder } from '@/components/sections/Founder';
-import { Schatzsuche, type SchatzsucheErgebnis } from '@/components/schatzsuche/Schatzsuche';
-import { Treppe } from '@/components/treppe/Treppe';
-import { VerdichtetesErgebnis } from '@/components/treppe/VerdichtetesErgebnis';
-import { OptInFormular } from '@/components/treppe/OptInFormular';
-import { routing } from '@/domain/engine/routing';
-import { bestimmeStufen } from '@/domain/engine/bestimmeStufen';
-import { schatzsucheConfig } from '@/content/schatzsuche.config';
+import { BestandsCheck } from '@/components/bestands-check/BestandsCheck';
+import { checkConfig, copy } from '@/config/checkConfig';
 
 function Abschnitt({ testid, children }: { testid: string; children: ReactNode }) {
   return <div data-testid={testid}>{children}</div>;
 }
 
 /**
- * Landingpage — Komposition der 9 Abschnitte in fixer Reihenfolge (§9).
- * Abschnitt 6 (Schatzsuche) liefert über onErgebnis das Live-Ergebnis an Abschnitt 7
- * (Treppe + verdichtetes Ergebnis + Opt-in, §10). Der Datenschutz-Beweis steht NACH der Suche (§9 #8).
+ * Landingpage — Sektionsfolge nach PRD §9.2.
+ * #1 SiteHeader · #2 HeroCheck (Eyebrow+H1+Trustline+BestandsCheck als eine Einheit,
+ * §9.1 above the fold; KEIN „Check starten"-Button — der Check IST der Hero) ·
+ * #3 SolutionResult rendert inline im Check · #4 ProofStrip (vorerst Beweis) ·
+ * #6 PerceptionShift · #7 PrivacyProof NACH dem Check · #8 FounderShort.
+ * BeispielAnalyse (#5) und FAQ (#9) folgen in AP4/AP7.
  */
 export function LandingPage() {
-  const [ergebnis, setErgebnis] = useState<SchatzsucheErgebnis | null>(null);
-
-  const handleErgebnis = useCallback((e: SchatzsucheErgebnis) => {
-    setErgebnis(e);
-  }, []);
-
-  const loesungIdsMitVideo = useMemo(
-    () => schatzsucheConfig.loesung.filter((h) => h.videoLink).map((h) => h.id),
-    [],
-  );
-
-  const auswertung = useMemo(() => {
-    if (!ergebnis || ergebnis.rollen.length === 0) return null;
-    const routingErgebnis = routing(ergebnis.rollen, ergebnis.groessen);
-    return {
-      routingErgebnis,
-      stufen: bestimmeStufen(routingErgebnis),
-    };
-  }, [ergebnis]);
-
-  async function handleOptIn(daten: {
-    email: string;
-    consentPdf: true;
-    consentAbo: boolean;
-  }): Promise<void> {
-    // Datenkanal NUR auf bewusste Nutzeraktion NACH dem Ergebnis (kein Gate, §10.4).
-    if (!ergebnis || !auswertung) return;
-    await fetch('/api/optin', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        email: daten.email,
-        consentPdf: true,
-        consentAbo: daten.consentAbo,
-        rolle: ergebnis.rollen[0],
-        relevanteEinheiten: auswertung.routingErgebnis.relevanteEinheiten,
-        ergebnisSpanne: ergebnis.aggregat,
-      }),
-    });
-  }
+  const calUrl = checkConfig.settings.calComUrl || '/termin';
 
   return (
     <main>
-      <Abschnitt testid="abschnitt-1-hero">
-        <Hero />
+      {/* #1 SiteHeader — Termin-Button funktioniert immer (source=header-direct, §14.6) */}
+      <header
+        data-testid="site-header"
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '1rem 1.5rem',
+          borderBottom: '1px solid var(--farbe-linie, #eee)',
+        }}
+      >
+        <span style={{ fontFamily: 'Georgia, serif', fontWeight: 700 }}>ResidentFlow</span>
+        <a
+          data-testid="cta-header"
+          href={`${calUrl}?metadata[source]=header-direct`}
+          style={{
+            padding: '0.5rem 1rem',
+            border: '1px solid var(--farbe-akzent, #b8860b)',
+            borderRadius: '8px',
+            textDecoration: 'none',
+          }}
+        >
+          {copy('cta.header')}
+        </a>
+      </header>
+
+      {/* #2 HeroCheck — eine visuelle Einheit (§9.1) */}
+      <Abschnitt testid="hero-check">
+        <div style={{ maxWidth: '720px', margin: '0 auto', padding: '1.5rem 1rem 0' }}>
+          <p data-testid="eyebrow" style={{ letterSpacing: '0.08em', fontSize: '0.85rem' }}>
+            {copy('copy.eyebrow')}
+          </p>
+          <h1 style={{ fontFamily: 'Georgia, serif', lineHeight: 1.15 }}>{copy('copy.h1.A')}</h1>
+          <p data-testid="trustline" style={{ color: 'var(--farbe-tinte-weich, #555)' }}>
+            {copy('copy.trustline')}
+          </p>
+        </div>
+        {/* #3 SolutionResult rendert inline innerhalb des Checks nach Problemwahl */}
+        <BestandsCheck />
       </Abschnitt>
-      <Abschnitt testid="abschnitt-2-wahrnehmung">
-        <WahrnehmungsShift />
-      </Abschnitt>
-      <Abschnitt testid="abschnitt-3-problem">
-        <ProblemAbschnitt />
-      </Abschnitt>
-      <Abschnitt testid="abschnitt-4-beweis">
+
+      {/* #4 ProofStrip (vorerst Beweis-Sektion; echter ProofStrip in AP4) */}
+      <Abschnitt testid="proof-strip">
         <Beweis />
       </Abschnitt>
-      <Abschnitt testid="abschnitt-5-bruecke">
-        <Bruecke />
+
+      {/* #6 PerceptionShift */}
+      <Abschnitt testid="perception-shift">
+        <WahrnehmungsShift />
       </Abschnitt>
-      <Abschnitt testid="abschnitt-6-schatzsuche">
-        <Schatzsuche config={schatzsucheConfig} onErgebnis={handleErgebnis} />
-      </Abschnitt>
-      <Abschnitt testid="abschnitt-7-ergebnis">
-        {ergebnis && ergebnis.imErgebnis && auswertung ? (
-          <div>
-            {/* Verdichtetes Ergebnis: zeigt den persona-basierten Hauptweg (auch Partnerprogramm).
-                Die Euro-Spanne blendet die Komponente selbst erst bei Quantifizierung ein (§7). */}
-            <VerdichtetesErgebnis
-              routing={auswertung.routingErgebnis}
-              stufen={auswertung.stufen}
-              gesamtSpanne={ergebnis.aggregat}
-              laufzeiten={ergebnis.relevanteLoesung}
-            />
-            {/* Treppe nur für Bestands-/Entwicklungs-Pfade; Multiplikatoren → Partnerprogramm (§10.2). */}
-            {auswertung.routingErgebnis.endAusgang !== 'partnerprogramm' && (
-              <Treppe
-                routing={auswertung.routingErgebnis}
-                stufen={auswertung.stufen}
-                laufzeiten={ergebnis.relevanteLoesung}
-                loesungIdsWithVideo={loesungIdsMitVideo}
-                gesamtSpanne={ergebnis.aggregat}
-              />
-            )}
-            {ergebnis.rollen[0] && (
-              <OptInFormular
-                rolle={ergebnis.rollen[0]}
-                relevanteEinheiten={auswertung.routingErgebnis.relevanteEinheiten}
-                ergebnisSpanne={ergebnis.aggregat}
-                onSubmit={handleOptIn}
-              />
-            )}
-          </div>
-        ) : (
-          <p style={{ textAlign: 'center', color: 'var(--farbe-tinte-weich)' }}>
-            Ihr verdichtetes Ergebnis erscheint hier, sobald Sie die Schatzsuche durchlaufen haben.
-          </p>
-        )}
-      </Abschnitt>
-      <Abschnitt testid="abschnitt-8-datenschutz">
+
+      {/* #7 PrivacyProof — NACH dem Check (Bestätigung statt Behauptung, §9.2) */}
+      <Abschnitt testid="privacy-proof">
         <DatenschutzBeweis />
       </Abschnitt>
-      <Abschnitt testid="abschnitt-9-founder">
+
+      {/* #8 FounderShort */}
+      <Abschnitt testid="founder-short">
         <Founder />
       </Abschnitt>
     </main>
