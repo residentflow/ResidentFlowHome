@@ -26,11 +26,24 @@ export function ProblemAbschnitt() {
           <p className="rf-eyebrow" style={{ color: 'var(--farbe-gold)' }}>
             Das eigentliche Problem
           </p>
-          <h2 style={{ color: '#fff', fontSize: 'clamp(1.8rem, 3.4vw, 2.7rem)', marginBottom: '1.25rem' }}>
+          <h2
+            style={{
+              color: '#fff',
+              fontSize: 'clamp(1.8rem, 3.4vw, 2.7rem)',
+              marginBottom: '1.25rem',
+            }}
+          >
             Warum bleibt Ertrag liegen — auch bei professionell geführten Beständen?
           </h2>
 
-          <p style={{ fontSize: '1.1rem', lineHeight: 1.7, color: '#cdd6cb', marginBottom: '1.25rem' }}>
+          <p
+            style={{
+              fontSize: '1.1rem',
+              lineHeight: 1.7,
+              color: '#cdd6cb',
+              marginBottom: '1.25rem',
+            }}
+          >
             Mieterhöhungen werden übersehen. Indexklauseln laufen ab. Betriebskostenabrechnungen
             enthalten Fehler, die niemand findet — weil alle mit der nächsten Aufgabe beschäftigt
             sind.
