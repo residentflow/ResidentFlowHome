@@ -1,21 +1,37 @@
 /**
- * Design-Tokens — Light Editorial (§15.5): hell, ruhig, ein einzelner edler Akzent,
- * Serifen-Headlines + ruhige Sans, großzügiger Weißraum, präzise Typo-Hierarchie.
+ * Design-Tokens — „Editorial Report" (Richtung A, §15.5): hochwertige Magazin-/Report-Anmutung,
+ * warmes Papier, ein edler Tannengrün-Akzent, Fraunces-Serifen-Headlines + ruhige Inter-Sans,
+ * großzügiger Weißraum, feine Linien, präzise Typo-Hierarchie.
  */
 :root {
-  /* Farbpalette — hell & zurückhaltend */
-  --farbe-papier: #fbfaf7;
+  /* Farbpalette — warmes, helles Papier */
+  --farbe-papier: #f6f2e9;
+  --farbe-papier-2: #fbf9f3;
   --farbe-flaeche: #ffffff;
-  --farbe-tinte: #1a1a17;
-  --farbe-tinte-weich: #4a4a44;
-  --farbe-linie: #e6e3dc;
-  --farbe-akzent: #8a6d3b; /* edler, gedeckter Messing-/Bronze-Akzent */
-  --farbe-akzent-weich: #f1ebdd;
-  --farbe-erfolg: #2f6f4f;
+  --farbe-tinte: #1b1a16;
+  --farbe-tinte-weich: #5a574e;
+  /* Alias für ältere Komponenten (verhindert undefinierte Variable) */
+  --farbe-text-sekundaer: var(--farbe-tinte-weich);
+  --farbe-linie: #e2dbcb;
+  --farbe-linie-zart: #ece6da;
+
+  /* Edler Akzent: gedecktes Tannengrün */
+  --farbe-akzent: #33503b;
+  --farbe-akzent-dunkel: #28412f;
+  --farbe-akzent-weich: #e8ede6;
+  /* Zweitakzent: warmes Messing — sparsam für Kennzahlen */
+  --farbe-gold: #b08a4a;
+
+  --farbe-erfolg: #33503b;
   --farbe-warnung: #9a5b2e;
 
+  /* Auf dunklem Grund (Problem-Band, Footer) */
+  --farbe-dunkel: #1b1a16;
+  --farbe-auf-dunkel: #ece9e0;
+  --farbe-auf-dunkel-weich: #b4b0a4;
+
   /* Typografie */
-  --serif: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+  --serif: 'Fraunces', 'Iowan Old Style', 'Georgia', 'Times New Roman', serif;
   --sans: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
 
   /* Skala / Weißraum */
@@ -26,8 +42,12 @@
   --raum-5: 4rem;
   --raum-6: 6rem;
 
-  --breite-inhalt: 72rem;
+  --breite-inhalt: 70rem;
   --breite-text: 42rem;
-  --radius: 10px;
+  --radius: 4px;
+  --radius-gross: 8px;
   --linie: 1px solid var(--farbe-linie);
+  --linie-zart: 1px solid var(--farbe-linie-zart);
+
+  --schatten-weich: 0 1px 2px rgba(27, 26, 22, 0.04);
 }

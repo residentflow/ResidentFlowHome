@@ -1,4 +1,5 @@
 import { type RouteObject } from 'react-router-dom';
+import { Layout } from './components/layout/Layout';
 import { LandingPage } from './pages/LandingPage';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
@@ -17,11 +18,46 @@ export function istCmsRoute(pfad: string): boolean {
 }
 
 const basisRouten: RouteObject[] = [
-  { path: '/', element: <LandingPage /> },
-  { path: '/founder', element: <FounderStory /> },
-  { path: '/faq', element: <FAQ /> },
-  { path: '/impressum', element: <Impressum /> },
-  { path: '/datenschutz', element: <Datenschutz /> },
+  {
+    path: '/',
+    element: (
+      <Layout>
+        <LandingPage />
+      </Layout>
+    ),
+  },
+  {
+    path: '/founder',
+    element: (
+      <Layout>
+        <FounderStory />
+      </Layout>
+    ),
+  },
+  {
+    path: '/faq',
+    element: (
+      <Layout>
+        <FAQ />
+      </Layout>
+    ),
+  },
+  {
+    path: '/impressum',
+    element: (
+      <Layout>
+        <Impressum />
+      </Layout>
+    ),
+  },
+  {
+    path: '/datenschutz',
+    element: (
+      <Layout>
+        <Datenschutz />
+      </Layout>
+    ),
+  },
 ];
 
 // CMS nur im Dev-Build (§13.1). Dynamischer Import → CmsApp wird aus dem Prod-Bundle entfernt.

@@ -147,7 +147,7 @@ export function Beweis() {
           borderRadius: 'var(--radius)',
         }}
       >
-        {/* Foto-Platzhalter */}
+        {/* Foto-Platzhalter — Monogramm bis zum echten Founder-Foto */}
         <div
           aria-label="Foto Stefan"
           style={{
@@ -155,15 +155,17 @@ export function Beweis() {
             width: '64px',
             height: '64px',
             borderRadius: '50%',
-            background: 'var(--farbe-flaeche)',
-            border: 'var(--linie)',
+            background: 'var(--farbe-akzent)',
+            color: '#fff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '1.5rem',
+            fontFamily: 'var(--serif)',
+            fontSize: '1.4rem',
+            fontWeight: 500,
           }}
         >
-          👤
+          SH
         </div>
 
         <div>

@@ -7,98 +7,88 @@ interface WahrnehmungsPaar {
 }
 
 const PAARE: WahrnehmungsPaar[] = [
-  {
-    andereSehen: 'Leerstände',
-    wirSehen: 'Nicht gezogene Mieterhöhungen',
-  },
-  {
-    andereSehen: 'Dokumente',
-    wirSehen: 'Versteckte Ertragspotenziale',
-  },
-  {
-    andereSehen: 'Verwaltungsaufwand',
-    wirSehen: 'Optimierbarer Prozess',
-  },
+  { andereSehen: 'Leerstände', wirSehen: 'Nicht gezogene Mieterhöhungen' },
+  { andereSehen: 'Dokumente', wirSehen: 'Versteckte Ertragspotenziale' },
+  { andereSehen: 'Verwaltungsaufwand', wirSehen: 'Optimierbarer Prozess' },
 ];
 
+const kopf: React.CSSProperties = {
+  padding: '1.25rem 1.75rem',
+  fontWeight: 600,
+  fontSize: '0.74rem',
+  textTransform: 'uppercase',
+  letterSpacing: '0.16em',
+  borderBottom: 'var(--linie)',
+};
+
 /**
- * Wahrnehmungs-Shift (§9 #2):
- * Kontrastiert „Was andere sehen" mit „Was wir sehen" — aus eigenem Bestand identifiziert.
+ * Wahrnehmungs-Shift (§9 #2) — Richtung A „Editorial Report":
+ * Zwei Spalten in einer umrandeten Karte; rechts (weiß, Serife) hebt „Was wir sehen" hervor.
  */
 export function WahrnehmungsShift() {
   return (
-    <Section id="wahrnehmung" flaeche ariaLabel="Was andere sehen — was wir sehen">
+    <Section id="wahrnehmung" ariaLabel="Was andere sehen — was wir sehen">
       <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <h2 style={{ margin: '0 0 0.75rem', fontSize: 'clamp(1.5rem, 3vw, 2.25rem)' }}>
-          Derselbe Bestand. Ein anderer Blick.
-        </h2>
-        <p style={{ color: 'var(--farbe-text-sekundaer)', maxWidth: '560px', margin: '0 auto' }}>
+        <p className="rf-eyebrow">Derselbe Bestand. Ein anderer Blick.</p>
+        <h2 style={{ margin: '0 auto', maxWidth: '22ch' }}>
           Aus unserem eigenen Portfolio identifiziert — nicht konstruiert.
-        </p>
+        </h2>
       </div>
 
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: '0',
-          maxWidth: '800px',
+          maxWidth: '820px',
           margin: '0 auto',
+          border: 'var(--linie)',
+          borderRadius: 'var(--radius-gross)',
+          overflow: 'hidden',
+          background: 'var(--farbe-papier-2)',
         }}
       >
-        {/* Spaltenköpfe */}
+        <div style={{ ...kopf, color: 'var(--farbe-tinte-weich)' }}>Was andere sehen</div>
         <div
           style={{
-            padding: '0.75rem 1.5rem',
-            fontWeight: 700,
-            fontSize: '0.8rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
-            color: 'var(--farbe-text-sekundaer)',
-            borderBottom: 'var(--linie)',
-          }}
-        >
-          Was andere sehen
-        </div>
-        <div
-          style={{
-            padding: '0.75rem 1.5rem',
-            fontWeight: 700,
-            fontSize: '0.8rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.08em',
+            ...kopf,
             color: 'var(--farbe-akzent)',
-            borderBottom: 'var(--linie)',
-            borderLeft: '2px solid var(--farbe-akzent)',
+            background: 'var(--farbe-flaeche)',
+            borderLeft: 'var(--linie)',
           }}
         >
           Was wir sehen
         </div>
 
-        {/* Paare */}
-        {PAARE.map((paar, i) => (
-          <React.Fragment key={i}>
-            <div
-              style={{
-                padding: '1rem 1.5rem',
-                color: 'var(--farbe-text-sekundaer)',
-                borderBottom: i < PAARE.length - 1 ? 'var(--linie)' : 'none',
-              }}
-            >
-              {paar.andereSehen}
-            </div>
-            <div
-              style={{
-                padding: '1rem 1.5rem',
-                fontWeight: 600,
-                borderBottom: i < PAARE.length - 1 ? 'var(--linie)' : 'none',
-                borderLeft: '2px solid var(--farbe-akzent)',
-              }}
-            >
-              {paar.wirSehen}
-            </div>
-          </React.Fragment>
-        ))}
+        {PAARE.map((paar, i) => {
+          const letzte = i === PAARE.length - 1;
+          return (
+            <React.Fragment key={i}>
+              <div
+                style={{
+                  padding: '1.15rem 1.75rem',
+                  color: 'var(--farbe-tinte-weich)',
+                  fontSize: '1.05rem',
+                  borderBottom: letzte ? 'none' : 'var(--linie-zart)',
+                }}
+              >
+                {paar.andereSehen}
+              </div>
+              <div
+                style={{
+                  padding: '1.15rem 1.75rem',
+                  fontFamily: 'var(--serif)',
+                  fontWeight: 500,
+                  fontSize: '1.1rem',
+                  background: 'var(--farbe-flaeche)',
+                  borderLeft: 'var(--linie)',
+                  borderBottom: letzte ? 'none' : 'var(--linie-zart)',
+                }}
+              >
+                {paar.wirSehen}
+              </div>
+            </React.Fragment>
+          );
+        })}
       </div>
     </Section>
   );
