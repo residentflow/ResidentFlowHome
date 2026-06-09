@@ -1,0 +1,26 @@
+# ============================================================
+# Dockerfile.api — Fastify API-Server
+# Startet api/server.ts via tsx (TypeScript-Runtime).
+# Liest BREVO_API_KEY / BREVO_LIST_ID aus dem Environment.
+# §15.3, §11
+# ============================================================
+
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Abhängigkeiten zuerst (Layer-Cache)
+COPY package.json package-lock.json ./
+RUN npm ci --prefer-offline --omit=dev && npm install tsx
+
+# API-Quellcode
+COPY tsconfig.json ./
+COPY api/ ./api/
+
+# Gesundheitscheck-Hilfsmittel
+RUN apk add --no-cache wget
+
+EXPOSE 3001
+
+# tsx führt TypeScript direkt aus — kein separater Build-Schritt nötig
+CMD ["node", "--import", "tsx", "api/server.ts"]

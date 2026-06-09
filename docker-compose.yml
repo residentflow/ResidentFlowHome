@@ -1,0 +1,105 @@
+# ============================================================
+# ResidentFlow — Docker Compose (Produktion)
+# §15.3: web (nginx/SPA), api (Fastify), analytics (Plausible)
+# CMS (/admin) ist NICHT im Prod-Web-Service enthalten.
+# ============================================================
+
+networks:
+  frontend:
+  backend:
+
+services:
+  # ----------------------------------------------------------
+  # web — nginx serviert das statische Vite-Build (SPA)
+  # CMS ist bewusst nicht im Prod-Build enthalten (§13.1).
+  # ----------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - api
+    environment:
+      - NGINX_HOST=${PLAUSIBLE_DOMAIN:-residentflow.de}
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+  # ----------------------------------------------------------
+  # api — Fastify: POST /api/optin → Brevo transaktional
+  # Liest BREVO_API_KEY und BREVO_LIST_ID aus dem Environment.
+  # §15.3, §11
+  # ----------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    expose:
+      - '3001'
+    networks:
+      - backend
+    environment:
+      - PORT=3001
+      - BREVO_API_KEY=${BREVO_API_KEY}
+      - BREVO_LIST_ID=${BREVO_LIST_ID}
+      - CORS_ORIGIN=http://web
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3001/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # ----------------------------------------------------------
+  # analytics — Plausible cookieless self-hosted
+  # §16: kein personenbezogenes Tracking, kein Cookie-Banner.
+  # §15.3: EU/self-hosted, nie US-Cloud.
+  # ----------------------------------------------------------
+  analytics:
+    image: ghcr.io/plausible/community-edition:v2
+    restart: unless-stopped
+    expose:
+      - '8000'
+    networks:
+      - backend
+    environment:
+      - BASE_URL=https://${PLAUSIBLE_DOMAIN:-residentflow.de}/stats
+      - SECRET_KEY_BASE=${PLAUSIBLE_SECRET_KEY_BASE:-changeme-replace-in-production}
+      - DISABLE_REGISTRATION=true
+    volumes:
+      - plausible_data:/var/lib/plausible
+    depends_on:
+      - plausible_db
+      - plausible_events_db
+
+  plausible_db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    networks:
+      - backend
+    environment:
+      - POSTGRES_DB=plausible
+      - POSTGRES_USER=plausible
+      - POSTGRES_PASSWORD=${PLAUSIBLE_DB_PASSWORD:-changeme-replace-in-production}
+    volumes:
+      - plausible_postgres:/var/lib/postgresql/data
+
+  plausible_events_db:
+    image: clickhouse/clickhouse-server:24-alpine
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - plausible_clickhouse:/var/lib/clickhouse
+
+volumes:
+  plausible_data:
+  plausible_postgres:
+  plausible_clickhouse:
