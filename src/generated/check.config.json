@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T21:29:00.420Z",
+  "generatedAt": "2026-06-09T21:35:05.433Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -257,8 +257,8 @@
       "title": "Mieten/Indexmieten/Staffeln nicht systematisch geprüft",
       "userFacingDescription": "Ihre Mieten wirken nicht ausgeschöpft und Vertragsdaten liegen verstreut.",
       "roleFilters": [
-        1,
-        2
+        "buyAndHold",
+        "hausverwaltung"
       ],
       "valueCategory": [
         "ertrag"

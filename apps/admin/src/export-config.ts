@@ -56,7 +56,9 @@ async function main() {
   const settings = settingsList[0] || {};
   const solutionById = new Map(solutions.map((s) => [s.id, s]));
   const benchmarkById = new Map(benchmarks.map((b) => [b.id, b]));
+  const roleSlugById = new Map(roles.map((r) => [r.id, r.slug]));
   const idOf = (rel: any) => (rel && typeof rel === 'object' ? rel.id : rel);
+  const slugOfRole = (rel: any) => roleSlugById.get(idOf(rel)) || idOf(rel);
 
   // Strictness: 'L1' (lauffähig, Platzhalter nur Warnung) | 'L2' (strikt, Platzhalter bricht).
   const level = (process.env.EXPORT_LEVEL || 'L1').toUpperCase();
@@ -143,7 +145,7 @@ async function main() {
       slug: p.slug,
       title: p.title,
       userFacingDescription: p.userFacingDescription,
-      roleFilters: (p.roleFilters || []).map(idOf),
+      roleFilters: (p.roleFilters || []).map(slugOfRole),
       valueCategory: p.valueCategory || [],
       priority: p.priority,
       solutions: (p.solutions || [])
