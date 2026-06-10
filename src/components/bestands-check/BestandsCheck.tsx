@@ -6,7 +6,7 @@ import {
   type ProblemCfg,
   type RoleCfg,
 } from '@/config/checkConfig';
-import { istHighIntent } from './score';
+import { istHighIntent, endAusgang as berechneEndAusgang } from './score';
 import { SolutionResult } from '@/components/solution-result/SolutionResult';
 import { StickyBar } from '@/components/cta/StickyBar';
 import { track, EVENTS } from '@/analytics/plausible';
@@ -93,6 +93,10 @@ export function BestandsCheck() {
     rolle && bucketRank != null
       ? istHighIntent({ rolle, bucketRank }, checkConfig.settings.thresholdHigh)
       : false;
+  const endAusgang =
+    rolle && bucketRank != null
+      ? berechneEndAusgang({ rolle, bucketRank }, checkConfig.settings.thresholdHigh)
+      : undefined;
 
   const probleme = rolle ? problemeFuerRolle(rolle.slug) : [];
 
@@ -204,6 +208,7 @@ export function BestandsCheck() {
           <SolutionResult
             problem={problem}
             highIntent={highIntent}
+            endAusgang={endAusgang}
             units={rolle.sizeMetric?.buckets[bucketIndex]?.unitsMid ?? null}
             calContext={{
               role: rolle.slug,

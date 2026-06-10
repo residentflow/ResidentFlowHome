@@ -80,6 +80,7 @@ export interface SettingsCfg {
   proofBandEnabled: boolean;
   privacyflowReady: boolean;
   calComUrl: string | null;
+  partnerprogrammLink: string | null;
   stundensatzDefault: { min: number; max: number };
 }
 export interface CheckConfig {

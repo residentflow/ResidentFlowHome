@@ -126,6 +126,7 @@ async function main() {
       proofBandEnabled,
       privacyflowReady: Boolean(settings.privacyflowReady),
       calComUrl: settings.calComUrl || null,
+      partnerprogrammLink: settings.partnerprogrammLink || null,
       stundensatzDefault: settings.stundensatzDefault || { min: 60, max: 90 },
     },
     roles: roles

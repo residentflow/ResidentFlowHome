@@ -5,7 +5,13 @@
  */
 import { getPayload } from 'payload';
 import config from '../payload.config';
-import { erstelleLead, erstelleLeadAusWebhook, generiereGespraechseinstieg } from './lead';
+import { createHmac } from 'node:crypto';
+import {
+  erstelleLead,
+  erstelleLeadAusWebhook,
+  generiereGespraechseinstieg,
+  verifyCalSignature,
+} from './lead';
 
 async function main() {
   const payload = await getPayload({ config });
@@ -38,6 +44,15 @@ async function main() {
   });
   if (!wl.id) throw new Error('Webhook-Lead nicht angelegt');
   console.log('OK cal.com-Webhook → Lead');
+
+  // 4) Webhook-Signaturprüfung (HMAC) mit gesetztem Secret
+  process.env.CALCOM_WEBHOOK_SECRET = 'test-secret';
+  const raw = JSON.stringify({ payload: { metadata: { source: 'li' } } });
+  const gut = createHmac('sha256', 'test-secret').update(raw, 'utf8').digest('hex');
+  if (!verifyCalSignature(raw, gut)) throw new Error('gültige Signatur abgelehnt');
+  if (verifyCalSignature(raw, 'deadbeef')) throw new Error('ungültige Signatur akzeptiert');
+  delete process.env.CALCOM_WEBHOOK_SECRET;
+  console.log('OK Webhook-Signaturprüfung (gültig akzeptiert / ungültig abgelehnt)');
 
   console.log('VERIFY-LEAD PASS');
   process.exit(0);

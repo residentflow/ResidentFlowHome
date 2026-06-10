@@ -23,7 +23,7 @@ import { LeadEvents } from './src/collections/LeadEvents';
 import { ConsentRecords } from './src/collections/ConsentRecords';
 import { Pages } from './src/collections/Pages';
 import { Settings } from './src/collections/Settings';
-import { erstelleLead, erstelleLeadAusWebhook } from './src/lead';
+import { erstelleLead, erstelleLeadAusWebhook, verifyCalSignature } from './src/lead';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -66,8 +66,21 @@ export default buildConfig({
       path: '/calcom-webhook',
       method: 'post',
       handler: async (req: any) => {
-        const body = typeof req.json === 'function' ? await req.json() : req.body;
-        const lead = await erstelleLeadAusWebhook(req.payload, body);
+        // Roh-Body für die Signaturprüfung lesen (§17.2), dann erst parsen.
+        const raw = typeof req.text === 'function' ? await req.text() : JSON.stringify(req.body);
+        const signature =
+          typeof req.headers?.get === 'function' ? req.headers.get('x-cal-signature-256') : null;
+        if (!verifyCalSignature(raw, signature)) {
+          return Response.json({ ok: false, error: 'invalid signature' }, { status: 401 });
+        }
+        const body = JSON.parse(raw);
+        // cal.com kapselt die Buchung in { triggerEvent, payload }
+        const booking = body.payload ?? body;
+        const lead = await erstelleLeadAusWebhook(req.payload, {
+          email: booking.attendees?.[0]?.email ?? booking.email,
+          metadata: booking.metadata,
+          bookingId: booking.uid ?? booking.bookingId,
+        });
         return Response.json({ ok: true, id: lead.id });
       },
     },

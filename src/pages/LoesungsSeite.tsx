@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { checkConfig, copy, problemBySlug, type RoleCfg } from '@/config/checkConfig';
-import { istHighIntent } from '@/components/bestands-check/score';
+import { istHighIntent, endAusgang as berechneEndAusgang } from '@/components/bestands-check/score';
 import { InlineKontextChips } from '@/components/inline-context-chips/InlineKontextChips';
 import { SolutionResult } from '@/components/solution-result/SolutionResult';
 import { StickyBar } from '@/components/cta/StickyBar';
@@ -34,6 +34,10 @@ export function LoesungsSeite() {
     rolle && bucketRank != null
       ? istHighIntent({ rolle, bucketRank }, checkConfig.settings.thresholdHigh)
       : false;
+  const endAusgang =
+    rolle && bucketRank != null
+      ? berechneEndAusgang({ rolle, bucketRank }, checkConfig.settings.thresholdHigh)
+      : undefined;
 
   return (
     <main
@@ -54,6 +58,7 @@ export function LoesungsSeite() {
       <SolutionResult
         problem={problem}
         highIntent={highIntent}
+        endAusgang={endAusgang}
         showAnswerFirst
         units={units}
         calContext={{ role: rolle?.slug, problemSlug: problem.slug, source: 'direct' }}

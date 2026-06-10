@@ -1,4 +1,22 @@
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import type { Payload } from 'payload';
+
+/**
+ * cal.com-Webhook-Signatur prüfen (HMAC-SHA256 des Roh-Bodys mit CALCOM_WEBHOOK_SECRET,
+ * Header X-Cal-Signature-256). Ohne gesetztes Secret wird in DEV durchgelassen (Warnung).
+ */
+export function verifyCalSignature(rawBody: string, signature: string | null): boolean {
+  const secret = process.env.CALCOM_WEBHOOK_SECRET;
+  if (!secret) {
+    console.warn('CALCOM_WEBHOOK_SECRET nicht gesetzt — Webhook-Signatur NICHT geprüft (DEV).');
+    return true;
+  }
+  if (!signature) return false;
+  const erwartet = createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
+  const a = Buffer.from(erwartet);
+  const b = Buffer.from(signature);
+  return a.length === b.length && timingSafeEqual(a, b);
+}
 
 /**
  * Lead-Pipeline (PRD §17) — Schreibpfad ausschließlich über Payload (Hooks/Zod-Gates/Consent).

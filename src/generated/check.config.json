@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T12:46:06.234Z",
+  "generatedAt": "2026-06-10T13:24:35.067Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -17,6 +17,7 @@
     "proofBandEnabled": true,
     "privacyflowReady": false,
     "calComUrl": "https://cal.com/stefan-holhut/15min",
+    "partnerprogrammLink": null,
     "stundensatzDefault": {
       "min": 60,
       "max": 90
