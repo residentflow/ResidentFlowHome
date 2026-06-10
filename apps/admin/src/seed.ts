@@ -515,6 +515,7 @@ async function main() {
       monthlySlots: 0,
       scarcityTrue: false,
       proofBandEnabled: true, // G1 erfüllt (3 freigegebene Findings, ≥1 realisiert)
+      calComUrl: 'https://cal.com/stefan-holhut/15min',
     },
   });
 

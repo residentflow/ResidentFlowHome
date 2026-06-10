@@ -13,6 +13,14 @@ describe('HighIntentCTA (§14.2)', () => {
     // Seed: scarcityTrue=false → keine Scarcity-Zeile (Test-Gate §14.2)
     expect(screen.queryByTestId('cta-scarcity')).toBeNull();
   });
+
+  it('Termin-Link zeigt auf cal.com mit Prefill-Metadata (§17.2)', () => {
+    render(<HighIntentCTA calContext={{ role: 'buyAndHold', source: 'direct' }} />);
+    const href = screen.getByTestId('cta-termin').getAttribute('href') ?? '';
+    expect(href).toContain('cal.com/stefan-holhut/15min');
+    expect(href).toContain('metadata%5Brole%5D=buyAndHold');
+    expect(href).toContain('metadata%5Bsource%5D=direct');
+  });
 });
 
 describe('StickyBar (§9.2)', () => {
