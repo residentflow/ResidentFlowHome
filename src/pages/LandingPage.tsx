@@ -5,6 +5,8 @@ import { Founder } from '@/components/sections/Founder';
 import { BestandsCheck } from '@/components/bestands-check/BestandsCheck';
 import { ProofStrip } from '@/components/proof-strip/ProofStrip';
 import { BeispielAnalyse } from '@/components/beispiel-analyse/BeispielAnalyse';
+import { FAQ } from '@/components/content/FAQ';
+import { SiteFooter } from '@/components/ui/SiteFooter';
 import { checkConfig, copy } from '@/config/checkConfig';
 
 function Abschnitt({ testid, children }: { testid: string; children: ReactNode }) {
@@ -12,12 +14,12 @@ function Abschnitt({ testid, children }: { testid: string; children: ReactNode }
 }
 
 /**
- * Landingpage — Sektionsfolge nach PRD §9.2.
+ * Landingpage — Sektionsfolge nach PRD §9.2 (vollständig, #1–#10).
  * #1 SiteHeader · #2 HeroCheck (Eyebrow+H1+Trustline+BestandsCheck als eine Einheit,
  * §9.1 above the fold; KEIN „Check starten"-Button — der Check IST der Hero) ·
- * #3 SolutionResult rendert inline im Check · #4 ProofStrip (vorerst Beweis) ·
- * #6 PerceptionShift · #7 PrivacyProof NACH dem Check · #8 FounderShort.
- * BeispielAnalyse (#5) und FAQ (#9) folgen in AP4/AP7.
+ * #3 SolutionResult rendert inline im Check · #4 ProofStrip · #5 BeispielAnalyse ·
+ * #6 PerceptionShift · #7 PrivacyProof NACH dem Check · #8 FounderShort ·
+ * #9 FAQ · #10 SiteFooter.
  */
 export function LandingPage() {
   const calUrl = checkConfig.settings.calComUrl || '/termin';
@@ -89,6 +91,14 @@ export function LandingPage() {
       <Abschnitt testid="founder-short">
         <Founder />
       </Abschnitt>
+
+      {/* #9 FAQ — die 5 Vertrauensfragen (§23) */}
+      <Abschnitt testid="faq">
+        <FAQ />
+      </Abschnitt>
+
+      {/* #10 SiteFooter — Impressum, Datenschutz, Kontakt; keine Badges */}
+      <SiteFooter />
     </main>
   );
 }

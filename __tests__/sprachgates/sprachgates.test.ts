@@ -54,11 +54,8 @@ describe('Sprach-Gates §17', () => {
   });
 
   it('"ResidentFlowAI" kommt in src/ ausschließlich im Skalierungs-Block (§11 Block 7) vor', () => {
-    // Erlaubt im neuen SolutionResult-Skalierungsblock; der alte Treppe-Block bleibt
-    // toleriert, bis die Treppe vollständig entfernt ist.
     const erlaubtePfade = [
       path.resolve(srcVerzeichnis, 'components/solution-result/SkalierungsBlock.tsx'),
-      path.resolve(srcVerzeichnis, 'components/treppe/Stufe3Automatisierung.tsx'),
     ];
     const treffer = inhaltMitPfaden()
       .filter((d) => d.inhalt.includes('ResidentFlowAI'))

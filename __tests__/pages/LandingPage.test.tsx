@@ -3,7 +3,7 @@ import { render, screen, within } from '@testing-library/react';
 import { LandingPage } from '@/pages/LandingPage';
 import { installiereWaechter } from '@/test/guards';
 
-// Sektionsfolge nach PRD §9.2 (vorhandene Slots; BeispielAnalyse/FAQ folgen in AP4/AP7).
+// Sektionsfolge nach PRD §9.2 — vollständig #1–#10.
 const SEKTIONEN_IN_REIHENFOLGE = [
   'site-header',
   'hero-check',
@@ -12,6 +12,8 @@ const SEKTIONEN_IN_REIHENFOLGE = [
   'perception-shift',
   'privacy-proof',
   'founder-short',
+  'faq',
+  'site-footer',
 ];
 
 describe('LandingPage (§9.2 — Sektionsfolge)', () => {

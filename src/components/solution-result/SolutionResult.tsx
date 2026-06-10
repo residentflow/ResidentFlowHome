@@ -6,6 +6,7 @@ import { HighIntentCTA } from '@/components/cta/HighIntentCTA';
 import { SegmentCTA } from '@/components/cta/SegmentCTA';
 import type { CalComContext } from '@/domain/cta/engine';
 import { berechneRange } from '@/domain/calc/fromConfig';
+import { usePdfFallbackSichtbar } from '@/components/cta/usePdfFallback';
 import { SkalierungsBlock } from './SkalierungsBlock';
 
 const SEGMENT_AUSGAENGE = ['partnerprogramm', 'vermarktungsprozess', 'projektprozess'];
@@ -44,6 +45,8 @@ export function SolutionResult({
   const [offen, setOffen] = useState<string | null>(problem.solutions[0]?.slug ?? null);
   const [rechenwegOffen, setRechenwegOffen] = useState(false);
   const range = units != null ? berechneRange(problem, units) : null;
+  // §14.4: HighIntent → PDF initial unsichtbar, erst bei Exit-Intent/Scroll-Ende.
+  const pdfSichtbar = usePdfFallbackSichtbar(mandatsPfad);
 
   return (
     <section data-testid="solution-result" style={{ marginTop: '1.5rem' }}>
@@ -182,8 +185,9 @@ export function SolutionResult({
       {/* 7. Skalierungs-Block — nur HighIntent (einzige Stelle mit Produktnennung) */}
       {mandatsPfad && <SkalierungsBlock />}
 
-      {/* 8. Fallback-Zeile (Motor A: kein Mandats-Pfad, kein Segment-Ausgang) */}
-      {!mandatsPfad && !zeigeSegmentCTA && (
+      {/* 8. Fallback-Zeile (§14.4): Motor A sofort als Sekundär-CTA; HighIntent erst
+          nach Exit-Intent/Scroll-Ende (nie im selben Sichtfeld wie der Termin-CTA). */}
+      {pdfSichtbar && !zeigeSegmentCTA && (
         <p data-testid="fallback-zeile" style={{ marginTop: '1rem' }}>
           Ergebnis als PDF sichern · Weitere Lösungen prüfen
         </p>
