@@ -66,7 +66,7 @@ export function LandingPage() {
       </Abschnitt>
 
       {/* #4 ProofStrip — nur mit approved Findings (G1), sonst aus */}
-      <Abschnitt testid="proof-strip">
+      <Abschnitt testid="proof-strip-slot">
         <ProofStrip />
       </Abschnitt>
 

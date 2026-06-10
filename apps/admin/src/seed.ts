@@ -443,7 +443,7 @@ async function main() {
   });
 
   // ProofFindings (ECHT, eigenes Portfolio n=31, alle Maßnahmen umgesetzt → realisiert).
-  // Freigegeben (publicApproved). ProofStrip (G1) braucht ≥3 — aktuell 2, bleibt daher noch aus.
+  // Freigegeben (publicApproved). Mit dem 3. Finding ist G1 erfüllt → ProofStrip an.
   await payload.create({
     collection: 'proof-findings',
     data: {
@@ -464,12 +464,27 @@ async function main() {
     data: {
       date: new Date('2026-06-01').toISOString(),
       source: 'eigenes Portfolio (n=31)',
-      category: 'ertrag',
+      category: 'risiko',
       title: 'Ausgelaufene Mietstaffel — Erhöhung umgesetzt',
       affectedCount: 1,
       baseCount: 31,
       realizedValue: 1140, // 95 €/Monat × 12
       calculationNote: '1 Vertrag × 95 €/Monat × 12 = 1.140 €/Jahr, umgesetzt.',
+      status: 'realisiert',
+      publicApproved: true,
+    },
+  });
+  await payload.create({
+    collection: 'proof-findings',
+    data: {
+      date: new Date('2026-06-01').toISOString(),
+      source: 'eigenes Portfolio (n=31)',
+      category: 'effizienz',
+      title: 'Verwaltungszeit um 23,5 Std/Monat reduziert',
+      affectedCount: 31,
+      baseCount: 31,
+      calculationNote:
+        'Manueller Verwaltungsaufwand strukturiert/automatisiert: −23,5 Std/Monat, umgesetzt.',
       status: 'realisiert',
       publicApproved: true,
     },
@@ -499,12 +514,12 @@ async function main() {
       scoreWeights: { w1Size: 1, w2Value: 1, w3RoleFit: 1 },
       monthlySlots: 0,
       scarcityTrue: false,
-      proofBandEnabled: false,
+      proofBandEnabled: true, // G1 erfüllt (3 freigegebene Findings, ≥1 realisiert)
     },
   });
 
   console.log(
-    'SEED OK — P1-Grundbestand mit echten Benchmarks (n=31) und 2 realisierten Findings.',
+    'SEED OK — echte Benchmarks (n=31), 3 realisierte Findings (ProofStrip an), Vermarktungs-Content.',
   );
   process.exit(0);
 }

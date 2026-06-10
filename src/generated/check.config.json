@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T07:54:30.219Z",
+  "generatedAt": "2026-06-10T09:46:36.252Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -14,7 +14,7 @@
     },
     "scarcityTrue": false,
     "monthlySlots": 0,
-    "proofBandEnabled": false,
+    "proofBandEnabled": true,
     "privacyflowReady": false,
     "calComUrl": null,
     "stundensatzDefault": {
@@ -556,7 +556,32 @@
     "copy.h1.A": "Wo bleiben in Ihrem Bestand Ertrag, Zeit und Kontrolle liegen?",
     "copy.eyebrow": "ANONYME BESTANDSDIAGNOSE"
   },
-  "proofFindings": [],
+  "proofFindings": [
+    {
+      "category": "effizienz",
+      "title": "Verwaltungszeit um 23,5 Std/Monat reduziert",
+      "valueMin": null,
+      "valueMax": null,
+      "realizedValue": null,
+      "status": "realisiert"
+    },
+    {
+      "category": "risiko",
+      "title": "Ausgelaufene Mietstaffel — Erhöhung umgesetzt",
+      "valueMin": null,
+      "valueMax": null,
+      "realizedValue": 1140,
+      "status": "realisiert"
+    },
+    {
+      "category": "ertrag",
+      "title": "Indexmieten nicht angepasst — 3 Verträge nachgezogen",
+      "valueMin": null,
+      "valueMax": null,
+      "realizedValue": 1104,
+      "status": "realisiert"
+    }
+  ],
   "experiments": [],
   "designVariants": []
 }

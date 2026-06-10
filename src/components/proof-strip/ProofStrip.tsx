@@ -13,6 +13,7 @@ export function ProofStrip() {
     title: string;
     valueMin: number | null;
     valueMax: number | null;
+    realizedValue: number | null;
   }>;
 
   return (
@@ -28,10 +29,15 @@ export function ProofStrip() {
     >
       {findings.map((f) => (
         <div key={f.title} data-testid="proof-finding" style={{ flex: '1 1 180px' }}>
-          {f.valueMin != null && f.valueMax != null && (
-            <strong>
-              {f.valueMin.toLocaleString('de-DE')}–{f.valueMax.toLocaleString('de-DE')} €
-            </strong>
+          {f.realizedValue != null ? (
+            <strong>{f.realizedValue.toLocaleString('de-DE')} € realisiert</strong>
+          ) : (
+            f.valueMin != null &&
+            f.valueMax != null && (
+              <strong>
+                {f.valueMin.toLocaleString('de-DE')}–{f.valueMax.toLocaleString('de-DE')} €
+              </strong>
+            )
           )}
           <div style={{ fontSize: '0.85rem', color: '#555' }}>{f.title}</div>
         </div>

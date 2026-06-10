@@ -236,6 +236,7 @@ async function main() {
           title: f.title,
           valueMin: f.valueMin ?? null,
           valueMax: f.valueMax ?? null,
+          realizedValue: f.realizedValue ?? null,
           status: f.status,
         }))
       : [],

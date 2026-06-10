@@ -7,7 +7,7 @@ import { installiereWaechter } from '@/test/guards';
 const SEKTIONEN_IN_REIHENFOLGE = [
   'site-header',
   'hero-check',
-  'proof-strip',
+  'proof-strip-slot',
   'beispiel-analyse-slot',
   'perception-shift',
   'privacy-proof',
