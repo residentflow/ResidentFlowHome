@@ -15,6 +15,7 @@ export const LOESUNGS_ROUTEN: string[] = checkConfig.problems.map((p) => `/loesu
 export const ROUTEN_ZUM_PRERENDERN: string[] = [
   '/',
   ...LOESUNGS_ROUTEN,
+  '/mietanpassungs-pruefpaket',
   '/founder',
   '/faq',
   '/impressum',
