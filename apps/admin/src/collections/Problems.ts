@@ -17,6 +17,11 @@ export const Problems: CollectionConfig = {
       required: true,
       label: 'Alltagssprache (§11.1)',
     },
+    {
+      name: 'answerFirst',
+      type: 'textarea',
+      label: 'Answer-first-Block (§11.4, nur direkte SEO-/KI-Seiten)',
+    },
     { name: 'roleFilters', type: 'relationship', relationTo: 'roles', hasMany: true },
     { name: 'sizeMetricFilters', type: 'relationship', relationTo: 'size-metrics', hasMany: true },
     {

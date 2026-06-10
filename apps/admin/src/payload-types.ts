@@ -220,6 +220,7 @@ export interface Problem {
   title: string;
   slug: string;
   userFacingDescription: string;
+  answerFirst?: string | null;
   roleFilters?: (number | Role)[] | null;
   sizeMetricFilters?: (number | SizeMetric)[] | null;
   valueCategory?: ('ertrag' | 'effizienz' | 'risiko')[] | null;
@@ -282,6 +283,10 @@ export interface Asset {
     };
     [k: string]: unknown;
   } | null;
+  promptText?: string | null;
+  requiredInputs?: string | null;
+  bodyText?: string | null;
+  videoUrl?: string | null;
   childAssets?: (number | Asset)[] | null;
   copyable?: boolean | null;
   source?: string | null;
@@ -823,6 +828,7 @@ export interface ProblemsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   userFacingDescription?: T;
+  answerFirst?: T;
   roleFilters?: T;
   sizeMetricFilters?: T;
   valueCategory?: T;
@@ -869,6 +875,10 @@ export interface AssetsSelect<T extends boolean = true> {
   assetType?: T;
   summary?: T;
   contentBlocks?: T;
+  promptText?: T;
+  requiredInputs?: T;
+  bodyText?: T;
+  videoUrl?: T;
   childAssets?: T;
   copyable?: T;
   source?: T;

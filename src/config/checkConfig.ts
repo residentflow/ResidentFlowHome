@@ -23,6 +23,29 @@ export interface RoleCfg {
   allowMandatsCTA: boolean;
   sizeIndependent: boolean;
 }
+export type AssetType =
+  | 'prompt'
+  | 'video'
+  | 'guide'
+  | 'checklist'
+  | 'image'
+  | 'example'
+  | 'warning'
+  | 'template'
+  | 'composite';
+export interface AssetCfg {
+  slug: string;
+  title: string;
+  assetType: AssetType;
+  summary: string;
+  copyable: boolean;
+  promptText: string | null;
+  requiredInputs: string | null;
+  bodyText: string | null;
+  videoUrl: string | null;
+  requiresPrivacyNote: boolean;
+  riskLevel: string;
+}
 export interface SolutionCfg {
   slug: string;
   title: string;
@@ -31,16 +54,23 @@ export interface SolutionCfg {
   scaleBreakNote: string;
   nutzenAussage: string | null;
   calculationModel: number | string | null;
+  primaryAsset: number | string | null;
+  assets: AssetCfg[];
 }
 export interface ProblemCfg {
   slug: string;
   title: string;
   userFacingDescription: string;
+  answerFirst: string | null;
   roleFilters: string[];
   valueCategory: string[];
   priority: 'P1' | 'P2' | 'P3';
   solutions: SolutionCfg[];
   calculationModel: number | string | null;
+}
+
+export function problemBySlug(slug: string): ProblemCfg | undefined {
+  return checkConfig.problems.find((p) => p.slug === slug);
 }
 export interface SettingsCfg {
   thresholdHigh: Record<string, number>;

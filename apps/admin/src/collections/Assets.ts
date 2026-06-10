@@ -30,6 +30,11 @@ export const Assets: CollectionConfig = {
     },
     { name: 'summary', type: 'textarea', required: true },
     { name: 'contentBlocks', type: 'richText' },
+    // Einfache Textfelder für den Export ins check.config.json (AssetRenderer §11.1):
+    { name: 'promptText', type: 'textarea', label: 'Prompt-Text (assetType=prompt)' },
+    { name: 'requiredInputs', type: 'textarea', label: 'Benötigte Eingaben (Prompt)' },
+    { name: 'bodyText', type: 'textarea', label: 'Inhalt (guide/checklist/example/warning)' },
+    { name: 'videoUrl', type: 'text', label: 'Video-URL (assetType=video)' },
     { name: 'childAssets', type: 'relationship', relationTo: 'assets', hasMany: true },
     { name: 'copyable', type: 'checkbox', defaultValue: false },
     { name: 'source', type: 'text', label: 'Quelle/Provenienz' },

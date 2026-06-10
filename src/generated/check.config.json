@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T21:35:05.433Z",
+  "generatedAt": "2026-06-10T04:39:44.770Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -31,43 +31,43 @@
         "frageWortlaut": "Wie viele Einheiten umfasst Ihr eigener Bestand ungefähr?",
         "buckets": [
           {
-            "id": "6a28853802d2b44fbcbf3a72",
+            "id": "6a28ea8cc7e2ad08784d6787",
             "label": "1–10",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a73",
+            "id": "6a28ea8cc7e2ad08784d6788",
             "label": "11–29",
             "rank": 1,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a74",
+            "id": "6a28ea8cc7e2ad08784d6789",
             "label": "30–49",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a75",
+            "id": "6a28ea8cc7e2ad08784d678a",
             "label": "50–99",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a76",
+            "id": "6a28ea8cc7e2ad08784d678b",
             "label": "100–249",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a77",
+            "id": "6a28ea8cc7e2ad08784d678c",
             "label": "250–600",
             "rank": 5,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a78",
+            "id": "6a28ea8cc7e2ad08784d678d",
             "label": "600+",
             "rank": 5,
             "unitsMid": null
@@ -86,31 +86,31 @@
         "frageWortlaut": "Wie viele Einheiten verwalten oder betreuen Sie ungefähr?",
         "buckets": [
           {
-            "id": "6a28853802d2b44fbcbf3a79",
+            "id": "6a28ea8cc7e2ad08784d678e",
             "label": "1–49",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a7a",
+            "id": "6a28ea8cc7e2ad08784d678f",
             "label": "50–199",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a7b",
+            "id": "6a28ea8cc7e2ad08784d6790",
             "label": "200–499",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a7c",
+            "id": "6a28ea8cc7e2ad08784d6791",
             "label": "500–999",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a7d",
+            "id": "6a28ea8cc7e2ad08784d6792",
             "label": "1000+",
             "rank": 5,
             "unitsMid": null
@@ -129,31 +129,31 @@
         "frageWortlaut": "Wie viele Verkäufe oder Vermarktungen begleiten Sie ungefähr pro Jahr?",
         "buckets": [
           {
-            "id": "6a28853802d2b44fbcbf3a7e",
+            "id": "6a28ea8cc7e2ad08784d6793",
             "label": "1–5",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a7f",
+            "id": "6a28ea8cc7e2ad08784d6794",
             "label": "6–15",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a80",
+            "id": "6a28ea8cc7e2ad08784d6795",
             "label": "16–30",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a81",
+            "id": "6a28ea8cc7e2ad08784d6796",
             "label": "31–75",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a82",
+            "id": "6a28ea8cc7e2ad08784d6797",
             "label": "75+",
             "rank": 5,
             "unitsMid": null
@@ -172,31 +172,31 @@
         "frageWortlaut": "Wie viele Projekte oder Vermarktungen bearbeiten Sie ungefähr pro Jahr?",
         "buckets": [
           {
-            "id": "6a28853802d2b44fbcbf3a83",
+            "id": "6a28ea8cc7e2ad08784d6798",
             "label": "1–2",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a84",
+            "id": "6a28ea8cc7e2ad08784d6799",
             "label": "3–5",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a85",
+            "id": "6a28ea8cc7e2ad08784d679a",
             "label": "6–10",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a86",
+            "id": "6a28ea8cc7e2ad08784d679b",
             "label": "11–25",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a87",
+            "id": "6a28ea8cc7e2ad08784d679c",
             "label": "25+",
             "rank": 5,
             "unitsMid": null
@@ -215,31 +215,31 @@
         "frageWortlaut": "Wie viele Mandanten mit relevantem Immobilienbestand betreuen Sie?",
         "buckets": [
           {
-            "id": "6a28853802d2b44fbcbf3a88",
+            "id": "6a28ea8cc7e2ad08784d679d",
             "label": "1–5",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a89",
+            "id": "6a28ea8cc7e2ad08784d679e",
             "label": "6–20",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a8a",
+            "id": "6a28ea8cc7e2ad08784d679f",
             "label": "21–50",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a8b",
+            "id": "6a28ea8cc7e2ad08784d67a0",
             "label": "51–100",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28853802d2b44fbcbf3a8c",
+            "id": "6a28ea8cc7e2ad08784d67a1",
             "label": "100+",
             "rank": 5,
             "unitsMid": null
@@ -256,6 +256,7 @@
       "slug": "mieten-indexmieten-pruefen",
       "title": "Mieten/Indexmieten/Staffeln nicht systematisch geprüft",
       "userFacingDescription": "Ihre Mieten wirken nicht ausgeschöpft und Vertragsdaten liegen verstreut.",
+      "answerFirst": "Ja — KI kann Index- und Staffelmieten in Ihrem Bestand zuverlässig erkennen und nicht gezogene Anpassungen sichtbar machen. Sie ersetzt keine Rechtsberatung: Der sichere Einsatz liegt in Erkennung, Priorisierung und Vorbereitung — die rechtssichere Umsetzung erfolgt geprüft.",
       "roleFilters": [
         "buyAndHold",
         "hausverwaltung"
@@ -272,7 +273,36 @@
           "valueCategory": "ertrag",
           "scaleBreakNote": "Diese Prüfung funktioniert für eine Handvoll Verträge. Bei größeren Beständen ist der Wert ein wiederholbarer Prozess: Erkennen, rechtssicher anschreiben, Fristen überwachen — über alle Gesellschaften.",
           "nutzenAussage": null,
-          "calculationModel": 1
+          "calculationModel": 1,
+          "primaryAsset": 1,
+          "assets": [
+            {
+              "slug": "mietvertragsauswertung-prompt",
+              "title": "Mietvertragsauswertung — Prompt",
+              "assetType": "prompt",
+              "summary": "Strukturiert Vertragsdaten und findet Index-/Staffelmieten ohne jüngste Anpassung.",
+              "copyable": true,
+              "promptText": "Du bist ein Analyst für Wohnungsbestände. Analysiere die folgende Mietaufstellung (ohne Namen/Anschriften) und liste Verträge mit Index- oder Staffelmiete ohne Anpassung in den letzten 24 Monaten. Weise je Vertrag den Rechenweg als Spanne aus, niemals als Punktwert.",
+              "requiredInputs": "Mietaufstellung als Tabelle: Einheit, Kaltmiete, Mietart, letzte Anpassung.",
+              "bodyText": null,
+              "videoUrl": null,
+              "requiresPrivacyNote": true,
+              "riskLevel": "niedrig"
+            },
+            {
+              "slug": "indexmieten-check-anleitung",
+              "title": "Indexmieten-Check — Anleitung",
+              "assetType": "guide",
+              "summary": "Schritt-für-Schritt: VPI-Delta seit letzter Anpassung sauber ermitteln.",
+              "copyable": false,
+              "promptText": null,
+              "requiredInputs": null,
+              "bodyText": "Schritt 1: Spalten zuordnen (Mietart, letzte Anpassung). Schritt 2: VPI-Delta seit letzter Anpassung bestimmen. Schritt 3: Kappung und Sperrfrist prüfen. Schritt 4: Anpassung konservativ als Spanne ausweisen.",
+              "videoUrl": null,
+              "requiresPrivacyNote": false,
+              "riskLevel": "niedrig"
+            }
+          ]
         },
         {
           "slug": "mietspiegel-begruendung",
@@ -281,7 +311,23 @@
           "valueCategory": "ertrag",
           "scaleBreakNote": "Einzeln machbar; über viele Verträge lohnt der wiederholbare Prozess mit Fristenüberwachung.",
           "nutzenAussage": "Liefert nachvollziehbare, prüfbare Anpassungsbegründungen.",
-          "calculationModel": null
+          "calculationModel": null,
+          "primaryAsset": 2,
+          "assets": [
+            {
+              "slug": "indexmieten-check-anleitung",
+              "title": "Indexmieten-Check — Anleitung",
+              "assetType": "guide",
+              "summary": "Schritt-für-Schritt: VPI-Delta seit letzter Anpassung sauber ermitteln.",
+              "copyable": false,
+              "promptText": null,
+              "requiredInputs": null,
+              "bodyText": "Schritt 1: Spalten zuordnen (Mietart, letzte Anpassung). Schritt 2: VPI-Delta seit letzter Anpassung bestimmen. Schritt 3: Kappung und Sperrfrist prüfen. Schritt 4: Anpassung konservativ als Spanne ausweisen.",
+              "videoUrl": null,
+              "requiresPrivacyNote": false,
+              "riskLevel": "niedrig"
+            }
+          ]
         }
       ],
       "calculationModel": 1

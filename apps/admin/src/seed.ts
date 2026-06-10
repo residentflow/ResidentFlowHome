@@ -135,6 +135,7 @@ async function main() {
     'cta-rules',
     'problems',
     'solutions',
+    'assets',
     'calculation-models',
     'benchmarks',
     'proof-findings',
@@ -218,6 +219,37 @@ async function main() {
     },
   });
 
+  // Assets (Bausteine) für die P1-Lösung — approved, riskLevel gesetzt (live-fähig, §25)
+  const promptAsset = await payload.create({
+    collection: 'assets',
+    data: {
+      title: 'Mietvertragsauswertung — Prompt',
+      slug: 'mietvertragsauswertung-prompt',
+      assetType: 'prompt',
+      summary: 'Strukturiert Vertragsdaten und findet Index-/Staffelmieten ohne jüngste Anpassung.',
+      copyable: true,
+      promptText:
+        'Du bist ein Analyst für Wohnungsbestände. Analysiere die folgende Mietaufstellung (ohne Namen/Anschriften) und liste Verträge mit Index- oder Staffelmiete ohne Anpassung in den letzten 24 Monaten. Weise je Vertrag den Rechenweg als Spanne aus, niemals als Punktwert.',
+      requiredInputs: 'Mietaufstellung als Tabelle: Einheit, Kaltmiete, Mietart, letzte Anpassung.',
+      requiresPrivacyNote: true,
+      riskLevel: 'niedrig',
+      qualityStatus: 'approved',
+    },
+  });
+  const guideAsset = await payload.create({
+    collection: 'assets',
+    data: {
+      title: 'Indexmieten-Check — Anleitung',
+      slug: 'indexmieten-check-anleitung',
+      assetType: 'guide',
+      summary: 'Schritt-für-Schritt: VPI-Delta seit letzter Anpassung sauber ermitteln.',
+      bodyText:
+        'Schritt 1: Spalten zuordnen (Mietart, letzte Anpassung). Schritt 2: VPI-Delta seit letzter Anpassung bestimmen. Schritt 3: Kappung und Sperrfrist prüfen. Schritt 4: Anpassung konservativ als Spanne ausweisen.',
+      riskLevel: 'niedrig',
+      qualityStatus: 'approved',
+    },
+  });
+
   // P1-Lösung
   const sol = await payload.create({
     collection: 'solutions',
@@ -229,6 +261,8 @@ async function main() {
       helpsWhen: 'Wenn Mieten/Verträge nicht systematisch geprüft sind.',
       valueCategory: 'ertrag',
       calculationModel: m1.id,
+      assets: [promptAsset.id, guideAsset.id],
+      primaryAsset: promptAsset.id,
       scaleBreakNote:
         'Diese Prüfung funktioniert für eine Handvoll Verträge. Bei größeren Beständen ist der Wert ein wiederholbarer Prozess: Erkennen, rechtssicher anschreiben, Fristen überwachen — über alle Gesellschaften.',
       active: true,
@@ -246,6 +280,8 @@ async function main() {
       helpsWhen: 'Wenn Anpassungen rechtssicher begründet werden müssen.',
       valueCategory: 'ertrag',
       nutzenAussage: 'Liefert nachvollziehbare, prüfbare Anpassungsbegründungen.',
+      assets: [guideAsset.id],
+      primaryAsset: guideAsset.id,
       scaleBreakNote:
         'Einzeln machbar; über viele Verträge lohnt der wiederholbare Prozess mit Fristenüberwachung.',
       active: true,
@@ -260,6 +296,8 @@ async function main() {
       slug: 'mieten-indexmieten-pruefen',
       userFacingDescription:
         'Ihre Mieten wirken nicht ausgeschöpft und Vertragsdaten liegen verstreut.',
+      answerFirst:
+        'Ja — KI kann Index- und Staffelmieten in Ihrem Bestand zuverlässig erkennen und nicht gezogene Anpassungen sichtbar machen. Sie ersetzt keine Rechtsberatung: Der sichere Einsatz liegt in Erkennung, Priorisierung und Vorbereitung — die rechtssichere Umsetzung erfolgt geprüft.',
       roleFilters: [roleIdBySlug['buyAndHold'], roleIdBySlug['hausverwaltung']],
       valueCategory: ['ertrag'],
       solutions: [sol.id, sol2.id],

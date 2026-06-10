@@ -56,6 +56,7 @@ async function main() {
   const settings = settingsList[0] || {};
   const solutionById = new Map(solutions.map((s) => [s.id, s]));
   const benchmarkById = new Map(benchmarks.map((b) => [b.id, b]));
+  const assetById = new Map(assets.map((a) => [a.id, a]));
   const roleSlugById = new Map(roles.map((r) => [r.id, r.slug]));
   const idOf = (rel: any) => (rel && typeof rel === 'object' ? rel.id : rel);
   const slugOfRole = (rel: any) => roleSlugById.get(idOf(rel)) || idOf(rel);
@@ -145,6 +146,7 @@ async function main() {
       slug: p.slug,
       title: p.title,
       userFacingDescription: p.userFacingDescription,
+      answerFirst: p.answerFirst || null,
       roleFilters: (p.roleFilters || []).map(slugOfRole),
       valueCategory: p.valueCategory || [],
       priority: p.priority,
@@ -160,6 +162,29 @@ async function main() {
           scaleBreakNote: s.scaleBreakNote,
           nutzenAussage: s.nutzenAussage || null,
           calculationModel: idOf(s.calculationModel) || null,
+          primaryAsset: idOf(s.primaryAsset) || null,
+          // Nur live-fähige Assets (§25): qualityStatus∈{reviewed,approved} UND riskLevel gesetzt
+          assets: (s.assets || [])
+            .map((aRel: any) => assetById.get(idOf(aRel)))
+            .filter(
+              (a: any) =>
+                a &&
+                (a.qualityStatus === 'reviewed' || a.qualityStatus === 'approved') &&
+                a.riskLevel,
+            )
+            .map((a: any) => ({
+              slug: a.slug,
+              title: a.title,
+              assetType: a.assetType,
+              summary: a.summary,
+              copyable: Boolean(a.copyable),
+              promptText: a.promptText || null,
+              requiredInputs: a.requiredInputs || null,
+              bodyText: a.bodyText || null,
+              videoUrl: a.videoUrl || null,
+              requiresPrivacyNote: Boolean(a.requiresPrivacyNote),
+              riskLevel: a.riskLevel,
+            })),
         })),
       calculationModel: idOf(p.calculationModel) || null,
     })),

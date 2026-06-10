@@ -1,5 +1,6 @@
 import { type RouteObject } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
+import { LoesungsSeite } from './pages/LoesungsSeite';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
 import { Impressum } from './components/content/Impressum';
@@ -18,6 +19,7 @@ export function istCmsRoute(pfad: string): boolean {
 
 const basisRouten: RouteObject[] = [
   { path: '/', element: <LandingPage /> },
+  { path: '/loesungen/:slug', element: <LoesungsSeite /> },
   { path: '/founder', element: <FounderStory /> },
   { path: '/faq', element: <FAQ /> },
   { path: '/impressum', element: <Impressum /> },

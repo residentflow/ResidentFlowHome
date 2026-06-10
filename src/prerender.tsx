@@ -1,8 +1,12 @@
 /**
  * Prerender-Konfiguration — statische Routen für SSG/Prerender.
- * §15.4: vorgerendert für den googelnden Besucher.
+ * §9.1/§22: vorgerendert für den googelnden Besucher und No-JS-Lesbarkeit.
  * §13.1: /admin ist nur lokal/Dev erreichbar — NICHT im Prod-Build.
  */
+import { checkConfig } from '@/config/checkConfig';
+
+/** Lösungsseiten je live-fähigem Problem (Objekt-Gate-gefiltert im Build-Export). */
+export const LOESUNGS_ROUTEN: string[] = checkConfig.problems.map((p) => `/loesungen/${p.slug}`);
 
 /**
  * Alle statischen Routen, die vorgerendert (SSG) werden sollen.
@@ -10,6 +14,7 @@
  */
 export const ROUTEN_ZUM_PRERENDERN: string[] = [
   '/',
+  ...LOESUNGS_ROUTEN,
   '/founder',
   '/faq',
   '/impressum',
@@ -18,9 +23,8 @@ export const ROUTEN_ZUM_PRERENDERN: string[] = [
 
 /**
  * Fallback-Hinweis für Besucher ohne JavaScript.
- * Die Schatzsuche (Bestandspotenzial-Analyse) ist JS-abhängig.
- * §15.4: „Suche ist JS-only → klarer No-JS-Hinweis-Fallback"
+ * Der Bestands-Check ist JS-abhängig (§9.1/§18).
  */
 export const NO_JS_HINWEIS =
-  'Die Bestandspotenzial-Suche (Schatzsuche) benötigt JavaScript. ' +
-  'Bitte aktivieren Sie JavaScript in Ihrem Browser, um alle Funktionen nutzen zu können.';
+  'Der Bestands-Check benötigt JavaScript. Bitte aktivieren Sie JavaScript in Ihrem Browser, ' +
+  'um die Analyse zu nutzen — oder vereinbaren Sie direkt ein Gespräch.';

@@ -53,17 +53,18 @@ describe('Sprach-Gates §17', () => {
     expect(treffer.map((d) => d.pfad)).toEqual([]);
   });
 
-  it('"ResidentFlowAI" kommt in src/ ausschließlich im Skalierungs-Block (Stufe3Automatisierung.tsx) vor (§11 Block 7)', () => {
-    const erlaubterPfad = path.resolve(
-      srcVerzeichnis,
-      'components/treppe/Stufe3Automatisierung.tsx',
-    );
+  it('"ResidentFlowAI" kommt in src/ ausschließlich im Skalierungs-Block (§11 Block 7) vor', () => {
+    // Erlaubt im neuen SolutionResult-Skalierungsblock; der alte Treppe-Block bleibt
+    // toleriert, bis die Treppe vollständig entfernt ist.
+    const erlaubtePfade = [
+      path.resolve(srcVerzeichnis, 'components/solution-result/SkalierungsBlock.tsx'),
+      path.resolve(srcVerzeichnis, 'components/treppe/Stufe3Automatisierung.tsx'),
+    ];
     const treffer = inhaltMitPfaden()
       .filter((d) => d.inhalt.includes('ResidentFlowAI'))
       .map((d) => d.pfad);
 
-    // Erlaubt: leer (Datei existiert noch nicht) oder ausschließlich der erlaubte Pfad
-    const unerlaubte = treffer.filter((p) => p !== erlaubterPfad);
+    const unerlaubte = treffer.filter((p) => !erlaubtePfade.includes(p));
     expect(unerlaubte).toEqual([]);
   });
 
