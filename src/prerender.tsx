@@ -18,6 +18,7 @@ export const ROUTEN_ZUM_PRERENDERN: string[] = [
   '/mietanpassungs-pruefpaket',
   '/methodik',
   '/termin',
+  '/partnerprogramm',
   '/founder',
   '/faq',
   '/impressum',

@@ -29,10 +29,11 @@ export function SegmentCTA({ endAusgang }: { endAusgang: string }) {
   const t = TEXTE[endAusgang];
   if (!t) return null;
 
-  // Partnerprogramm-Link aus Settings, sonst auf die Termin-Seite mit Quelle.
+  // Partnerprogramm: optionaler externer Link aus Settings, sonst die eigene Erklärseite.
+  // Makler/Projekt führen direkt zum Termin mit Quelle.
   const href =
-    endAusgang === 'partnerprogramm' && checkConfig.settings.partnerprogrammLink
-      ? checkConfig.settings.partnerprogrammLink
+    endAusgang === 'partnerprogramm'
+      ? checkConfig.settings.partnerprogrammLink || '/partnerprogramm'
       : `/termin?src=${t.src}`;
 
   return (

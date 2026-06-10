@@ -4,6 +4,7 @@ import { LoesungsSeite } from './pages/LoesungsSeite';
 import { PruefpaketSeite } from './pages/PruefpaketSeite';
 import { MethodikSeite } from './pages/MethodikSeite';
 import { TerminSeite } from './pages/TerminSeite';
+import { PartnerprogrammSeite } from './pages/PartnerprogrammSeite';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
 import { Impressum } from './components/content/Impressum';
@@ -26,6 +27,7 @@ const basisRouten: RouteObject[] = [
   { path: '/mietanpassungs-pruefpaket', element: <PruefpaketSeite /> },
   { path: '/methodik', element: <MethodikSeite /> },
   { path: '/termin', element: <TerminSeite /> },
+  { path: '/partnerprogramm', element: <PartnerprogrammSeite /> },
   { path: '/founder', element: <FounderStory /> },
   { path: '/faq', element: <FAQ /> },
   { path: '/impressum', element: <Impressum /> },

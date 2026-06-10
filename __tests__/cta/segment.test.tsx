@@ -5,9 +5,9 @@ import { SolutionResult } from '@/components/solution-result/SolutionResult';
 import { problemBySlug } from '@/config/checkConfig';
 
 describe('SegmentCTA (§14.5)', () => {
-  it('Partnerprogramm ohne gesetzten Link → /termin?src=partner', () => {
+  it('Partnerprogramm ohne externen Link → eigene Erklärseite /partnerprogramm', () => {
     render(<SegmentCTA endAusgang="partnerprogramm" />);
-    expect(screen.getByTestId('segment-cta-link')).toHaveAttribute('href', '/termin?src=partner');
+    expect(screen.getByTestId('segment-cta-link')).toHaveAttribute('href', '/partnerprogramm');
     expect(screen.getByText(/Partneransatz besprechen/)).toBeInTheDocument();
   });
 
