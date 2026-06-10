@@ -4,7 +4,7 @@ import { render, screen, within } from '@testing-library/react';
 import { routing } from '@/domain/engine/routing';
 import { bestimmeStufen } from '@/domain/engine/bestimmeStufen';
 import { aggregiere } from '@/domain/engine/aggregiere';
-import type { HebelLaufzeit, RoutingErgebnis, StufenFreigabe } from '@/domain/types';
+import type { LoesungLaufzeit, RoutingErgebnis, StufenFreigabe } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 import { TERMINLINK_TEXT } from '@/content/texte';
 
@@ -25,35 +25,34 @@ function routingMitStufen(
   return { routing: r, stufen: bestimmeStufen(r) };
 }
 
-const HEBEL_MIT_VIDEO: HebelLaufzeit[] = [
+const LOESUNG_MIT_VIDEO: LoesungLaufzeit[] = [
   {
-    hebelId: 'mietpotenzial',
+    loesungId: 'mietpotenzial',
     zustand: 'quantifiziert',
     rahmung: 'chance',
     spanne: { min: 5000, max: 12000 },
   },
   {
-    hebelId: 'leerstand',
+    loesungId: 'leerstand',
     zustand: 'quantifiziert',
     rahmung: 'chance',
     spanne: { min: 3000, max: 8000 },
   },
 ];
 
-const HEBEL_OHNE_VIDEO: HebelLaufzeit[] = [
-  { hebelId: 'ohne-video-hebel', zustand: 'relevant', rahmung: 'chance' },
+const LOESUNG_OHNE_VIDEO: LoesungLaufzeit[] = [
+  { loesungId: 'ohne-video-loesung', zustand: 'relevant', rahmung: 'chance' },
 ];
 
-const HEBELIDS_MIT_VIDEO = ['mietpotenzial', 'leerstand'];
-const HEBELIDS_OHNE_VIDEO: string[] = [];
+const LOESUNGIDS_MIT_VIDEO = ['mietpotenzial', 'leerstand'];
+const LOESUNGIDS_OHNE_VIDEO: string[] = [];
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
 describe('Treppe M4 (§10)', () => {
-  it('Stufe 1 Methodik ist für alle sichtbar', () => {
+  it('Stufe 1 Playbook ist für alle sichtbar', () => {
     render(<Stufe1Playbook />);
-    expect(screen.getByText(/Stufe 1 — Methodik/i)).toBeInTheDocument();
-    expect(screen.getByTestId('playbook-schwerpunkte')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Playbook ansehen/i })).toBeInTheDocument();
   });
 
   it('Stufe 2 bietet zwei Wege: PrivacyFlow-Download oder geführte Analyse im Termin', () => {
@@ -71,9 +70,9 @@ describe('Treppe M4 (§10)', () => {
       <Treppe
         routing={routingMitStufen(['buyAndHold'], { A: 10 }).routing}
         stufen={stufen}
-        laufzeiten={HEBEL_MIT_VIDEO}
-        hebelIdsWithVideo={HEBELIDS_MIT_VIDEO}
-        gesamtSpanne={aggregiere(HEBEL_MIT_VIDEO)}
+        laufzeiten={LOESUNG_MIT_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_MIT_VIDEO}
+        gesamtSpanne={aggregiere(LOESUNG_MIT_VIDEO)}
       />,
     );
     expect(screen.queryByTestId('stufe3')).not.toBeInTheDocument();
@@ -86,9 +85,9 @@ describe('Treppe M4 (§10)', () => {
       <Treppe
         routing={r}
         stufen={stufen}
-        laufzeiten={HEBEL_MIT_VIDEO}
-        hebelIdsWithVideo={HEBELIDS_MIT_VIDEO}
-        gesamtSpanne={aggregiere(HEBEL_MIT_VIDEO)}
+        laufzeiten={LOESUNG_MIT_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_MIT_VIDEO}
+        gesamtSpanne={aggregiere(LOESUNG_MIT_VIDEO)}
       />,
     );
     expect(screen.getByTestId('stufe3')).toBeInTheDocument();
@@ -97,7 +96,10 @@ describe('Treppe M4 (§10)', () => {
   it('"ResidentFlowAI" erscheint ausschließlich in der Stufe-3-Komponente', () => {
     // Stufe3Automatisierung enthält den Begriff
     const { unmount } = render(
-      <Stufe3Automatisierung laufzeiten={HEBEL_MIT_VIDEO} hebelIdsWithVideo={HEBELIDS_MIT_VIDEO} />,
+      <Stufe3Automatisierung
+        laufzeiten={LOESUNG_MIT_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_MIT_VIDEO}
+      />,
     );
     expect(document.body.textContent).toContain('ResidentFlowAI');
     unmount();
@@ -119,7 +121,7 @@ describe('Treppe M4 (§10)', () => {
         routing={r}
         stufen={stufen}
         gesamtSpanne={spanne}
-        laufzeiten={HEBEL_MIT_VIDEO}
+        laufzeiten={LOESUNG_MIT_VIDEO}
       />,
     );
     expect(document.body.textContent).not.toContain('ResidentFlowAI');
@@ -129,24 +131,27 @@ describe('Treppe M4 (§10)', () => {
     expect(document.body.textContent).not.toContain('ResidentFlowAI');
   });
 
-  it('Stufe 3 zeigt ein Video pro Hebel', () => {
-    render(
-      <Stufe3Automatisierung laufzeiten={HEBEL_MIT_VIDEO} hebelIdsWithVideo={HEBELIDS_MIT_VIDEO} />,
-    );
-    // Jeder Hebel mit Video bekommt einen Video-Container
-    const videos = screen.getAllByTestId(/video-hebel-/);
-    expect(videos).toHaveLength(HEBEL_MIT_VIDEO.length);
-  });
-
-  it('ein Hebel ohne Video zeigt ab Schwelle direkt den Terminlink (Übergangszustand)', () => {
+  it('Stufe 3 zeigt ein Video pro Loesung', () => {
     render(
       <Stufe3Automatisierung
-        laufzeiten={HEBEL_OHNE_VIDEO}
-        hebelIdsWithVideo={HEBELIDS_OHNE_VIDEO}
+        laufzeiten={LOESUNG_MIT_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_MIT_VIDEO}
+      />,
+    );
+    // Jeder Loesung mit Video bekommt einen Video-Container
+    const videos = screen.getAllByTestId(/video-loesung-/);
+    expect(videos).toHaveLength(LOESUNG_MIT_VIDEO.length);
+  });
+
+  it('ein Loesung ohne Video zeigt ab Schwelle direkt den Terminlink (Übergangszustand)', () => {
+    render(
+      <Stufe3Automatisierung
+        laufzeiten={LOESUNG_OHNE_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_OHNE_VIDEO}
       />,
     );
     // kein Video
-    expect(screen.queryByTestId(/video-hebel-/)).not.toBeInTheDocument();
+    expect(screen.queryByTestId(/video-loesung-/)).not.toBeInTheDocument();
     // stattdessen Terminlink
     expect(screen.getByText(TERMINLINK_TEXT)).toBeInTheDocument();
   });
@@ -170,7 +175,7 @@ describe('Treppe M4 (§10)', () => {
         routing={r}
         stufen={stufen}
         gesamtSpanne={spanne}
-        laufzeiten={HEBEL_MIT_VIDEO}
+        laufzeiten={LOESUNG_MIT_VIDEO}
       />,
     );
     expect(screen.getByTestId('empfohlener-hauptweg')).toBeInTheDocument();
@@ -185,7 +190,7 @@ describe('Treppe M4 (§10)', () => {
         routing={r}
         stufen={stufen}
         gesamtSpanne={spanne}
-        laufzeiten={HEBEL_MIT_VIDEO}
+        laufzeiten={LOESUNG_MIT_VIDEO}
       />,
     );
     const ergebnisContainer = screen.getByTestId('gesamtpotenzial');
@@ -210,9 +215,9 @@ describe('Treppe M4 (§10)', () => {
       <Treppe
         routing={r}
         stufen={stufen}
-        laufzeiten={HEBEL_MIT_VIDEO}
-        hebelIdsWithVideo={HEBELIDS_MIT_VIDEO}
-        gesamtSpanne={aggregiere(HEBEL_MIT_VIDEO)}
+        laufzeiten={LOESUNG_MIT_VIDEO}
+        loesungIdsWithVideo={LOESUNGIDS_MIT_VIDEO}
+        gesamtSpanne={aggregiere(LOESUNG_MIT_VIDEO)}
       />,
     );
     expect(screen.getByTestId('stufe1')).toBeInTheDocument();

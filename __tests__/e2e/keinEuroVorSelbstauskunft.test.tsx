@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import { LandingPage } from '@/pages/LandingPage';
 
 /** Sucht nach einer Euro-Betrags-Angabe (Zahl gefolgt von €). */
@@ -9,44 +8,27 @@ function enthaeltEuroBetrag(text: string): boolean {
 }
 
 /**
- * Textinhalt nur der interaktiven Such-/Ergebnis-Abschnitte (6+7). Der statische
- * Problem-Abschnitt (§9 #3) zeigt bewusst eine editoriale Merk-Zahl und ist hier ausgenommen —
- * die §7-Regel betrifft die berechneten Potenziale der Suche, nicht die illustrative Merk-Zahl.
+ * §3.3/§11.2: keine €-Spanne OHNE Selbstauskunft. Erst nachdem Rolle UND Größe gewählt
+ * sind (Selbstauskunft), darf die quantifizierte €-Spanne erscheinen — vorher nie.
  */
-function suchUndErgebnisText(): string {
-  const ids = ['abschnitt-6-schatzsuche', 'abschnitt-7-ergebnis'];
-  return ids
-    .map((id) => document.querySelector(`[data-testid="${id}"]`)?.textContent ?? '')
-    .join(' ');
-}
-
-describe('E2E — keine Euro-Zahl vor Selbstauskunft (§7/§17)', () => {
-  it('zeigt bis einschließlich Problemauswahl keine Euro-Spanne — erst nach Detailangabe', async () => {
-    const user = userEvent.setup();
+describe('E2E — keine €-Zahl vor Selbstauskunft (§3.3/§11.2)', () => {
+  it('S0/S1: vor abgeschlossener Größenwahl keine €-Spanne; nach Rolle+Größe+Problem erscheint sie', () => {
     render(<LandingPage />);
+    const hero = screen.getByTestId('hero-check');
 
-    // Tätigkeit A
-    await user.click(await screen.findByRole('checkbox', { name: /Eigener Bestand/i }));
-    await user.click(screen.getByRole('button', { name: /Weiter/i }));
-    // Größe
-    const input = screen.getByRole('spinbutton');
-    await user.clear(input);
-    await user.type(input, '60');
-    await user.click(screen.getByRole('button', { name: /Weiter/i }));
-    // Probleme: Ertrag & Rendite → Mietpotenzial (quantifizierbar)
-    await user.click(screen.getByText(/Ertrag & Rendite/));
-    await user.click(screen.getAllByRole('checkbox')[0]!);
-    await user.click(screen.getByRole('button', { name: /Weiter/i }));
+    // S0: nur Rollen-Frage → keine €
+    expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
 
-    // Detail-Schritt erreicht, ABER noch keine Selbstauskunft → keine Euro-Zahl im Such-/Ergebnisbereich
-    await screen.findByTestId('abschnitt-7-ergebnis');
-    expect(enthaeltEuroBetrag(suchUndErgebnisText())).toBe(false);
+    // Rolle gewählt, Größe noch offen → weiterhin keine €
+    fireEvent.click(within(hero).getByTestId('role-buyAndHold'));
+    expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
 
-    // Selbstauskunft eingeben → jetzt darf eine Euro-Spanne erscheinen
-    const detailInput = screen.getByRole('spinbutton');
-    await user.clear(detailInput);
-    await user.type(detailInput, '20');
-
-    expect(enthaeltEuroBetrag(suchUndErgebnisText())).toBe(true);
+    // Größe + Problem gewählt (Selbstauskunft vollständig) → quantifizierte €-Spanne erlaubt
+    fireEvent.click(within(hero).getByTestId('size-3'));
+    fireEvent.click(within(hero).getByTestId('problem-mieten-indexmieten-pruefen'));
+    expect(within(hero).getByTestId('euro-spanne')).toBeInTheDocument();
+    expect(enthaeltEuroBetrag(within(hero).getByTestId('euro-spanne').textContent ?? '')).toBe(
+      true,
+    );
   });
 });

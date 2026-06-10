@@ -62,31 +62,3 @@ hr {
   outline: 2px solid var(--farbe-akzent);
   outline-offset: 2px;
 }
-
-/* ——— Responsive Layout-Hilfen ———
-   Inline-Styles können keine Media Queries — Raster, die auf Mobile stapeln
-   müssen, bekommen daher hier ihre Spaltendefinition. minmax(0, …) erlaubt
-   Schrumpfen unter die Inhaltsbreite (kein horizontaler Overflow). */
-
-.zwei-spalten {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-}
-
-.founder-grid {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 3rem;
-  align-items: start;
-}
-
-@media (max-width: 640px) {
-  .zwei-spalten {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .founder-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
-  }
-}

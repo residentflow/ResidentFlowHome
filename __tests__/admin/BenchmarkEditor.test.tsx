@@ -14,8 +14,8 @@ describe('BenchmarkEditor', () => {
     render(<BenchmarkEditor config={aktuelleConfig} onAendern={onAendern} />);
 
     // Der Editor muss Benchmark-Faktoren anzeigen
-    // Für jeden quantifizierbaren Hebel mit Formel sind Faktoren-Felder sichtbar
-    const quantifizierbar = aktuelleConfig.hebel.filter((h) => h.quantifizierbar && h.berechnung);
+    // Für jeden quantifizierbaren Loesung mit Formel sind Faktoren-Felder sichtbar
+    const quantifizierbar = aktuelleConfig.loesung.filter((h) => h.quantifizierbar && h.berechnung);
     expect(quantifizierbar.length).toBeGreaterThan(0);
 
     // Min- und Max-Felder müssen vorhanden sein (Spannen-Zwang)

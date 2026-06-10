@@ -4,10 +4,9 @@ import { Stufe1Playbook } from '@/components/treppe/Stufe1Playbook';
 import { schatzsucheConfig } from '@/content/schatzsuche.config';
 
 describe('Stufe1Playbook — 6 Schwerpunkte (§10.1)', () => {
-  it('enthält keinen externen Link (kein Skool-Abfluss, PRD v6 §G7)', () => {
-    const { container } = render(<Stufe1Playbook />);
-    expect(container.querySelector('a[href^="http"]')).toBeNull();
-    expect(screen.queryByRole('button', { name: /Playbook ansehen/i })).not.toBeInTheDocument();
+  it('zeigt den CTA "Playbook ansehen"', () => {
+    render(<Stufe1Playbook />);
+    expect(screen.getByRole('button', { name: /Playbook ansehen/i })).toBeInTheDocument();
   });
 
   it('rendert alle 6 Schwerpunkt-Titel mit Beschreibung', () => {

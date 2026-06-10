@@ -24,7 +24,7 @@ export function FounderStory() {
           Ich habe dafür Werkzeuge gesucht. Was ich fand, waren entweder Verwaltungstools — sehr gut
           darin, den laufenden Betrieb abzubilden — oder generische Rechner, die mit pauschalen
           Annahmen arbeiten. Kein System hat aktiv nach Potenzial gesucht. Keines hat mir gesagt:
-          Hier liegt noch Geld, das du nicht abholst.
+          Hier liegt noch Geld, das Sie nicht abholen.
         </p>
         <p>
           Also habe ich es gebaut. Nicht als Softwareprojekt, sondern weil ich es selbst brauchte.

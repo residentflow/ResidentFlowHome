@@ -6,7 +6,7 @@ import { schatzsucheConfig } from '@/content/schatzsuche.config';
 const config = schatzsucheConfig;
 
 describe('useSchatzsuche — Hook-Logik (§8)', () => {
-  it('liefert zu gewählten Problemen die relevanten Hebel', () => {
+  it('liefert zu gewählten Problemen die relevanten Loesung', () => {
     const { result } = renderHook(() => useSchatzsuche(config));
 
     act(() => {
@@ -14,15 +14,15 @@ describe('useSchatzsuche — Hook-Logik (§8)', () => {
       result.current.setzeGroesse('A', 60);
     });
 
-    // Problem wählen, das Mietpotenzial-Hebel verknüpft
+    // Problem wählen, das Mietpotenzial-Loesung verknüpft
     const mietproblem = config.probleme.find((p) => p.id === 'mieterhoehung')!;
     act(() => {
       result.current.waehleProbleme([mietproblem.id]);
     });
 
-    const hebel = result.current.relevanteHebel;
-    expect(hebel.length).toBeGreaterThan(0);
-    expect(hebel.some((h) => h.hebelId === 'mietpotenzial')).toBe(true);
+    const loesung = result.current.relevanteLoesung;
+    expect(loesung.length).toBeGreaterThan(0);
+    expect(loesung.some((h) => h.loesungId === 'mietpotenzial')).toBe(true);
   });
 
   it('erzeugt keine Euro-Zahl, solange keine Selbstauskunft vorliegt', () => {
@@ -34,8 +34,8 @@ describe('useSchatzsuche — Hook-Logik (§8)', () => {
       result.current.waehleProbleme(['mieterhoehung']);
     });
 
-    // Noch keine Detailangabe → alle Hebel im Zustand 'relevant', keine Spanne
-    result.current.relevanteHebel.forEach((h) => {
+    // Noch keine Detailangabe → alle Loesung im Zustand 'relevant', keine Spanne
+    result.current.relevanteLoesung.forEach((h) => {
       expect(h.spanne).toBeUndefined();
       expect(h.zustand).toBe('relevant');
     });
@@ -54,7 +54,7 @@ describe('useSchatzsuche — Hook-Logik (§8)', () => {
     expect(result.current.aggregat.min).toBe(0);
     expect(result.current.aggregat.max).toBe(0);
 
-    // Detailangabe für Mietpotenzial-Hebel
+    // Detailangabe für Mietpotenzial-Loesung
     act(() => {
       result.current.setzeDetailAngabe('mietpotenzial', 'einheitenMitPotenzial', 10);
     });

@@ -4,7 +4,7 @@ import { ROLLEN } from '@/domain/enums';
 import type { Rolle } from '@/domain/enums';
 import { routing } from '@/domain/engine/routing';
 import { filterProbleme } from '@/domain/engine/filterProbleme';
-import { findeRelevanteHebel } from '@/domain/engine/findeRelevanteHebel';
+import { findeRelevanteLoesung } from '@/domain/engine/findeRelevanteLoesung';
 
 interface Props {
   config: Config;
@@ -32,7 +32,7 @@ const END_AUSGANG_LABELS: Record<string, string> = {
 
 /**
  * Vorschau (§13.3): zeigt die Suche für gewählte Rolle + Größe + Problem.
- * Nutzt die Engine (routing, filterProbleme, findeRelevanteHebel).
+ * Nutzt die Engine (routing, filterProbleme, findeRelevanteLoesung).
  */
 export function Vorschau({ config }: Props) {
   const [gewaehlteRolle, setGewaehlteRolle] = useState<Rolle>('buyAndHold');
@@ -51,9 +51,9 @@ export function Vorschau({ config }: Props) {
   });
 
   const gewaehltProblem = config.probleme.find((p) => p.id === gewaehltesProblemId);
-  const relevanteHebel = findeRelevanteHebel(
+  const relevanteLoesung = findeRelevanteLoesung(
     gewaehltProblem ? [gewaehltProblem] : gefiltertProbleme,
-    config.hebel,
+    config.loesung,
   );
 
   return (
@@ -160,12 +160,12 @@ export function Vorschau({ config }: Props) {
       </div>
 
       <div style={{ marginTop: '1rem' }}>
-        <h3>Relevante Hebel ({relevanteHebel.length})</h3>
-        {relevanteHebel.length === 0 ? (
-          <p>Keine Hebel für die aktuelle Auswahl.</p>
+        <h3>Relevante Loesung ({relevanteLoesung.length})</h3>
+        {relevanteLoesung.length === 0 ? (
+          <p>Keine Loesung für die aktuelle Auswahl.</p>
         ) : (
           <ul>
-            {relevanteHebel.map((h) => (
+            {relevanteLoesung.map((h) => (
               <li key={h.id} style={{ marginBottom: '0.5rem' }}>
                 <strong>{h.name}</strong>{' '}
                 <span style={{ color: '#666', fontSize: '0.85em' }}>

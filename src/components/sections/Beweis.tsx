@@ -162,9 +162,7 @@ export function Beweis() {
             justifyContent: 'center',
             fontSize: '1.5rem',
           }}
-        >
-          👤
-        </div>
+        ></div>
 
         <div>
           <blockquote

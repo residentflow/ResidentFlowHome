@@ -1,4 +1,4 @@
-import type { RoutingErgebnis, StufenFreigabe, HebelLaufzeit } from '@/domain/types';
+import type { RoutingErgebnis, StufenFreigabe, LoesungLaufzeit } from '@/domain/types';
 import type { Spanne } from '@/domain/schema/spanne';
 import { Section } from '@/components/ui/Section';
 import { Terminlink } from '@/components/treppe/Terminlink';
@@ -7,7 +7,7 @@ interface VerdichtetesErgebnisProps {
   routing: RoutingErgebnis;
   stufen: StufenFreigabe;
   gesamtSpanne: Spanne;
-  laufzeiten: HebelLaufzeit[];
+  laufzeiten: LoesungLaufzeit[];
 }
 
 /**
@@ -89,13 +89,13 @@ export function VerdichtetesErgebnis({
         <ul>
           {!istMultiplikator && (
             <>
-              <li>Methodik ansehen — sechs Schwerpunkte in Stufe 1</li>
+              <li>Playbook ansehen — vollständige Methodenbibliothek</li>
               <li>ResidentPrivacyFlow herunterladen — lokale Analyse ohne Installation</li>
             </>
           )}
           {istMultiplikator && <li>Kontaktaufnahme für individuelle Partnerkonditionen</li>}
           {stufen.stufe3 && !istMultiplikator && (
-            <li>Vollautomatisierung mit Stufe 3 — gemeinsam im Termin besprechen</li>
+            <li>Vollautomatisierung mit Stufe 3 — Videoanleitung je Lösung</li>
           )}
         </ul>
       </div>

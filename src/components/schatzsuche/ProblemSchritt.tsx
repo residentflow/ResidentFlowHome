@@ -58,7 +58,7 @@ export function ProblemSchritt({
       <div data-testid="schritt-probleme">
         <h2 style={{ marginBottom: '1.5rem' }}>Wo drückt der Schuh am stärksten?</h2>
         <p style={{ marginBottom: '1rem', color: 'var(--farbe-text-leise, #666)' }}>
-          Wählen Sie den Bereich, der Sie aktuell am stärksten beschäftigt.
+          Wählen Sie einen Bereich, der Sie beschäftigt.
         </p>
 
         <div

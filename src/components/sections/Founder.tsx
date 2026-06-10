@@ -9,7 +9,15 @@ import { Section } from '@/components/ui/Section';
 export function Founder() {
   return (
     <Section id="founder" ariaLabel="Über den Gründer">
-      <div className="founder-grid" style={{ maxWidth: '820px' }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'auto 1fr',
+          gap: '3rem',
+          alignItems: 'start',
+          maxWidth: '820px',
+        }}
+      >
         {/* Foto-Platzhalter */}
         <div style={{ flexShrink: 0 }}>
           <div
@@ -25,9 +33,7 @@ export function Founder() {
               justifyContent: 'center',
               fontSize: '2.5rem',
             }}
-          >
-            👤
-          </div>
+          ></div>
           <p
             style={{
               margin: '0.75rem 0 0',

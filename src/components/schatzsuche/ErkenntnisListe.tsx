@@ -1,9 +1,9 @@
 import { ERKENNTNIS_HEADER } from '@/content/texte';
-import type { HebelLaufzeit } from '@/domain/types';
+import type { LoesungLaufzeit } from '@/domain/types';
 
 interface ErkenntnisListeProps {
-  laufzeiten: HebelLaufzeit[];
-  hebelNamen: Record<string, string>;
+  laufzeiten: LoesungLaufzeit[];
+  loesungNamen: Record<string, string>;
 }
 
 function formatierteSpanne(min: number, max: number): string {
@@ -13,10 +13,10 @@ function formatierteSpanne(min: number, max: number): string {
 
 /**
  * Mitlaufende Erkenntnis-Liste (§8.2).
- * Header: „Bereits identifizierte Hebel: N"
- * Je Zeile: Hebel-Name + Euro-Spanne ODER qualitativer Nutzen — gleichrangig.
+ * Header: „Bereits identifizierte Lösungen: N"
+ * Je Zeile: Loesung-Name + Euro-Spanne ODER qualitativer Nutzen — gleichrangig.
  */
-export function ErkenntnisListe({ laufzeiten, hebelNamen }: ErkenntnisListeProps) {
+export function ErkenntnisListe({ laufzeiten, loesungNamen }: ErkenntnisListeProps) {
   return (
     <div
       style={{
@@ -47,19 +47,19 @@ export function ErkenntnisListe({ laufzeiten, hebelNamen }: ErkenntnisListeProps
         }}
       >
         {laufzeiten.map((laufzeit) => {
-          const name = hebelNamen[laufzeit.hebelId] ?? laufzeit.hebelId;
+          const name = loesungNamen[laufzeit.loesungId] ?? laufzeit.loesungId;
           const wertAnzeige = laufzeit.spanne
             ? `${formatierteSpanne(laufzeit.spanne.min, laufzeit.spanne.max)} p.a.`
             : (laufzeit.nutzenAussage ?? '(Potenzial wird berechnet …)');
           return (
             <li
-              key={laufzeit.hebelId}
+              key={laufzeit.loesungId}
               style={{
                 fontSize: '0.95rem',
                 padding: '0.35rem 0',
               }}
             >
-              ✅ {name} — {wertAnzeige}
+              {name} — {wertAnzeige}
             </li>
           );
         })}

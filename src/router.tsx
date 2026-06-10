@@ -1,22 +1,14 @@
 import { type RouteObject } from 'react-router-dom';
-import type { ReactNode, ReactElement } from 'react';
 import { LandingPage } from './pages/LandingPage';
+import { LoesungsSeite } from './pages/LoesungsSeite';
+import { PruefpaketSeite } from './pages/PruefpaketSeite';
+import { MethodikSeite } from './pages/MethodikSeite';
+import { TerminSeite } from './pages/TerminSeite';
+import { PartnerprogrammSeite } from './pages/PartnerprogrammSeite';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
 import { Impressum } from './components/content/Impressum';
 import { Datenschutz } from './components/content/Datenschutz';
-import { NichtGefunden } from './components/content/NichtGefunden';
-import { Footer } from './components/ui/Footer';
-
-/** Jede Seite bekommt den Footer (Impressum/Datenschutz müssen von überall erreichbar sein). */
-function mitFooter(element: ReactNode): ReactElement {
-  return (
-    <>
-      {element}
-      <Footer />
-    </>
-  );
-}
 
 /**
  * Routing der Landingpage. Die CMS-Route (/admin) ist eine reine Dev-Route und darf nicht in den
@@ -30,13 +22,16 @@ export function istCmsRoute(pfad: string): boolean {
 }
 
 const basisRouten: RouteObject[] = [
-  { path: '/', element: mitFooter(<LandingPage />) },
-  { path: '/founder', element: mitFooter(<FounderStory />) },
-  { path: '/faq', element: mitFooter(<FAQ />) },
-  { path: '/impressum', element: mitFooter(<Impressum />) },
-  { path: '/datenschutz', element: mitFooter(<Datenschutz />) },
-  // Catch-all: gestaltete 404 statt React-Router-Fehlermeldung. Nicht prerendern (kein statischer Pfad).
-  { path: '*', element: mitFooter(<NichtGefunden />) },
+  { path: '/', element: <LandingPage /> },
+  { path: '/loesungen/:slug', element: <LoesungsSeite /> },
+  { path: '/mietanpassungs-pruefpaket', element: <PruefpaketSeite /> },
+  { path: '/methodik', element: <MethodikSeite /> },
+  { path: '/termin', element: <TerminSeite /> },
+  { path: '/partnerprogramm', element: <PartnerprogrammSeite /> },
+  { path: '/founder', element: <FounderStory /> },
+  { path: '/faq', element: <FAQ /> },
+  { path: '/impressum', element: <Impressum /> },
+  { path: '/datenschutz', element: <Datenschutz /> },
 ];
 
 // CMS nur im Dev-Build (§13.1). Dynamischer Import → CmsApp wird aus dem Prod-Bundle entfernt.
