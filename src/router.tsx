@@ -2,6 +2,7 @@ import { type RouteObject } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
 import { LoesungsSeite } from './pages/LoesungsSeite';
 import { PruefpaketSeite } from './pages/PruefpaketSeite';
+import { MethodikSeite } from './pages/MethodikSeite';
 import { FounderStory } from './components/content/FounderStory';
 import { FAQ } from './components/content/FAQ';
 import { Impressum } from './components/content/Impressum';
@@ -22,6 +23,7 @@ const basisRouten: RouteObject[] = [
   { path: '/', element: <LandingPage /> },
   { path: '/loesungen/:slug', element: <LoesungsSeite /> },
   { path: '/mietanpassungs-pruefpaket', element: <PruefpaketSeite /> },
+  { path: '/methodik', element: <MethodikSeite /> },
   { path: '/founder', element: <FounderStory /> },
   { path: '/faq', element: <FAQ /> },
   { path: '/impressum', element: <Impressum /> },

@@ -9,6 +9,7 @@ import {
 import { istHighIntent } from './score';
 import { SolutionResult } from '@/components/solution-result/SolutionResult';
 import { StickyBar } from '@/components/cta/StickyBar';
+import { track, EVENTS } from '@/analytics/plausible';
 
 /**
  * BestandsCheck (PRD §10) — Zustandsmaschine S0→S3, above the fold (§9.1).
@@ -67,10 +68,13 @@ export function BestandsCheck() {
     setRolle(r);
     setBucketIndex(null); // Folgeebenen zurücksetzen (kein voller Reset der UI)
     setProblem(null);
+    track(EVENTS.role_selected, { role: r.slug });
   }
   function waehleBucket(i: number) {
     setBucketIndex(i);
     setProblem(null);
+    const label = rolle?.sizeMetric?.buckets[i]?.label;
+    if (label) track(EVENTS.size_selected, { bucket: label });
   }
   // Chip-Klick = zur jeweiligen Ebene zurück (frühere Auswahl ändern, kein Reset darüber)
   function rolleAendern() {
@@ -179,7 +183,11 @@ export function BestandsCheck() {
                   key={p.slug}
                   type="button"
                   data-testid={`problem-${p.slug}`}
-                  onClick={() => setProblem(p)}
+                  onClick={() => {
+                    setProblem(p);
+                    track(EVENTS.problem_selected, { slug: p.slug });
+                    track(EVENTS.solution_result_rendered, { slug: p.slug });
+                  }}
                   style={{ ...optionStyle, textAlign: 'left' }}
                 >
                   {p.title}

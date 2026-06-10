@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { checkConfig, copy } from '@/config/checkConfig';
 import { buildCalComUrl, type CalComContext } from '@/domain/cta/engine';
+import { track, EVENTS } from '@/analytics/plausible';
 
 /**
  * HighIntentCTA (PRD §14.2): „Ihren Bestand gemeinsam ansehen" + give.short (immer),
@@ -22,7 +23,15 @@ export function HighIntentCTA({ calContext }: { calContext: CalComContext }) {
         borderRadius: 8,
       }}
     >
-      <a data-testid="cta-termin" href={href} style={{ fontWeight: 700, fontSize: '1.05rem' }}>
+      <a
+        data-testid="cta-termin"
+        href={href}
+        onClick={() => {
+          track(EVENTS.cta_clicked, { source: calContext.source });
+          track(EVENTS.calendar_clicked, { source: calContext.source });
+        }}
+        style={{ fontWeight: 700, fontSize: '1.05rem' }}
+      >
         {copy('cta.highIntent')}
       </a>
       <p data-testid="cta-give-short" style={{ margin: '0.5rem 0 0' }}>

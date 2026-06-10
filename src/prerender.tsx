@@ -16,6 +16,7 @@ export const ROUTEN_ZUM_PRERENDERN: string[] = [
   '/',
   ...LOESUNGS_ROUTEN,
   '/mietanpassungs-pruefpaket',
+  '/methodik',
   '/founder',
   '/faq',
   '/impressum',
