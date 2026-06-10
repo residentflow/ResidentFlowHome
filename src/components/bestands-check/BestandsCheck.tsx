@@ -204,6 +204,7 @@ export function BestandsCheck() {
           <SolutionResult
             problem={problem}
             highIntent={highIntent}
+            units={rolle.sizeMetric?.buckets[bucketIndex]?.unitsMid ?? null}
             calContext={{
               role: rolle.slug,
               sizeBucket: rolle.sizeMetric?.buckets[bucketIndex]?.label,

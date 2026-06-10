@@ -8,25 +8,27 @@ function enthaeltEuroBetrag(text: string): boolean {
 }
 
 /**
- * §3.3/§11.2: keine €-Spanne ohne Selbstauskunft — und in L1 (Platzhalter-Benchmarks)
- * erscheint im Check/Ergebnis überhaupt keine €-Zahl, der Relevanzblock bleibt qualitativ.
- * Dieser Test schützt beide Eigenschaften end-to-end.
+ * §3.3/§11.2: keine €-Spanne OHNE Selbstauskunft. Erst nachdem Rolle UND Größe gewählt
+ * sind (Selbstauskunft), darf die quantifizierte €-Spanne erscheinen — vorher nie.
  */
-describe('E2E — keine Euro-Zahl im Check/Ergebnis ohne quantifizierte Benchmarks (§3.3/§11.2)', () => {
-  it('zeigt über den gesamten Durchlauf keine €-Spanne im HeroCheck (L1 qualitativ)', () => {
+describe('E2E — keine €-Zahl vor Selbstauskunft (§3.3/§11.2)', () => {
+  it('S0/S1: vor abgeschlossener Größenwahl keine €-Spanne; nach Rolle+Größe+Problem erscheint sie', () => {
     render(<LandingPage />);
     const hero = screen.getByTestId('hero-check');
 
-    // S0 → S1: noch keine € (nur Rollen-/Größenwahl)
+    // S0: nur Rollen-Frage → keine €
+    expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
+
+    // Rolle gewählt, Größe noch offen → weiterhin keine €
     fireEvent.click(within(hero).getByTestId('role-buyAndHold'));
     expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
 
+    // Größe + Problem gewählt (Selbstauskunft vollständig) → quantifizierte €-Spanne erlaubt
     fireEvent.click(within(hero).getByTestId('size-3'));
-    expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
-
-    // S2 → S3: SolutionResult sichtbar, aber Relevanzblock qualitativ → weiterhin keine €
     fireEvent.click(within(hero).getByTestId('problem-mieten-indexmieten-pruefen'));
-    expect(within(hero).getByTestId('solution-result')).toBeInTheDocument();
-    expect(enthaeltEuroBetrag(hero.textContent ?? '')).toBe(false);
+    expect(within(hero).getByTestId('euro-spanne')).toBeInTheDocument();
+    expect(enthaeltEuroBetrag(within(hero).getByTestId('euro-spanne').textContent ?? '')).toBe(
+      true,
+    );
   });
 });

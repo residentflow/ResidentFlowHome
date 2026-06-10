@@ -17,6 +17,7 @@ export function LoesungsSeite() {
 
   const [rolle, setRolle] = useState<RoleCfg | null>(null);
   const [bucketRank, setBucketRank] = useState<number | null>(null);
+  const [units, setUnits] = useState<number | null>(null);
 
   if (!problem) {
     return (
@@ -44,15 +45,17 @@ export function LoesungsSeite() {
       </p>
       {/* InlineKontextChips: zwei Klicks → quantifiziert/HighIntent (§11.3) */}
       <InlineKontextChips
-        onContext={(r, rank) => {
+        onContext={(r, rank, u) => {
           setRolle(r);
           setBucketRank(rank);
+          setUnits(u);
         }}
       />
       <SolutionResult
         problem={problem}
         highIntent={highIntent}
         showAnswerFirst
+        units={units}
         calContext={{ role: rolle?.slug, problemSlug: problem.slug, source: 'direct' }}
       />
       {highIntent && (

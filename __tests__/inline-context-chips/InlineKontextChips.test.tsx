@@ -18,8 +18,14 @@ describe('InlineKontextChips (§11.3)', () => {
     expect(onContext).toHaveBeenLastCalledWith(
       expect.objectContaining({ slug: 'buyAndHold' }),
       null,
+      null,
     );
     fireEvent.click(screen.getByTestId('chip-bucket-3'));
-    expect(onContext).toHaveBeenLastCalledWith(expect.objectContaining({ slug: 'buyAndHold' }), 3);
+    // Rolle, Bucket-Rang 3, repräsentative Einheiten (unitsMid)
+    expect(onContext).toHaveBeenLastCalledWith(
+      expect.objectContaining({ slug: 'buyAndHold' }),
+      3,
+      expect.any(Number),
+    );
   });
 });

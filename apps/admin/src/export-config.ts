@@ -58,6 +58,7 @@ async function main() {
   const benchmarkById = new Map(benchmarks.map((b) => [b.id, b]));
   const assetById = new Map(assets.map((a) => [a.id, a]));
   const roleSlugById = new Map(roles.map((r) => [r.id, r.slug]));
+  const calcModelIdById = new Map(calcModels.map((m) => [m.id, m.modelId]));
   const idOf = (rel: any) => (rel && typeof rel === 'object' ? rel.id : rel);
   const slugOfRole = (rel: any) => roleSlugById.get(idOf(rel)) || idOf(rel);
 
@@ -112,7 +113,7 @@ async function main() {
   const proofBandEnabled =
     Boolean(settings.proofBandEnabled) &&
     approved.length >= 3 &&
-    approved.some((f) => f.status === 'umsetzung-gestartet');
+    approved.some((f) => f.status === 'umsetzung-gestartet' || f.status === 'realisiert');
 
   // — check.config.json zusammenstellen (nur öffentliche Felder) —
   const checkConfig = {
@@ -170,7 +171,7 @@ async function main() {
           valueCategory: s.valueCategory,
           scaleBreakNote: s.scaleBreakNote,
           nutzenAussage: s.nutzenAussage || null,
-          calculationModel: idOf(s.calculationModel) || null,
+          calculationModel: calcModelIdById.get(idOf(s.calculationModel)) || null,
           primaryAsset: idOf(s.primaryAsset) || null,
           // Nur live-fähige Assets (§25): qualityStatus∈{reviewed,approved} UND riskLevel gesetzt
           assets: (s.assets || [])
@@ -195,7 +196,7 @@ async function main() {
               riskLevel: a.riskLevel,
             })),
         })),
-      calculationModel: idOf(p.calculationModel) || null,
+      calculationModel: calcModelIdById.get(idOf(p.calculationModel)) || null,
     })),
     calculationModels: calcModels.map((m) => ({
       modelId: m.modelId,

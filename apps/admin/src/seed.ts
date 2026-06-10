@@ -58,7 +58,7 @@ const ROLLEN: Array<{
   label: string;
   metricSlug: string;
   frage: string;
-  buckets: Array<[string, number]>;
+  buckets: Array<[string, number, number]>; // [label, rank, unitsMid]
   endAusgang: string;
   allowMandatsCTA: boolean;
   sizeIndependent: boolean;
@@ -69,13 +69,13 @@ const ROLLEN: Array<{
     metricSlug: 'eigene-einheiten',
     frage: 'Wie viele Einheiten umfasst Ihr eigener Bestand ungefähr?',
     buckets: [
-      ['1–10', 0],
-      ['11–29', 1],
-      ['30–49', 2],
-      ['50–99', 3],
-      ['100–249', 4],
-      ['250–600', 5],
-      ['600+', 5],
+      ['1–10', 0, 5],
+      ['11–29', 1, 20],
+      ['30–49', 2, 40],
+      ['50–99', 3, 75],
+      ['100–249', 4, 175],
+      ['250–600', 5, 425],
+      ['600+', 5, 800],
     ],
     endAusgang: 'gespraech',
     allowMandatsCTA: true,
@@ -87,11 +87,11 @@ const ROLLEN: Array<{
     metricSlug: 'betreute-einheiten',
     frage: 'Wie viele Einheiten verwalten oder betreuen Sie ungefähr?',
     buckets: [
-      ['1–49', 0],
-      ['50–199', 2],
-      ['200–499', 3],
-      ['500–999', 4],
-      ['1000+', 5],
+      ['1–49', 0, 25],
+      ['50–199', 2, 125],
+      ['200–499', 3, 350],
+      ['500–999', 4, 750],
+      ['1000+', 5, 1500],
     ],
     endAusgang: 'gespraech',
     allowMandatsCTA: true,
@@ -103,11 +103,11 @@ const ROLLEN: Array<{
     metricSlug: 'vermarktungen-pro-jahr',
     frage: 'Wie viele Verkäufe oder Vermarktungen begleiten Sie ungefähr pro Jahr?',
     buckets: [
-      ['1–5', 0],
-      ['6–15', 2],
-      ['16–30', 3],
-      ['31–75', 4],
-      ['75+', 5],
+      ['1–5', 0, 3],
+      ['6–15', 2, 10],
+      ['16–30', 3, 23],
+      ['31–75', 4, 53],
+      ['75+', 5, 100],
     ],
     endAusgang: 'vermarktungsprozess',
     allowMandatsCTA: false,
@@ -119,11 +119,11 @@ const ROLLEN: Array<{
     metricSlug: 'projekte-pro-jahr',
     frage: 'Wie viele Projekte oder Vermarktungen bearbeiten Sie ungefähr pro Jahr?',
     buckets: [
-      ['1–2', 0],
-      ['3–5', 2],
-      ['6–10', 3],
-      ['11–25', 4],
-      ['25+', 5],
+      ['1–2', 0, 2],
+      ['3–5', 2, 4],
+      ['6–10', 3, 8],
+      ['11–25', 4, 18],
+      ['25+', 5, 35],
     ],
     endAusgang: 'projektprozess',
     allowMandatsCTA: true,
@@ -135,11 +135,11 @@ const ROLLEN: Array<{
     metricSlug: 'mandanten-immobilien',
     frage: 'Wie viele Mandanten mit relevantem Immobilienbestand betreuen Sie?',
     buckets: [
-      ['1–5', 0],
-      ['6–20', 2],
-      ['21–50', 3],
-      ['51–100', 4],
-      ['100+', 5],
+      ['1–5', 0, 3],
+      ['6–20', 2, 13],
+      ['21–50', 3, 35],
+      ['51–100', 4, 75],
+      ['100+', 5, 150],
     ],
     endAusgang: 'partnerprogramm',
     allowMandatsCTA: false,
@@ -186,7 +186,7 @@ async function main() {
         name: r.label,
         slug: r.metricSlug,
         frageWortlaut: r.frage,
-        buckets: r.buckets.map(([label, rank]) => ({ label, rank })),
+        buckets: r.buckets.map(([label, rank, unitsMid]) => ({ label, rank, unitsMid })),
       },
     });
     const role = await payload.create({
@@ -204,27 +204,30 @@ async function main() {
     roleIdBySlug[r.slug] = role.id;
   }
 
-  // Benchmarks (PLATZHALTER, §13) — sperren L2 bis echte Werte geliefert sind
+  // Benchmarks (ECHT, §13) aus eigenem Bestand n=31 — voller Beobachtungsbereich inkl. Staffel.
+  const quelle = 'eigenes Portfolio (4 von 31 Verträgen mit fälliger Anpassung, Stand 2026-06)';
   const bShare = await payload.create({
     collection: 'benchmarks',
     data: {
       key: 'shareContractsUnreviewed24m',
-      min: 0.2,
-      max: 0.4,
+      min: 0.1,
+      max: 0.13,
       unit: 'anteil',
-      source: 'PLATZHALTER eigenes Portfolio',
-      isPlaceholder: true,
+      source: quelle,
+      isPlaceholder: false,
+      lastVerifiedAt: new Date('2026-06-01').toISOString(),
     },
   });
   const bUplift = await payload.create({
     collection: 'benchmarks',
     data: {
       key: 'avgUpliftPerAffectedContract',
-      min: 40,
-      max: 90,
+      min: 25,
+      max: 95,
       unit: 'eur_pro_monat',
-      source: 'PLATZHALTER eigenes Portfolio',
-      isPlaceholder: true,
+      source: quelle,
+      isPlaceholder: false,
+      lastVerifiedAt: new Date('2026-06-01').toISOString(),
     },
   });
 
@@ -333,18 +336,36 @@ async function main() {
     },
   });
 
-  // ProofFinding (Platzhalter, nicht freigegeben → ProofStrip bleibt aus, G1 blockiert L2)
+  // ProofFindings (ECHT, eigenes Portfolio n=31, alle Maßnahmen umgesetzt → realisiert).
+  // Freigegeben (publicApproved). ProofStrip (G1) braucht ≥3 — aktuell 2, bleibt daher noch aus.
   await payload.create({
     collection: 'proof-findings',
     data: {
-      date: new Date().toISOString(),
-      source: 'PLATZHALTER eigenes Portfolio',
+      date: new Date('2026-06-01').toISOString(),
+      source: 'eigenes Portfolio (n=31)',
       category: 'ertrag',
-      title: 'Indexmiete nicht angepasst (> 24 Monate)',
-      affectedCount: 0,
-      baseCount: 0,
-      status: 'identifiziert',
-      publicApproved: false,
+      title: 'Indexmieten nicht angepasst — 3 Verträge nachgezogen',
+      affectedCount: 3,
+      baseCount: 31,
+      realizedValue: 1104, // (35+32+25) €/Monat × 12
+      calculationNote: '3 Verträge × 25–35 €/Monat × 12 = 1.104 €/Jahr, umgesetzt.',
+      status: 'realisiert',
+      publicApproved: true,
+    },
+  });
+  await payload.create({
+    collection: 'proof-findings',
+    data: {
+      date: new Date('2026-06-01').toISOString(),
+      source: 'eigenes Portfolio (n=31)',
+      category: 'ertrag',
+      title: 'Ausgelaufene Mietstaffel — Erhöhung umgesetzt',
+      affectedCount: 1,
+      baseCount: 31,
+      realizedValue: 1140, // 95 €/Monat × 12
+      calculationNote: '1 Vertrag × 95 €/Monat × 12 = 1.140 €/Jahr, umgesetzt.',
+      status: 'realisiert',
+      publicApproved: true,
     },
   });
 
@@ -376,7 +397,9 @@ async function main() {
     },
   });
 
-  console.log('SEED OK — P1-Grundbestand angelegt (Benchmarks als Platzhalter, L2 gesperrt).');
+  console.log(
+    'SEED OK — P1-Grundbestand mit echten Benchmarks (n=31) und 2 realisierten Findings.',
+  );
   process.exit(0);
 }
 

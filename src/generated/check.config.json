@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T05:08:43.229Z",
+  "generatedAt": "2026-06-10T07:50:04.255Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -32,31 +32,38 @@
         "buckets": [
           {
             "label": "1–10",
-            "rank": 0
+            "rank": 0,
+            "unitsMid": 5
           },
           {
             "label": "11–29",
-            "rank": 1
+            "rank": 1,
+            "unitsMid": 20
           },
           {
             "label": "30–49",
-            "rank": 2
+            "rank": 2,
+            "unitsMid": 40
           },
           {
             "label": "50–99",
-            "rank": 3
+            "rank": 3,
+            "unitsMid": 75
           },
           {
             "label": "100–249",
-            "rank": 4
+            "rank": 4,
+            "unitsMid": 175
           },
           {
             "label": "250–600",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 425
           },
           {
             "label": "600+",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 800
           }
         ]
       },
@@ -73,23 +80,28 @@
         "buckets": [
           {
             "label": "1–49",
-            "rank": 0
+            "rank": 0,
+            "unitsMid": 25
           },
           {
             "label": "50–199",
-            "rank": 2
+            "rank": 2,
+            "unitsMid": 125
           },
           {
             "label": "200–499",
-            "rank": 3
+            "rank": 3,
+            "unitsMid": 350
           },
           {
             "label": "500–999",
-            "rank": 4
+            "rank": 4,
+            "unitsMid": 750
           },
           {
             "label": "1000+",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 1500
           }
         ]
       },
@@ -106,23 +118,28 @@
         "buckets": [
           {
             "label": "1–5",
-            "rank": 0
+            "rank": 0,
+            "unitsMid": 3
           },
           {
             "label": "6–15",
-            "rank": 2
+            "rank": 2,
+            "unitsMid": 10
           },
           {
             "label": "16–30",
-            "rank": 3
+            "rank": 3,
+            "unitsMid": 23
           },
           {
             "label": "31–75",
-            "rank": 4
+            "rank": 4,
+            "unitsMid": 53
           },
           {
             "label": "75+",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 100
           }
         ]
       },
@@ -139,23 +156,28 @@
         "buckets": [
           {
             "label": "1–2",
-            "rank": 0
+            "rank": 0,
+            "unitsMid": 2
           },
           {
             "label": "3–5",
-            "rank": 2
+            "rank": 2,
+            "unitsMid": 4
           },
           {
             "label": "6–10",
-            "rank": 3
+            "rank": 3,
+            "unitsMid": 8
           },
           {
             "label": "11–25",
-            "rank": 4
+            "rank": 4,
+            "unitsMid": 18
           },
           {
             "label": "25+",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 35
           }
         ]
       },
@@ -172,23 +194,28 @@
         "buckets": [
           {
             "label": "1–5",
-            "rank": 0
+            "rank": 0,
+            "unitsMid": 3
           },
           {
             "label": "6–20",
-            "rank": 2
+            "rank": 2,
+            "unitsMid": 13
           },
           {
             "label": "21–50",
-            "rank": 3
+            "rank": 3,
+            "unitsMid": 35
           },
           {
             "label": "51–100",
-            "rank": 4
+            "rank": 4,
+            "unitsMid": 75
           },
           {
             "label": "100+",
-            "rank": 5
+            "rank": 5,
+            "unitsMid": 150
           }
         ]
       },
@@ -219,7 +246,7 @@
           "valueCategory": "ertrag",
           "scaleBreakNote": "Diese Prüfung funktioniert für eine Handvoll Verträge. Bei größeren Beständen ist der Wert ein wiederholbarer Prozess: Erkennen, rechtssicher anschreiben, Fristen überwachen — über alle Gesellschaften.",
           "nutzenAussage": null,
-          "calculationModel": 1,
+          "calculationModel": "indexmieten-check",
           "primaryAsset": 1,
           "assets": [
             {
@@ -276,7 +303,7 @@
           ]
         }
       ],
-      "calculationModel": 1
+      "calculationModel": "indexmieten-check"
     }
   ],
   "calculationModels": [
@@ -293,7 +320,20 @@
       ],
       "explanationText": "{units} Einheiten × {share} % typischer Anteil ohne Anpassung × {uplift} €/Monat konservative Anpassung × 12 — Benchmark aus unserem eigenen Portfolio.",
       "sourceNote": "Benchmark aus unserem eigenen Portfolio",
-      "benchmarks": []
+      "benchmarks": [
+        {
+          "key": "shareContractsUnreviewed24m",
+          "min": 0.1,
+          "max": 0.13,
+          "unit": "anteil"
+        },
+        {
+          "key": "avgUpliftPerAffectedContract",
+          "min": 25,
+          "max": 95,
+          "unit": "eur_pro_monat"
+        }
+      ]
     }
   ],
   "ctaRules": [

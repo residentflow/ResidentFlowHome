@@ -8,7 +8,7 @@ import { checkConfig, copy, type RoleCfg } from '@/config/checkConfig';
  * Ohne Auswahl bleibt die Seite voll nutzbar (Motor A).
  */
 interface Props {
-  onContext: (rolle: RoleCfg | null, bucketRank: number | null) => void;
+  onContext: (rolle: RoleCfg | null, bucketRank: number | null, units: number | null) => void;
 }
 
 export function InlineKontextChips({ onContext }: Props) {
@@ -18,12 +18,12 @@ export function InlineKontextChips({ onContext }: Props) {
   function waehleRolle(r: RoleCfg) {
     setRolle(r);
     setBucketIndex(null);
-    onContext(r, null);
+    onContext(r, null, null);
   }
   function waehleBucket(i: number) {
     setBucketIndex(i);
-    const rank = rolle?.sizeMetric?.buckets[i]?.rank ?? null;
-    onContext(rolle, rank);
+    const bucket = rolle?.sizeMetric?.buckets[i];
+    onContext(rolle, bucket?.rank ?? null, bucket?.unitsMid ?? null);
   }
 
   return (

@@ -4,6 +4,7 @@ import { copy } from '@/config/checkConfig';
 import { AssetRenderer } from '@/components/asset-renderer/AssetRenderer';
 import { HighIntentCTA } from '@/components/cta/HighIntentCTA';
 import type { CalComContext } from '@/domain/cta/engine';
+import { berechneRange } from '@/domain/calc/fromConfig';
 import { SkalierungsBlock } from './SkalierungsBlock';
 
 /**
@@ -19,6 +20,8 @@ interface SolutionResultProps {
   showAnswerFirst?: boolean;
   /** cal.com-Prefill-Kontext (§17.2) für die Termin-CTAs. */
   calContext?: CalComContext;
+  /** Repräsentative Einheiten (Bucket-Mittelwert) für die €-Quantifizierung (§13). */
+  units?: number | null;
 }
 
 export function SolutionResult({
@@ -26,8 +29,11 @@ export function SolutionResult({
   highIntent,
   showAnswerFirst,
   calContext,
+  units,
 }: SolutionResultProps) {
   const [offen, setOffen] = useState<string | null>(problem.solutions[0]?.slug ?? null);
+  const [rechenwegOffen, setRechenwegOffen] = useState(false);
+  const range = units != null ? berechneRange(problem, units) : null;
 
   return (
     <section data-testid="solution-result" style={{ marginTop: '1.5rem' }}>
@@ -44,12 +50,46 @@ export function SolutionResult({
         <p style={{ color: 'var(--farbe-tinte-weich, #555)' }}>{problem.userFacingDescription}</p>
       </header>
 
-      {/* 2. Relevanzblock (L1: qualitativ, keine €-Zahl) */}
+      {/* 2. Relevanzblock — Zustandsmaschine (§11.2): quantifiziert (€-Spanne + Rechenweg)
+          sobald Einheiten + nicht-Platzhalter-Benchmarks vorliegen, sonst qualitativ. */}
       <div data-testid="relevanzblock" style={{ marginTop: '0.75rem' }}>
-        <p>
-          Für Ihren Bestand ist das ein relevanter Ansatzpunkt. Eine konservative €-Einschätzung
-          entsteht im Gespräch an Ihrer echten Liste — vor Ihren Augen.
-        </p>
+        {range ? (
+          <div data-testid="relevanz-quantifiziert">
+            <p>
+              Konservativ geschätztes Jahrespotenzial:{' '}
+              <strong data-testid="euro-spanne">
+                {range.spanne.min.toLocaleString('de-DE')}–
+                {range.spanne.max.toLocaleString('de-DE')} €
+              </strong>{' '}
+              p. a.
+            </p>
+            <button
+              type="button"
+              data-testid="rechenweg-toggle"
+              aria-expanded={rechenwegOffen}
+              onClick={() => setRechenwegOffen(!rechenwegOffen)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
+            >
+              Rechenweg anzeigen
+            </button>
+            {rechenwegOffen && (
+              <p data-testid="rechenweg" style={{ color: '#555' }}>
+                {range.rechenweg}
+              </p>
+            )}
+          </div>
+        ) : (
+          <p data-testid="relevanz-qualitativ">
+            Für Ihren Bestand ist das ein relevanter Ansatzpunkt. Eine konservative €-Einschätzung
+            entsteht im Gespräch an Ihrer echten Liste — vor Ihren Augen.
+          </p>
+        )}
         {highIntent && (
           <p data-testid="system-satz" style={{ fontWeight: 600 }}>
             {copy('copy.systemSatz')}
