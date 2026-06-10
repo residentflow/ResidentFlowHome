@@ -30,7 +30,7 @@ describe('DetailSchritt (§7 / §8.4)', () => {
     expect(screen.getByText(/Mietpotenzial-Erkennung/)).toBeInTheDocument();
     // Noch keine Euro-Zahl
     expect(screen.queryByText(/€/)).not.toBeInTheDocument();
-    expect(screen.queryByText(/18[\.,]?000/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/18[.,]?000/)).not.toBeInTheDocument();
   });
 
   it('zeigt die Euro-Spanne erst nach Selbstauskunft', () => {
@@ -50,8 +50,8 @@ describe('DetailSchritt (§7 / §8.4)', () => {
       />,
     );
     // Spanne erscheint
-    expect(screen.getByText(/18[\.,]?000/)).toBeInTheDocument();
-    expect(screen.getByText(/42[\.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/18[.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/42[.,]?000/)).toBeInTheDocument();
     expect(screen.getByText(/€/)).toBeInTheDocument();
   });
 

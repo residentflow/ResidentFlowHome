@@ -16,7 +16,7 @@ export function roundTo100(n: number): number {
 
 /** Spanne auf 100 € runden und min<max sicherstellen (sonst um 100 € spreizen). */
 export function spanne(min: number, max: number): Spanne {
-  let lo = roundTo100(Math.min(min, max));
+  const lo = roundTo100(Math.min(min, max));
   let hi = roundTo100(Math.max(min, max));
   if (lo === hi) hi = lo + 100;
   return { min: lo, max: hi };

@@ -17,8 +17,8 @@ describe('ChanceKarte (§8.3)', () => {
 
     expect(screen.getByText('Mietpotenzial-Erkennung')).toBeInTheDocument();
     // Spanne im Format "18.000 – 42.000 €" o.ä.
-    expect(screen.getByText(/18[\.,]?000/)).toBeInTheDocument();
-    expect(screen.getByText(/42[\.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/18[.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/42[.,]?000/)).toBeInTheDocument();
     expect(screen.getByText(/Typische Ursache/i)).toBeInTheDocument();
     expect(screen.getByText(/Nicht gezogene Mieterhöhungen summieren sich/)).toBeInTheDocument();
     expect(screen.getByText(/Im Playbook erfahren Sie/i)).toBeInTheDocument();

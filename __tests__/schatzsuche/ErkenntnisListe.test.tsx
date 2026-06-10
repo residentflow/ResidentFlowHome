@@ -49,8 +49,8 @@ describe('ErkenntnisListe (§8.2)', () => {
   it('zeigt die Euro-Spanne erst nach Selbstauskunft', () => {
     render(<ErkenntnisListe laufzeiten={[loesungMitSpanne]} loesungNamen={loesungNamen} />);
     // Spanne soll sichtbar sein
-    expect(screen.getByText(/18[\.,]?000/)).toBeInTheDocument();
-    expect(screen.getByText(/42[\.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/18[.,]?000/)).toBeInTheDocument();
+    expect(screen.getByText(/42[.,]?000/)).toBeInTheDocument();
     expect(screen.getByText(/€/)).toBeInTheDocument();
   });
 

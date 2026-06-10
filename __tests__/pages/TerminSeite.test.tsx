@@ -7,11 +7,11 @@ describe('TerminSeite /termin (§7/§14.2)', () => {
     render(<TerminSeite />);
     expect(screen.getByTestId('termin-seite')).toBeInTheDocument();
     const embed = screen.getByTestId('cal-embed');
-    expect(embed.getAttribute('src')).toContain('cal.com/stefan-holhut/15min');
+    expect(embed.getAttribute('src')).toContain('cal.com/stefan-holhut/bestand-ansehen');
     expect(screen.getByTestId('termin-telefon').textContent).toMatch(/Telefon/i);
     expect(screen.getByTestId('termin-extern')).toHaveAttribute(
       'href',
-      'https://cal.com/stefan-holhut/15min',
+      'https://cal.com/stefan-holhut/bestand-ansehen',
     );
   });
 });
