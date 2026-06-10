@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T04:39:44.770Z",
+  "generatedAt": "2026-06-10T04:50:12.996Z",
   "settings": {
     "thresholdHigh": {
       "buyAndHold": 3,
@@ -31,43 +31,43 @@
         "frageWortlaut": "Wie viele Einheiten umfasst Ihr eigener Bestand ungefähr?",
         "buckets": [
           {
-            "id": "6a28ea8cc7e2ad08784d6787",
+            "id": "6a28ed00dc6bcc20c870bc17",
             "label": "1–10",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6788",
+            "id": "6a28ed00dc6bcc20c870bc18",
             "label": "11–29",
             "rank": 1,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6789",
+            "id": "6a28ed00dc6bcc20c870bc19",
             "label": "30–49",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d678a",
+            "id": "6a28ed00dc6bcc20c870bc1a",
             "label": "50–99",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d678b",
+            "id": "6a28ed00dc6bcc20c870bc1b",
             "label": "100–249",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d678c",
+            "id": "6a28ed00dc6bcc20c870bc1c",
             "label": "250–600",
             "rank": 5,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d678d",
+            "id": "6a28ed00dc6bcc20c870bc1d",
             "label": "600+",
             "rank": 5,
             "unitsMid": null
@@ -86,31 +86,31 @@
         "frageWortlaut": "Wie viele Einheiten verwalten oder betreuen Sie ungefähr?",
         "buckets": [
           {
-            "id": "6a28ea8cc7e2ad08784d678e",
+            "id": "6a28ed00dc6bcc20c870bc1e",
             "label": "1–49",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d678f",
+            "id": "6a28ed00dc6bcc20c870bc1f",
             "label": "50–199",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6790",
+            "id": "6a28ed00dc6bcc20c870bc20",
             "label": "200–499",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6791",
+            "id": "6a28ed00dc6bcc20c870bc21",
             "label": "500–999",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6792",
+            "id": "6a28ed00dc6bcc20c870bc22",
             "label": "1000+",
             "rank": 5,
             "unitsMid": null
@@ -129,31 +129,31 @@
         "frageWortlaut": "Wie viele Verkäufe oder Vermarktungen begleiten Sie ungefähr pro Jahr?",
         "buckets": [
           {
-            "id": "6a28ea8cc7e2ad08784d6793",
+            "id": "6a28ed00dc6bcc20c870bc23",
             "label": "1–5",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6794",
+            "id": "6a28ed00dc6bcc20c870bc24",
             "label": "6–15",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6795",
+            "id": "6a28ed00dc6bcc20c870bc25",
             "label": "16–30",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6796",
+            "id": "6a28ed00dc6bcc20c870bc26",
             "label": "31–75",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6797",
+            "id": "6a28ed00dc6bcc20c870bc27",
             "label": "75+",
             "rank": 5,
             "unitsMid": null
@@ -172,31 +172,31 @@
         "frageWortlaut": "Wie viele Projekte oder Vermarktungen bearbeiten Sie ungefähr pro Jahr?",
         "buckets": [
           {
-            "id": "6a28ea8cc7e2ad08784d6798",
+            "id": "6a28ed00dc6bcc20c870bc28",
             "label": "1–2",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d6799",
+            "id": "6a28ed00dc6bcc20c870bc29",
             "label": "3–5",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d679a",
+            "id": "6a28ed00dc6bcc20c870bc2a",
             "label": "6–10",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d679b",
+            "id": "6a28ed00dc6bcc20c870bc2b",
             "label": "11–25",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d679c",
+            "id": "6a28ed00dc6bcc20c870bc2c",
             "label": "25+",
             "rank": 5,
             "unitsMid": null
@@ -215,31 +215,31 @@
         "frageWortlaut": "Wie viele Mandanten mit relevantem Immobilienbestand betreuen Sie?",
         "buckets": [
           {
-            "id": "6a28ea8cc7e2ad08784d679d",
+            "id": "6a28ed00dc6bcc20c870bc2d",
             "label": "1–5",
             "rank": 0,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d679e",
+            "id": "6a28ed00dc6bcc20c870bc2e",
             "label": "6–20",
             "rank": 2,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d679f",
+            "id": "6a28ed00dc6bcc20c870bc2f",
             "label": "21–50",
             "rank": 3,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d67a0",
+            "id": "6a28ed00dc6bcc20c870bc30",
             "label": "51–100",
             "rank": 4,
             "unitsMid": null
           },
           {
-            "id": "6a28ea8cc7e2ad08784d67a1",
+            "id": "6a28ed00dc6bcc20c870bc31",
             "label": "100+",
             "rank": 5,
             "unitsMid": null
@@ -352,6 +352,13 @@
   ],
   "ctaRules": [],
   "copy": {
+    "copy.pruefpaketName": "Mietanpassungs-Prüfpaket — funktioniert mit Claude, ChatGPT und anderen KI-Assistenten",
+    "copy.consentTransfer": "Wenn Sie fortfahren, übermitteln wir Ihre Angaben aus dem Bestands-Check zusammen mit Ihrer E-Mail, um das Gespräch vorzubereiten / Ihr Ergebnis zu senden.",
+    "copy.uploadObjection": "Ich würde meine Mieterliste auch auf keiner Website hochladen. Deshalb verlangt ResidentFlow das nicht — Sie sehen die Analyse an meinem Bestand, und Ihre Liste schauen wir uns dort an, wo Sie jeden Schritt sehen können.",
+    "cta.scarcity": "Aktuell {n} Diagnose-Gespräche pro Monat.",
+    "cta.give.long": "Ihre Liste bleibt bei Ihnen. Sie sehen live, was ResidentFlow erkennt. Am Ende haben Sie eine konkrete Prioritätenliste — auch wenn wir nicht zusammenarbeiten.",
+    "cta.exampleBridge": "Dieselbe Analyse machen wir mit Ihrer Liste — im Gespräch, vor Ihren Augen. Ihre Liste bleibt bei Ihnen.",
+    "copy.founderMicro": "„Eigener Bestandshalter, eigenes Geld im Spiel. Diese Zahlen sind aus meinem eigenen Portfolio — genau so finde ich, was bei Ihnen liegen bleibt.\"",
     "copy.chipsMicro": "Für eine konservative €-Einschätzung — bleibt in Ihrem Browser.",
     "cta.give.short": "30 Minuten. Wir prüfen Ihre Liste vor Ihren Augen und priorisieren die 3 größten Bestandspotenziale. Kein Upload. Kein Pitch.",
     "cta.highIntent": "Ihren Bestand gemeinsam ansehen",

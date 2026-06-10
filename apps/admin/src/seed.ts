@@ -25,6 +25,31 @@ const COPY: Array<[string, string]> = [
     '30 Minuten. Wir prüfen Ihre Liste vor Ihren Augen und priorisieren die 3 größten Bestandspotenziale. Kein Upload. Kein Pitch.',
   ],
   ['copy.chipsMicro', 'Für eine konservative €-Einschätzung — bleibt in Ihrem Browser.'],
+  [
+    'copy.founderMicro',
+    '„Eigener Bestandshalter, eigenes Geld im Spiel. Diese Zahlen sind aus meinem eigenen Portfolio — genau so finde ich, was bei Ihnen liegen bleibt."',
+  ],
+  [
+    'cta.exampleBridge',
+    'Dieselbe Analyse machen wir mit Ihrer Liste — im Gespräch, vor Ihren Augen. Ihre Liste bleibt bei Ihnen.',
+  ],
+  [
+    'cta.give.long',
+    'Ihre Liste bleibt bei Ihnen. Sie sehen live, was ResidentFlow erkennt. Am Ende haben Sie eine konkrete Prioritätenliste — auch wenn wir nicht zusammenarbeiten.',
+  ],
+  ['cta.scarcity', 'Aktuell {n} Diagnose-Gespräche pro Monat.'],
+  [
+    'copy.uploadObjection',
+    'Ich würde meine Mieterliste auch auf keiner Website hochladen. Deshalb verlangt ResidentFlow das nicht — Sie sehen die Analyse an meinem Bestand, und Ihre Liste schauen wir uns dort an, wo Sie jeden Schritt sehen können.',
+  ],
+  [
+    'copy.consentTransfer',
+    'Wenn Sie fortfahren, übermitteln wir Ihre Angaben aus dem Bestands-Check zusammen mit Ihrer E-Mail, um das Gespräch vorzubereiten / Ihr Ergebnis zu senden.',
+  ],
+  [
+    'copy.pruefpaketName',
+    'Mietanpassungs-Prüfpaket — funktioniert mit Claude, ChatGPT und anderen KI-Assistenten',
+  ],
 ];
 
 // 5 PRD-Rollen (§2.3): slug, label, sizeMetric-slug, endAusgang, allowMandatsCTA, sizeIndependent, frage, buckets

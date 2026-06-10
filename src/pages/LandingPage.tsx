@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 import { WahrnehmungsShift } from '@/components/sections/WahrnehmungsShift';
-import { Beweis } from '@/components/sections/Beweis';
 import { DatenschutzBeweis } from '@/components/sections/DatenschutzBeweis';
 import { Founder } from '@/components/sections/Founder';
 import { BestandsCheck } from '@/components/bestands-check/BestandsCheck';
+import { ProofStrip } from '@/components/proof-strip/ProofStrip';
+import { BeispielAnalyse } from '@/components/beispiel-analyse/BeispielAnalyse';
 import { checkConfig, copy } from '@/config/checkConfig';
 
 function Abschnitt({ testid, children }: { testid: string; children: ReactNode }) {
@@ -64,9 +65,14 @@ export function LandingPage() {
         <BestandsCheck />
       </Abschnitt>
 
-      {/* #4 ProofStrip (vorerst Beweis-Sektion; echter ProofStrip in AP4) */}
+      {/* #4 ProofStrip — nur mit approved Findings (G1), sonst aus */}
       <Abschnitt testid="proof-strip">
-        <Beweis />
+        <ProofStrip />
+      </Abschnitt>
+
+      {/* #5 BeispielAnalyse (Stufe 0) — Platzhalter öffentlich gegated (§12) */}
+      <Abschnitt testid="beispiel-analyse-slot">
+        <BeispielAnalyse />
       </Abschnitt>
 
       {/* #6 PerceptionShift */}

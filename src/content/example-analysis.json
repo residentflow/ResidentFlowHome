@@ -1,0 +1,32 @@
+{
+  "isPlaceholder": true,
+  "publicApproved": false,
+  "einheiten": 0,
+  "metrics": [
+    { "label": "Mietverhältnisse eingelesen", "value": "—" },
+    { "label": "Verträge mit Auffälligkeiten", "value": "—" },
+    { "label": "Potenzial p.a. (Spanne)", "value": "—" }
+  ],
+  "funde": [
+    {
+      "klasse": "ertrag",
+      "titel": "Indexmiete nicht angepasst (> 24 Monate)",
+      "kurz": "n Verträge, Spanne",
+      "rechenweg": "VPI-Delta × betroffene Verträge, konservativ (Platzhalter)."
+    },
+    {
+      "klasse": "fristen-radar",
+      "titel": "Fällig in 30/60/90 Tagen",
+      "kurz": "Staffeln, Kappungsfenster, Sperrfrist-Enden",
+      "rechenweg": "Das passiert nächsten Monat wieder — deshalb ist das ein Prozess, kein Projekt."
+    },
+    {
+      "klasse": "datenluecken",
+      "titel": "n Verträge nicht bewertbar",
+      "kurz": "Spalte 'letzte Anpassung' fehlt",
+      "rechenweg": "Selbstdiagnose des Strukturproblems (Platzhalter)."
+    }
+  ],
+  "statusZeile": "— € identifiziert, davon — € in Umsetzung (nur echte Werte).",
+  "_hinweis": "PLATZHALTER (§12): wird durch anonymisierten RFAI-Output aus Stefans realer Mieterliste ersetzt; öffentlich erst nach publicApproved=true."
+}

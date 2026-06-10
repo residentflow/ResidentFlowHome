@@ -8,6 +8,7 @@ const SEKTIONEN_IN_REIHENFOLGE = [
   'site-header',
   'hero-check',
   'proof-strip',
+  'beispiel-analyse-slot',
   'perception-shift',
   'privacy-proof',
   'founder-short',
