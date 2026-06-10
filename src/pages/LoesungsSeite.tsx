@@ -4,6 +4,7 @@ import { checkConfig, copy, problemBySlug, type RoleCfg } from '@/config/checkCo
 import { istHighIntent } from '@/components/bestands-check/score';
 import { InlineKontextChips } from '@/components/inline-context-chips/InlineKontextChips';
 import { SolutionResult } from '@/components/solution-result/SolutionResult';
+import { StickyBar } from '@/components/cta/StickyBar';
 
 /**
  * Lösungsseite /loesungen/{slug} (PRD §7/§11) — direkter Einstieg aus LinkedIn/SEO/KI (J2–J4).
@@ -48,7 +49,18 @@ export function LoesungsSeite() {
           setBucketRank(rank);
         }}
       />
-      <SolutionResult problem={problem} highIntent={highIntent} showAnswerFirst />
+      <SolutionResult
+        problem={problem}
+        highIntent={highIntent}
+        showAnswerFirst
+        calContext={{ role: rolle?.slug, problemSlug: problem.slug, source: 'direct' }}
+      />
+      {highIntent && (
+        <StickyBar
+          key={problem.slug}
+          calContext={{ role: rolle?.slug, problemSlug: problem.slug, source: 'direct' }}
+        />
+      )}
     </main>
   );
 }

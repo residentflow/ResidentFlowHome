@@ -23,6 +23,7 @@ import { LeadEvents } from './src/collections/LeadEvents';
 import { ConsentRecords } from './src/collections/ConsentRecords';
 import { Pages } from './src/collections/Pages';
 import { Settings } from './src/collections/Settings';
+import { erstelleLead, erstelleLeadAusWebhook } from './src/lead';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -49,6 +50,27 @@ export default buildConfig({
     ConsentRecords,
     Pages,
     Settings,
+  ],
+  // Lead-Schreibpfad (PRD §17): Custom-Endpoints laufen über Payloads Validierung/Consent.
+  endpoints: [
+    {
+      path: '/lead',
+      method: 'post',
+      handler: async (req: any) => {
+        const body = typeof req.json === 'function' ? await req.json() : req.body;
+        const lead = await erstelleLead(req.payload, body);
+        return Response.json({ ok: true, id: lead.id });
+      },
+    },
+    {
+      path: '/calcom-webhook',
+      method: 'post',
+      handler: async (req: any) => {
+        const body = typeof req.json === 'function' ? await req.json() : req.body;
+        const lead = await erstelleLeadAusWebhook(req.payload, body);
+        return Response.json({ ok: true, id: lead.id });
+      },
+    },
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || 'dev-secret-not-for-prod-change-me',

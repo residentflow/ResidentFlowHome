@@ -2,6 +2,8 @@ import { useState } from 'react';
 import type { ProblemCfg } from '@/config/checkConfig';
 import { copy } from '@/config/checkConfig';
 import { AssetRenderer } from '@/components/asset-renderer/AssetRenderer';
+import { HighIntentCTA } from '@/components/cta/HighIntentCTA';
+import type { CalComContext } from '@/domain/cta/engine';
 import { SkalierungsBlock } from './SkalierungsBlock';
 
 /**
@@ -15,9 +17,16 @@ interface SolutionResultProps {
   highIntent: boolean;
   /** Answer-first-Block voranstellen (nur direkte SEO-/KI-Lösungsseiten, §11.4). */
   showAnswerFirst?: boolean;
+  /** cal.com-Prefill-Kontext (§17.2) für die Termin-CTAs. */
+  calContext?: CalComContext;
 }
 
-export function SolutionResult({ problem, highIntent, showAnswerFirst }: SolutionResultProps) {
+export function SolutionResult({
+  problem,
+  highIntent,
+  showAnswerFirst,
+  calContext,
+}: SolutionResultProps) {
   const [offen, setOffen] = useState<string | null>(problem.solutions[0]?.slug ?? null);
 
   return (
@@ -50,17 +59,13 @@ export function SolutionResult({ problem, highIntent, showAnswerFirst }: Solutio
 
       {/* 4. HighIntentCTA kompakt — VOR den Lösungen (§11.1 Block 4) */}
       {highIntent && (
-        <div
-          data-testid="highintent-cta"
-          style={{
-            marginTop: '1rem',
-            padding: '1rem',
-            border: '1px solid var(--farbe-linie, #ddd)',
+        <HighIntentCTA
+          calContext={{
+            ...(calContext ?? { source: 'direct' }),
+            problemSlug: problem.slug,
+            top3Slugs: problem.solutions.slice(0, 3).map((s) => s.slug),
           }}
-        >
-          <strong>{copy('cta.highIntent')}</strong>
-          <p style={{ margin: '0.5rem 0 0' }}>{copy('cta.give.short')}</p>
-        </div>
+        />
       )}
 
       {/* 5./6. Lösungs-Karten (Accordion) → AssetRenderer → ScaleBreak */}

@@ -8,6 +8,7 @@ import {
 } from '@/config/checkConfig';
 import { istHighIntent } from './score';
 import { SolutionResult } from '@/components/solution-result/SolutionResult';
+import { StickyBar } from '@/components/cta/StickyBar';
 
 /**
  * BestandsCheck (PRD §10) — Zustandsmaschine S0→S3, above the fold (§9.1).
@@ -192,7 +193,22 @@ export function BestandsCheck() {
       {/* S3 — SolutionResult inline */}
       {rolle && bucketIndex != null && problem && (
         <div ref={resultRef}>
-          <SolutionResult problem={problem} highIntent={highIntent} />
+          <SolutionResult
+            problem={problem}
+            highIntent={highIntent}
+            calContext={{
+              role: rolle.slug,
+              sizeBucket: rolle.sizeMetric?.buckets[bucketIndex]?.label,
+              source: 'direct',
+            }}
+          />
+          {/* StickyBar ab HighIntent (§9.2), Key bindet an Lösung → Wiedereinblendung bei Wechsel */}
+          {highIntent && (
+            <StickyBar
+              key={problem.slug}
+              calContext={{ role: rolle.slug, problemSlug: problem.slug, source: 'direct' }}
+            />
+          )}
         </div>
       )}
     </div>

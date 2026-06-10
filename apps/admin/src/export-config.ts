@@ -206,7 +206,7 @@ async function main() {
       .filter((c) => c.active)
       .map((c) => ({
         name: c.name,
-        roleFilters: (c.roleFilters || []).map(idOf),
+        roleFilters: (c.roleFilters || []).map(slugOfRole),
         problemFilters: (c.problemFilters || []).map(idOf),
         solutionFilters: (c.solutionFilters || []).map(idOf),
         minSizeScore: c.minSizeScore ?? null,

@@ -348,6 +348,21 @@ async function main() {
     },
   });
 
+  // CTARule (§14.3): HighIntent-Gesprächs-CTA ab sizeScore 3, alle Rollen
+  await payload.create({
+    collection: 'cta-rules',
+    data: {
+      name: 'highintent-gespraech',
+      minSizeScore: 3,
+      allowRisiko: false,
+      primaryLabel: 'Ihren Bestand gemeinsam ansehen',
+      sublineKey: 'cta.give.short',
+      destination: 'gespraech',
+      priority: 10,
+      active: true,
+    },
+  });
+
   // Settings (Singleton)
   await payload.create({
     collection: 'settings',
