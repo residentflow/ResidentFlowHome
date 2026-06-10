@@ -1,6 +1,12 @@
 import type { HebelLaufzeit } from '@/domain/types';
 import { Section } from '@/components/ui/Section';
 import { Terminlink } from '@/components/treppe/Terminlink';
+import { schatzsucheConfig } from '@/content/schatzsuche.config';
+
+/** Anzeigename aus dem Hebel-Katalog — nie die rohe ID rendern. */
+function hebelName(hebelId: string): string {
+  return schatzsucheConfig.hebel.find((h) => h.id === hebelId)?.name ?? hebelId;
+}
 
 interface Stufe3AutomatisierungProps {
   laufzeiten: HebelLaufzeit[];
@@ -34,7 +40,7 @@ export function Stufe3Automatisierung({
               key={hebel.hebelId}
               style={{ borderTop: '1px solid var(--farbe-linie, #e5e7eb)', paddingTop: '1rem' }}
             >
-              <h4>{hebel.hebelId}</h4>
+              <h4>{hebelName(hebel.hebelId)}</h4>
               {hatVideo ? (
                 <div data-testid={`video-hebel-${hebel.hebelId}`} style={{ marginTop: '0.5rem' }}>
                   {/* Video wird nachgeliefert — Platzhalter */}
@@ -48,7 +54,7 @@ export function Stufe3Automatisierung({
                       color: 'var(--farbe-text-sekundaer, #6b7280)',
                     }}
                   >
-                    Video: Automatisierung — {hebel.hebelId}
+                    Video: Automatisierung — {hebelName(hebel.hebelId)}
                   </div>
                 </div>
               ) : (

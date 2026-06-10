@@ -89,13 +89,13 @@ export function VerdichtetesErgebnis({
         <ul>
           {!istMultiplikator && (
             <>
-              <li>Playbook ansehen — vollständige Methodenbibliothek</li>
+              <li>Methodik ansehen — sechs Schwerpunkte in Stufe 1</li>
               <li>ResidentPrivacyFlow herunterladen — lokale Analyse ohne Installation</li>
             </>
           )}
           {istMultiplikator && <li>Kontaktaufnahme für individuelle Partnerkonditionen</li>}
           {stufen.stufe3 && !istMultiplikator && (
-            <li>Vollautomatisierung mit Stufe 3 — Video-Demo je Hebel</li>
+            <li>Vollautomatisierung mit Stufe 3 — gemeinsam im Termin besprechen</li>
           )}
         </ul>
       </div>

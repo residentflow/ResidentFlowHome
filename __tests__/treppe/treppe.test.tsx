@@ -50,9 +50,10 @@ const HEBELIDS_OHNE_VIDEO: string[] = [];
 // ── Tests ────────────────────────────────────────────────────────────────────
 
 describe('Treppe M4 (§10)', () => {
-  it('Stufe 1 Playbook ist für alle sichtbar', () => {
+  it('Stufe 1 Methodik ist für alle sichtbar', () => {
     render(<Stufe1Playbook />);
-    expect(screen.getByRole('button', { name: /Playbook ansehen/i })).toBeInTheDocument();
+    expect(screen.getByText(/Stufe 1 — Methodik/i)).toBeInTheDocument();
+    expect(screen.getByTestId('playbook-schwerpunkte')).toBeInTheDocument();
   });
 
   it('Stufe 2 bietet zwei Wege: PrivacyFlow-Download oder geführte Analyse im Termin', () => {

@@ -4,24 +4,12 @@ import { Section } from '../ui/Section';
 /**
  * Datenschutzerklärung — rendert strukturierte Abschnitte aus rechtstexte.config (§12, §16).
  * Deckt: Suche überträgt nichts; Opt-in-Kanal (E-Mail + Rolle + Einheiten + Einwilligung + Abmeldung);
- * Plausible cookieless; Brevo als Auftragsverarbeiter/AVV; Hinweis „rechtlich prüfen lassen".
+ * Plausible cookieless; Brevo als Auftragsverarbeiter/AVV; verantwortliche Stelle; Betroffenenrechte.
  */
 export function Datenschutz() {
   return (
     <Section titel={DATENSCHUTZ.ueberschrift} ariaLabel="Datenschutzerklärung">
       <article style={{ maxWidth: '680px', lineHeight: 1.8 }}>
-        <p
-          style={{
-            padding: '1rem',
-            background: '#fff8e1',
-            borderLeft: '3px solid #f59e0b',
-            fontSize: '0.9rem',
-            marginBottom: '2rem',
-          }}
-        >
-          {DATENSCHUTZ.hinweis}
-        </p>
-
         {DATENSCHUTZ.abschnitte.map((abschnitt) => (
           <section key={abschnitt.titel} style={{ marginBottom: '2rem' }}>
             <h3 style={{ marginBottom: '0.5rem' }}>{abschnitt.titel}</h3>

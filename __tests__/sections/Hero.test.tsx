@@ -1,13 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { Hero } from '../../src/components/sections/Hero';
+import { HERO_TOPLINE } from '../../src/content/texte';
 
 describe('Hero', () => {
-  it('zeigt die Topline Bestand optimieren · Rendite steigern · Verwaltungsaufwand reduzieren', () => {
+  it('zeigt die zentrale Topline (Quelle: texte.ts)', () => {
     render(<Hero />);
-    expect(
-      screen.getByText('Bestand optimieren · Rendite steigern · Verwaltungsaufwand reduzieren'),
-    ).toBeInTheDocument();
+    expect(screen.getByText(HERO_TOPLINE)).toBeInTheDocument();
+  });
+
+  it('die Topline adressiert die Suchmotive KI, Mietpotenzial und Leerstand', () => {
+    expect(HERO_TOPLINE).toMatch(/KI/);
+    expect(HERO_TOPLINE).toMatch(/Mietpotenzial/i);
+    expect(HERO_TOPLINE).toMatch(/Leerstand/i);
   });
 
   it('enthält in der Hero keinen Produktnamen und nicht das Wort Software', () => {

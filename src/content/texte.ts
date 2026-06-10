@@ -7,7 +7,7 @@
  */
 
 // — Hero (§9 #1) —
-export const HERO_TOPLINE = 'Bestand optimieren · Rendite steigern · Verwaltungsaufwand reduzieren';
+export const HERO_TOPLINE = 'Mietpotenziale mit KI finden · Leerstand senken · Rendite steigern';
 export const HERO_SUBLINE =
   'Finden Sie heraus, wo in Ihrem Bestand Ertrag liegen bleibt — und sorgen Sie dafür, dass es nicht liegen bleibt.';
 export const HERO_VERSPRECHEN =
@@ -24,7 +24,6 @@ export const FUND_LABEL = 'Hebel'; // (§17: nur dieses Label, nie ein anderes)
 
 // — Treppe & Ergebnis (§10) —
 export const TERMINLINK_TEXT = 'Ihren Bestand gemeinsam ansehen';
-export const PLAYBOOK_CTA = 'Playbook ansehen';
 export const PDF_RAHMUNG = 'Indikatives Potenzialprofil auf Basis Ihrer Angaben';
 
 // — Datenschutz-Beweis (§9 #8) —
