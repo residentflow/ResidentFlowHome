@@ -1,28 +1,22 @@
-import { PLAYBOOK_CTA } from '@/content/texte';
-import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 import { schatzsucheConfig } from '@/content/schatzsuche.config';
 
 /**
- * Stufe 1 — Playbook ansehen (§10.1). Für ALLE sichtbar.
+ * Stufe 1 — Methodik (§10.1). Für ALLE sichtbar.
  * Zeigt die Methodenbibliothek als sechs ergebnisorientierte Schwerpunkte (aus der Config,
  * sortiert nach reihenfolge) mit Titel + Beschreibung.
+ * Bewusst ohne externen CTA: Die Methodik-Inhalte wandern in die v6-Lösungsseiten;
+ * ein Link auf das interne Archiv ist nicht erlaubt (kein Abfluss nach extern, PRD v6 §G7).
  * Der Produktname darf hier NICHT erscheinen (§17).
  */
-export function Stufe1Playbook({
-  href = schatzsucheConfig.globalConfig.playbookUrl,
-}: {
-  href?: string;
-}) {
+export function Stufe1Playbook() {
   const schwerpunkte = [...schatzsucheConfig.phasen].sort((a, b) => a.reihenfolge - b.reihenfolge);
-  const extern = href.startsWith('http');
 
   return (
     <Section titel="Stufe 1 — Methodik">
       <p>
-        Im Playbook finden Sie die vollständige Methodenbibliothek — gebündelt in sechs
-        Schwerpunkten entlang Ihres Immobilien-Lebenszyklus, mit allen Hebeln, Benchmarks und
-        Rechenwegen.
+        Die vollständige Methodenbibliothek — gebündelt in sechs Schwerpunkten entlang Ihres
+        Immobilien-Lebenszyklus, mit allen Hebeln, Benchmarks und Rechenwegen.
       </p>
 
       <ul
@@ -45,15 +39,6 @@ export function Stufe1Playbook({
           </li>
         ))}
       </ul>
-
-      <a
-        href={href}
-        target={extern ? '_blank' : undefined}
-        rel={extern ? 'noreferrer' : undefined}
-        style={{ textDecoration: 'none' }}
-      >
-        <Button variante="sekundär">{PLAYBOOK_CTA}</Button>
-      </a>
     </Section>
   );
 }

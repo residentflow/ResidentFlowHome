@@ -24,7 +24,6 @@ export const FUND_LABEL = 'Hebel'; // (§17: nur dieses Label, nie ein anderes)
 
 // — Treppe & Ergebnis (§10) —
 export const TERMINLINK_TEXT = 'Ihren Bestand gemeinsam ansehen';
-export const PLAYBOOK_CTA = 'Playbook ansehen';
 export const PDF_RAHMUNG = 'Indikatives Potenzialprofil auf Basis Ihrer Angaben';
 
 // — Datenschutz-Beweis (§9 #8) —

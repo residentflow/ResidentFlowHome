@@ -393,7 +393,6 @@ export const schatzsucheConfig: Config = {
   globalConfig: {
     schwellenwertStufe3: 50,
     terminLink: 'https://cal.com/stefan-holhut/bestand-ansehen',
-    playbookUrl: 'https://www.skool.com/residentcashflow-6876/classroom',
     // ⚠️ PLATZHALTER-Links (§19): Download-URL existiert noch nicht —
     // '#'-Präfix signalisiert der UI den „folgt in Kürze"-Zustand.
     partnerprogrammLink: '#partnerprogramm',
