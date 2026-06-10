@@ -10,9 +10,25 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "allowJs": true,
+    "incremental": true,
     "noEmit": true,
-    "paths": { "@/*": ["./src/*"] }
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@payload-config": ["./payload.config.ts"]
+    },
+    "isolatedModules": true
   },
-  "include": ["src", "*.ts", "*.mjs"],
-  "exclude": ["node_modules"]
+  "include": ["src", "*.ts", "*.mjs", "next-env.d.ts", ".next/types/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "src/seed.ts",
+    "src/export-config.ts",
+    "src/verify.ts",
+    "src/verify-lead.ts"
+  ]
 }

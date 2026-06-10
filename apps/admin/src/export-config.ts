@@ -21,7 +21,7 @@ async function main() {
   const payload = await getPayload({ config });
 
   const all = async (slug: string, depth = 0) =>
-    (await payload.find({ collection: slug, limit: 1000, depth })).docs as any[];
+    (await payload.find({ collection: slug as never, limit: 1000, depth })).docs as any[];
 
   const [
     roles,

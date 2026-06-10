@@ -39,7 +39,7 @@ export async function erstelleLead(payload: Payload, eingabe: LeadEingabe) {
     const rec = await payload.create({
       collection: 'consent-records',
       data: {
-        type: c.type,
+        type: c.type as 'pdf' | 'newsletter' | 'contact' | 'calendar',
         accepted: c.accepted,
         timestamp: new Date().toISOString(),
         textVersion: c.textVersion,
@@ -62,7 +62,7 @@ export async function erstelleLead(payload: Payload, eingabe: LeadEingabe) {
       sizeBucket: eingabe.sizeBucket,
       selectedProblem: eingabe.selectedProblem,
       displayedSolutions: eingabe.displayedSolutions,
-      shownValueRanges: eingabe.shownValueRanges,
+      shownValueRanges: eingabe.shownValueRanges as never,
       relevanceScore: eingabe.relevanceScore,
       consentRecords: consentIds,
       leadStatus: 'neu',
