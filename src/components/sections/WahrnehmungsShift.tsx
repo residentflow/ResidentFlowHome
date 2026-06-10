@@ -40,7 +40,9 @@ export function WahrnehmungsShift() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          // minmax(0, …): Zellen dürfen unter ihre Inhaltsbreite schrumpfen — sonst
+          // schiebt z. B. „Verwaltungsaufwand" das Raster auf Mobile über den Viewport.
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
           gap: '0',
           maxWidth: '800px',
           margin: '0 auto',

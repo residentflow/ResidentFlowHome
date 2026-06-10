@@ -62,3 +62,22 @@ hr {
   outline: 2px solid var(--farbe-akzent);
   outline-offset: 2px;
 }
+
+/* ——— Responsive Layout-Hilfen ———
+   Inline-Styles können keine Media Queries — das Founder-Raster stapelt
+   deshalb hier ab 640px. minmax(0, …) erlaubt Schrumpfen unter die
+   Inhaltsbreite (kein horizontaler Overflow). */
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .founder-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
