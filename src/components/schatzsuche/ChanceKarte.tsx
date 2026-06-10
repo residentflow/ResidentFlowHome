@@ -16,7 +16,7 @@ function formatierteSpanne(spanne: Spanne): string {
 /**
  * Ertrags-/Effizienz-Karte (CHANCE) — §8.3.
  * Zeigt: Titel + Spanne + „Typische Ursache" + „Im Playbook erfahren Sie: …".
- * Verwendet das Label „Hebel" (§8.3 / §17).
+ * Verwendet das Label „Loesung" (§8.3 / §17).
  */
 export function ChanceKarte({
   titel,
@@ -45,7 +45,7 @@ export function ChanceKarte({
             color: 'var(--farbe-akzent, #b8860b)',
           }}
         >
-          Hebel entdeckt
+          Lösung erkannt
         </p>
         <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{titel}</h3>
       </header>

@@ -3,17 +3,17 @@ import type { Config } from '@/domain/schema/config';
 import { schatzsucheConfig } from '@/content/schatzsuche.config';
 import { exportConfig, importConfig } from '@/services/config-io';
 import { ProblemEditor } from './ProblemEditor';
-import { HebelEditor } from './HebelEditor';
+import { LoesungEditor } from './LoesungEditor';
 import { MappingEditor } from './MappingEditor';
 import { BenchmarkEditor } from './BenchmarkEditor';
 import { SegmentEditor } from './SegmentEditor';
 import { Vorschau } from './Vorschau';
 
-type Tab = 'probleme' | 'hebel' | 'mapping' | 'benchmark' | 'segmente' | 'vorschau';
+type Tab = 'probleme' | 'loesung' | 'mapping' | 'benchmark' | 'segmente' | 'vorschau';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'probleme', label: 'Probleme' },
-  { id: 'hebel', label: 'Hebel' },
+  { id: 'loesung', label: 'Loesung' },
   { id: 'mapping', label: 'Mapping' },
   { id: 'benchmark', label: 'Benchmark' },
   { id: 'segmente', label: 'Segmente' },
@@ -107,7 +107,7 @@ export function CmsApp() {
       <hr />
 
       {aktuellerTab === 'probleme' && <ProblemEditor config={config} onAendern={setConfig} />}
-      {aktuellerTab === 'hebel' && <HebelEditor config={config} onAendern={setConfig} />}
+      {aktuellerTab === 'loesung' && <LoesungEditor config={config} onAendern={setConfig} />}
       {aktuellerTab === 'mapping' && <MappingEditor config={config} onAendern={setConfig} />}
       {aktuellerTab === 'benchmark' && <BenchmarkEditor config={config} onAendern={setConfig} />}
       {aktuellerTab === 'segmente' && <SegmentEditor config={config} onAendern={setConfig} />}

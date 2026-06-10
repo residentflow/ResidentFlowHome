@@ -53,17 +53,51 @@ describe('Sprach-Gates §17', () => {
     expect(treffer.map((d) => d.pfad)).toEqual([]);
   });
 
-  it('"ResidentFlowAI" kommt in src/ ausschließlich in components/treppe/Stufe3Automatisierung.tsx vor', () => {
-    const erlaubterPfad = path.resolve(
-      srcVerzeichnis,
-      'components/treppe/Stufe3Automatisierung.tsx',
-    );
+  it('"ResidentFlowAI" kommt in src/ ausschließlich im Skalierungs-Block (§11 Block 7) vor', () => {
+    // Erlaubt im neuen SolutionResult-Skalierungsblock; der alte Treppe-Block bleibt
+    // toleriert, bis die Treppe vollständig entfernt ist.
+    const erlaubtePfade = [
+      path.resolve(srcVerzeichnis, 'components/solution-result/SkalierungsBlock.tsx'),
+      path.resolve(srcVerzeichnis, 'components/treppe/Stufe3Automatisierung.tsx'),
+    ];
     const treffer = inhaltMitPfaden()
       .filter((d) => d.inhalt.includes('ResidentFlowAI'))
       .map((d) => d.pfad);
 
-    // Erlaubt: leer (Datei existiert noch nicht) oder ausschließlich der erlaubte Pfad
-    const unerlaubte = treffer.filter((p) => p !== erlaubterPfad);
+    const unerlaubte = treffer.filter((p) => !erlaubtePfade.includes(p));
     expect(unerlaubte).toEqual([]);
+  });
+
+  // — Neue Verbote PRD v6 §3.10 / §4 —
+
+  it('das Wort "Hebel" kommt nirgends in src/ vor (PRD: extern "Lösung")', () => {
+    const treffer = inhaltMitPfaden().filter((d) => /hebel/i.test(d.inhalt));
+    expect(treffer.map((d) => d.pfad)).toEqual([]);
+  });
+
+  it('die verbotene Frage "Für welchen Kontext suchen Sie Hebel?" erscheint nirgends', () => {
+    const treffer = inhaltMitPfaden().filter((d) =>
+      d.inhalt.includes('Für welchen Kontext suchen Sie'),
+    );
+    expect(treffer.map((d) => d.pfad)).toEqual([]);
+  });
+
+  it('keine Du-Form: Anreden "du/dich/dir/dein…" kommen als Ganzwort nicht vor (durchgehend Sie-Form)', () => {
+    const duForm = /\b(du|dich|dir|dein|deine|deinen|deinem|deiner|deines)\b/i;
+    const treffer = inhaltMitPfaden()
+      .filter((d) => duForm.test(d.inhalt))
+      .map((d) => d.pfad);
+    expect(treffer).toEqual([]);
+  });
+
+  it('keine Emojis im UI (§3.10)', () => {
+    // Emoji-Blöcke (Symbole, Piktogramme, Transport, Ergänzungen, Dingbats, Variationsselektor)
+    const emoji =
+      // eslint-disable-next-line no-misleading-character-class -- FE0F (Variationsselektor) ist hier Absicht
+      /[\u{1F300}-\u{1FAFF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}\u{1F1E6}-\u{1F1FF}]/u;
+    const treffer = inhaltMitPfaden()
+      .filter((d) => emoji.test(d.inhalt))
+      .map((d) => d.pfad);
+    expect(treffer).toEqual([]);
   });
 });

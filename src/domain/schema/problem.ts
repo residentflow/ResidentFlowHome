@@ -9,7 +9,7 @@ export const GroessenBedingungSchema = z.object({
 
 /**
  * Problem (Stufe B), lifecycle-übergreifend an Rolle+Größe gebunden (§4/§5.3).
- * Gate: kein Problem ohne mindestens einen verknüpften Hebel.
+ * Gate: kein Problem ohne mindestens eine verknüpfte Lösung.
  */
 export const ProblemSchema = z.object({
   id: z.string().min(1),
@@ -17,8 +17,8 @@ export const ProblemSchema = z.object({
   text: z.string().min(1),
   rollenFilter: z.array(z.enum(ROLLEN)).min(1),
   groessenBedingung: GroessenBedingungSchema.optional(),
-  verknuepfteHebel: z.array(z.string().min(1)).min(1, {
-    message: 'Kein Problem ohne mindestens einen verknüpften Hebel (§5.3).',
+  verknuepfteLoesung: z.array(z.string().min(1)).min(1, {
+    message: 'Kein Problem ohne mindestens eine verknüpfte Lösung (§5.3).',
   }),
   aktiv: z.boolean(),
 });

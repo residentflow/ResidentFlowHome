@@ -6,17 +6,17 @@ const basis = {
   schmerzBereich: 'ertrag',
   text: 'Mieterhöhungen werden nicht konsequent gezogen',
   rollenFilter: ['buyAndHold'],
-  verknuepfteHebel: ['h1'],
+  verknuepfteLoesung: ['h1'],
   aktiv: true,
 };
 
 describe('ProblemSchema (§5.3/§14)', () => {
-  it('akzeptiert ein Problem mit mindestens einem verknüpften Hebel', () => {
+  it('akzeptiert ein Problem mit mindestens einem verknüpften Loesung', () => {
     expect(ProblemSchema.safeParse(basis).success).toBe(true);
   });
 
-  it('lehnt ein Problem ohne verknüpften Hebel ab', () => {
-    expect(ProblemSchema.safeParse({ ...basis, verknuepfteHebel: [] }).success).toBe(false);
+  it('lehnt ein Problem ohne verknüpften Loesung ab', () => {
+    expect(ProblemSchema.safeParse({ ...basis, verknuepfteLoesung: [] }).success).toBe(false);
   });
 
   it('verlangt schmerzBereich, text und rollenFilter', () => {

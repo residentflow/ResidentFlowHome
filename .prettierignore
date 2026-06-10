@@ -5,3 +5,8 @@ coverage
 package-lock.json
 docs
 public/sitemap.xml
+apps/admin/.next
+apps/admin/src/payload-types.ts
+src/generated
+apps/admin/src/app/**/importMap.js
+apps/admin/.next

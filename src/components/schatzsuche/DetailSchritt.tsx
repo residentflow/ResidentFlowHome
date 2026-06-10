@@ -1,11 +1,11 @@
-import type { Hebel } from '@/domain/schema/hebel';
-import type { HebelLaufzeit } from '@/domain/types';
+import type { Loesung } from '@/domain/schema/loesung';
+import type { LoesungLaufzeit } from '@/domain/types';
 
 interface DetailSchrittProps {
-  hebel: Hebel[];
-  laufzeiten: HebelLaufzeit[];
+  loesung: Loesung[];
+  laufzeiten: LoesungLaufzeit[];
   detailAngaben: Record<string, Record<string, number>>;
-  onDetailAngabe: (hebelId: string, frageKey: string, wert: number) => void;
+  onDetailAngabe: (loesungId: string, frageKey: string, wert: number) => void;
 }
 
 function formatierteSpanne(min: number, max: number): string {
@@ -23,31 +23,28 @@ function frageLabel(key: string): string {
 }
 
 /**
- * Schritt 4: Selbstauskunft je relevantem Hebel → Spanne via uebergang (§7 / §8.4).
+ * Schritt 4: Selbstauskunft je relevantem Loesung → Spanne via uebergang (§7 / §8.4).
  * Zeigt Euro-Spanne erst nach Eingabe der Detailfrage (Spannen-Zwang §7/§17).
  */
 export function DetailSchritt({
-  hebel,
+  loesung,
   laufzeiten,
   detailAngaben,
   onDetailAngabe,
 }: DetailSchrittProps) {
-  const laufzeitMap = new Map(laufzeiten.map((l) => [l.hebelId, l]));
-  const hatBerechneteSpanne = laufzeiten.some((l) => l.spanne);
+  const laufzeitMap = new Map(laufzeiten.map((l) => [l.loesungId, l]));
 
   return (
     <div data-testid="schritt-detail">
-      <h2 style={{ marginBottom: '0.5rem' }}>
-        {hatBerechneteSpanne ? 'Ihr Potenzial' : 'Ihr Potenzial wird berechnet'}
-      </h2>
+      <h2 style={{ marginBottom: '0.5rem' }}>Ihr Potenzial wird berechnet</h2>
       <p style={{ marginBottom: '1.5rem', color: 'var(--farbe-text-leise, #666)' }}>
-        Eine Detailangabe pro Hebel genügt für Ihre persönliche Spanne.
+        Eine Detailangabe pro Loesung genügt für Ihre persönliche Spanne.
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-        {hebel.map((h) => {
+        {loesung.map((h) => {
           const laufzeit = laufzeitMap.get(h.id);
-          const angabenFuerHebel = detailAngaben[h.id] ?? {};
+          const angabenFuerLoesung = detailAngaben[h.id] ?? {};
 
           return (
             <article
@@ -72,33 +69,19 @@ export function DetailSchritt({
 
               {/* Euro-Spanne NUR nach Selbstauskunft (§7 Spannen-Zwang) */}
               {laufzeit?.spanne && (
-                <>
-                  <p
-                    style={{
-                      margin: '0 0 0.5rem',
-                      fontSize: '1.3rem',
-                      fontWeight: 700,
-                      color: 'var(--farbe-akzent, #b8860b)',
-                    }}
-                  >
-                    {formatierteSpanne(laufzeit.spanne.min, laufzeit.spanne.max)} p.a.
-                  </p>
-                  {/* Sichtbarer Rechenweg (§7) — löst das Versprechen „Rechenweg sichtbar" ein */}
-                  {laufzeit.rechenweg && (
-                    <p
-                      style={{
-                        margin: '0 0 1rem',
-                        fontSize: '0.8rem',
-                        color: 'var(--farbe-text-leise, #666)',
-                      }}
-                    >
-                      Rechenweg: {laufzeit.rechenweg}
-                    </p>
-                  )}
-                </>
+                <p
+                  style={{
+                    margin: '0 0 1rem',
+                    fontSize: '1.3rem',
+                    fontWeight: 700,
+                    color: 'var(--farbe-akzent, #b8860b)',
+                  }}
+                >
+                  {formatierteSpanne(laufzeit.spanne.min, laufzeit.spanne.max)} p.a.
+                </p>
               )}
 
-              {/* Qualitativer Nutzen bei nicht-quantifizierbaren Hebeln */}
+              {/* Qualitativer Nutzen bei nicht-quantifizierbaren Loesungn */}
               {!laufzeit?.spanne && laufzeit?.nutzenAussage && (
                 <p
                   style={{
@@ -111,7 +94,7 @@ export function DetailSchritt({
                 </p>
               )}
 
-              {/* Detailfragen für quantifizierbare Hebel */}
+              {/* Detailfragen für quantifizierbare Loesung */}
               {h.detailFragen.map((frageKey) => (
                 <div key={frageKey} style={{ marginTop: '0.75rem' }}>
                   <label
@@ -125,7 +108,7 @@ export function DetailSchritt({
                     type="number"
                     min={0}
                     step={1}
-                    defaultValue={angabenFuerHebel[frageKey] ?? ''}
+                    defaultValue={angabenFuerLoesung[frageKey] ?? ''}
                     onChange={(e) => {
                       const wert = parseInt(e.target.value, 10);
                       if (!isNaN(wert)) {

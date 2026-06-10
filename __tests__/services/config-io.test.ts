@@ -31,7 +31,7 @@ describe('config-io', () => {
     // Muss die erwarteten Konfigurations-Schlüssel enthalten
     expect(parsed).toHaveProperty('schmerzBereiche');
     expect(parsed).toHaveProperty('probleme');
-    expect(parsed).toHaveProperty('hebel');
+    expect(parsed).toHaveProperty('loesung');
     expect(parsed).toHaveProperty('segmente');
     expect(parsed).toHaveProperty('globalConfig');
   });

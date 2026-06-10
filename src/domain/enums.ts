@@ -24,11 +24,11 @@ export const ROLLEN = [
 ] as const;
 export type Rolle = (typeof ROLLEN)[number];
 
-/** Wert-Kategorie je Hebel — bestimmt Rahmung und Euro-Logik (§6.1). */
+/** Wert-Kategorie je Loesung — bestimmt Rahmung und Euro-Logik (§6.1). */
 export const WERT_KATEGORIEN = ['ertrag', 'effizienz', 'risiko'] as const;
 export type WertKategorie = (typeof WERT_KATEGORIEN)[number];
 
-/** Rahmung eines Fundes (§6.1). Verlust nur bei Risiko-Hebeln. */
+/** Rahmung eines Fundes (§6.1). Verlust nur bei Risiko-Loesungn. */
 export const RAHMUNGEN = ['chance', 'verlust'] as const;
 export type Rahmung = (typeof RAHMUNGEN)[number];
 
@@ -40,9 +40,9 @@ export type SegmentTyp = (typeof SEGMENT_TYPEN)[number];
 export const END_AUSGAENGE = ['gespraech', 'partnerprogramm', 'nur-playbook'] as const;
 export type EndAusgang = (typeof END_AUSGAENGE)[number];
 
-/** Zustand eines Hebels in der Berechnungs-Zustandsmaschine (§7). */
-export const HEBEL_ZUSTAENDE = ['relevant', 'quantifiziert', 'praezisiert'] as const;
-export type HebelZustand = (typeof HEBEL_ZUSTAENDE)[number];
+/** Zustand eines Loesungs in der Berechnungs-Zustandsmaschine (§7). */
+export const LOESUNG_ZUSTAENDE = ['relevant', 'quantifiziert', 'praezisiert'] as const;
+export type LoesungZustand = (typeof LOESUNG_ZUSTAENDE)[number];
 
 /** Adaptives Größenmaß je Tätigkeit (§3.3). */
 export const GROESSEN_MASSE = [

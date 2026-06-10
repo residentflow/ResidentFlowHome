@@ -1,5 +1,5 @@
 import type { Spanne } from './schema/spanne';
-import type { Rahmung, EndAusgang, SegmentTyp, HebelZustand, Taetigkeit } from './enums';
+import type { Rahmung, EndAusgang, SegmentTyp, LoesungZustand, Taetigkeit } from './enums';
 
 /** Ergebnis des Routings (§3.3). begruendung macht die gewinnende Regel testbar/transparent. */
 export interface RoutingErgebnis {
@@ -17,18 +17,18 @@ export interface StufenFreigabe {
   stufe3: boolean;
 }
 
-/** Laufzeit-Zustand eines Hebels in der Berechnungs-Zustandsmaschine (§7). */
-export interface HebelLaufzeit {
-  hebelId: string;
-  zustand: HebelZustand;
+/** Laufzeit-Zustand eines Loesungs in der Berechnungs-Zustandsmaschine (§7). */
+export interface LoesungLaufzeit {
+  loesungId: string;
+  zustand: LoesungZustand;
   rahmung: Rahmung;
   /** Nur ab Zustand 'quantifiziert' gesetzt — nie vor Selbstauskunft (§7). */
   spanne?: Spanne;
-  /** Bei qualitativen Hebeln statt Euro. */
+  /** Bei qualitativen Loesungn statt Euro. */
   nutzenAussage?: string;
-  /** Sichtbarer Rechenweg (§7), nur bei quantifizierten Hebeln. */
+  /** Sichtbarer Rechenweg (§7), nur bei quantifizierten Loesungn. */
   rechenweg?: string;
-  /** Wahrscheinlichkeits-/Risiko-Hinweis bei Risiko-Hebeln im Zustand 'relevant'. */
+  /** Wahrscheinlichkeits-/Risiko-Hinweis bei Risiko-Loesungn im Zustand 'relevant'. */
   risikoHinweis?: string;
 }
 

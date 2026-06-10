@@ -1,0 +1,32 @@
+{
+  "isPlaceholder": false,
+  "publicApproved": true,
+  "einheiten": 31,
+  "metrics": [
+    { "label": "Mietverhältnisse eingelesen", "value": "31" },
+    { "label": "Verträge mit Auffälligkeiten", "value": "4" },
+    { "label": "Realisiert p. a.", "value": "2.250 €" }
+  ],
+  "funde": [
+    {
+      "klasse": "ertrag",
+      "titel": "Indexmieten nicht angepasst",
+      "kurz": "3 Verträge, ~1.100 € p. a.",
+      "rechenweg": "3 Verträge × 25–35 €/Monat × 12 = ~1.100 €/Jahr — nachgezogen und umgesetzt."
+    },
+    {
+      "klasse": "fristen-radar",
+      "titel": "Mietstaffel ausgelaufen — Anpassungsfenster",
+      "kurz": "1 Vertrag, ~1.150 € p. a.",
+      "rechenweg": "Staffel ausgelaufen, Erhöhung fällig: +95 €/Monat × 12 = ~1.150 €/Jahr — Fenster genutzt. Das passiert wieder — deshalb ein Prozess, kein Projekt."
+    },
+    {
+      "klasse": "datenluecken",
+      "titel": "Manueller Verwaltungsaufwand identifiziert",
+      "kurz": "−23,5 Std/Monat",
+      "rechenweg": "Wiederkehrender manueller Aufwand strukturiert/automatisiert: 23,5 Std/Monat reduziert (Selbstdiagnose des Strukturproblems)."
+    }
+  ],
+  "statusZeile": "~2.250 € p. a. identifiziert und vollständig umgesetzt; zusätzlich 23,5 Std/Monat Verwaltungszeit reduziert.",
+  "_hinweis": "Generiert aus echtem RFAI-Befund an Stefans Bestand (n=31), anonymisiert, auf 50-€-Schritte gerundet, durch Stefan freigegeben (§12)."
+}

@@ -64,14 +64,9 @@ hr {
 }
 
 /* ——— Responsive Layout-Hilfen ———
-   Inline-Styles können keine Media Queries — Raster, die auf Mobile stapeln
-   müssen, bekommen daher hier ihre Spaltendefinition. minmax(0, …) erlaubt
-   Schrumpfen unter die Inhaltsbreite (kein horizontaler Overflow). */
-
-.zwei-spalten {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-}
+   Inline-Styles können keine Media Queries — das Founder-Raster stapelt
+   deshalb hier ab 640px. minmax(0, …) erlaubt Schrumpfen unter die
+   Inhaltsbreite (kein horizontaler Overflow). */
 
 .founder-grid {
   display: grid;
@@ -81,10 +76,6 @@ hr {
 }
 
 @media (max-width: 640px) {
-  .zwei-spalten {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .founder-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;

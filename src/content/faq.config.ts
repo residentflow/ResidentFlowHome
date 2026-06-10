@@ -27,7 +27,7 @@ export const FAQ_EINTRAEGE: FaqEintrag[] = [
       'Weder noch im klassischen Sinne: Das System zeigt Ihnen systematisch, wo Potenziale in Ihrem ' +
       'Bestand liegen — unabhängig davon, ob Sie selbst verwalten oder eine externe Verwaltung beauftragen. ' +
       'Es ersetzt keine laufende Verwaltung, aber es findet, was keine Verwaltung systematisch sucht: ' +
-      'ungehobene Ertrags-, Effizienz- und Risikohebel. Die Zusammenarbeit mit Ihrer bestehenden ' +
+      'ungehobene Ertrags-, Effizienz- und Risiko-Potenziale. Die Zusammenarbeit mit Ihrer bestehenden ' +
       'Hausverwaltung bleibt unberührt.',
     prominent: false,
   },

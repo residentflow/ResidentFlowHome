@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Config } from '@/domain/schema/config';
-import type { Hebel } from '@/domain/schema/hebel';
+import type { Loesung } from '@/domain/schema/loesung';
 
 interface Props {
   config: Config;
@@ -13,8 +13,8 @@ interface FaktorEntwurf {
   max: string;
 }
 
-interface HebelFaktorenEntwurf {
-  hebelId: string;
+interface LoesungFaktorenEntwurf {
+  loesungId: string;
   faktorenRoh: FaktorEntwurf[];
   ausgabeMin: string;
   ausgabeMax: string;
@@ -26,11 +26,11 @@ interface HebelFaktorenEntwurf {
  * Alle Änderungen werden mit einem einzigen „Übernehmen"-Button gespeichert.
  */
 export function BenchmarkEditor({ config, onAendern }: Props) {
-  const quantifizierbar = config.hebel.filter((h) => h.quantifizierbar && h.berechnung);
+  const quantifizierbar = config.loesung.filter((h) => h.quantifizierbar && h.berechnung);
 
-  const initialEntwuerfe = (): HebelFaktorenEntwurf[] =>
+  const initialEntwuerfe = (): LoesungFaktorenEntwurf[] =>
     quantifizierbar.map((h) => ({
-      hebelId: h.id,
+      loesungId: h.id,
       faktorenRoh: Object.entries(h.berechnung!.faktoren).map(([key, spanne]) => ({
         key,
         min: String(spanne.min),
@@ -40,19 +40,19 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
       ausgabeMax: String(h.berechnung!.ausgabe.max),
     }));
 
-  const [entwuerfe, setEntwuerfe] = useState<HebelFaktorenEntwurf[]>(initialEntwuerfe);
+  const [entwuerfe, setEntwuerfe] = useState<LoesungFaktorenEntwurf[]>(initialEntwuerfe);
   const [fehler, setFehler] = useState('');
 
-  function updateEntwurf(hebelId: string, patch: Partial<HebelFaktorenEntwurf>) {
+  function updateEntwurf(loesungId: string, patch: Partial<LoesungFaktorenEntwurf>) {
     setFehler('');
-    setEntwuerfe((prev) => prev.map((e) => (e.hebelId === hebelId ? { ...e, ...patch } : e)));
+    setEntwuerfe((prev) => prev.map((e) => (e.loesungId === loesungId ? { ...e, ...patch } : e)));
   }
 
   function handleUebernehmen() {
     // Spannen-Zwang: alle Ausgaben und Faktoren müssen min < max
     for (const entwurf of entwuerfe) {
-      const hebel = config.hebel.find((h) => h.id === entwurf.hebelId);
-      const name = hebel?.name ?? entwurf.hebelId;
+      const loesung = config.loesung.find((h) => h.id === entwurf.loesungId);
+      const name = loesung?.name ?? entwurf.loesungId;
 
       const outMin = parseFloat(entwurf.ausgabeMin);
       const outMax = parseFloat(entwurf.ausgabeMax);
@@ -76,8 +76,8 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
       }
     }
 
-    const neueHebel: Hebel[] = config.hebel.map((h) => {
-      const entwurf = entwuerfe.find((e) => e.hebelId === h.id);
+    const neueLoesung: Loesung[] = config.loesung.map((h) => {
+      const entwurf = entwuerfe.find((e) => e.loesungId === h.id);
       if (!entwurf || !h.berechnung) return h;
 
       const neueFaktoren: Record<string, { min: number; max: number }> = {};
@@ -100,7 +100,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
       };
     });
 
-    onAendern({ ...config, hebel: neueHebel });
+    onAendern({ ...config, loesung: neueLoesung });
     setFehler('');
   }
 
@@ -108,7 +108,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
     return (
       <div>
         <h2>Benchmark-Faktoren</h2>
-        <p>Keine quantifizierbaren Hebel mit Formel vorhanden.</p>
+        <p>Keine quantifizierbaren Loesung mit Formel vorhanden.</p>
       </div>
     );
   }
@@ -128,15 +128,15 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
       )}
 
       {entwuerfe.map((entwurf) => {
-        const hebel = config.hebel.find((h) => h.id === entwurf.hebelId);
-        if (!hebel) return null;
+        const loesung = config.loesung.find((h) => h.id === entwurf.loesungId);
+        if (!loesung) return null;
 
         return (
           <div
-            key={entwurf.hebelId}
+            key={entwurf.loesungId}
             style={{ marginTop: '1.5rem', padding: '1rem', border: '1px solid #ddd' }}
           >
-            <h3>{hebel.name}</h3>
+            <h3>{loesung.name}</h3>
 
             <div style={{ marginBottom: '0.75rem' }}>
               <strong>Ausgabe-Bereich</strong>
@@ -145,18 +145,22 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                   min
                   <input
                     type="number"
-                    aria-label={`${hebel.name} Ausgabe min`}
+                    aria-label={`${loesung.name} Ausgabe min`}
                     value={entwurf.ausgabeMin}
-                    onChange={(e) => updateEntwurf(entwurf.hebelId, { ausgabeMin: e.target.value })}
+                    onChange={(e) =>
+                      updateEntwurf(entwurf.loesungId, { ausgabeMin: e.target.value })
+                    }
                   />
                 </label>
                 <label>
                   max
                   <input
                     type="number"
-                    aria-label={`${hebel.name} Ausgabe max`}
+                    aria-label={`${loesung.name} Ausgabe max`}
                     value={entwurf.ausgabeMax}
-                    onChange={(e) => updateEntwurf(entwurf.hebelId, { ausgabeMax: e.target.value })}
+                    onChange={(e) =>
+                      updateEntwurf(entwurf.loesungId, { ausgabeMax: e.target.value })
+                    }
                   />
                 </label>
               </div>
@@ -184,7 +188,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                       const neu = entwurf.faktorenRoh.map((x, i) =>
                         i === idx ? { ...x, min: e.target.value } : x,
                       );
-                      updateEntwurf(entwurf.hebelId, { faktorenRoh: neu });
+                      updateEntwurf(entwurf.loesungId, { faktorenRoh: neu });
                     }}
                   />
                 </label>
@@ -198,7 +202,7 @@ export function BenchmarkEditor({ config, onAendern }: Props) {
                       const neu = entwurf.faktorenRoh.map((x, i) =>
                         i === idx ? { ...x, max: e.target.value } : x,
                       );
-                      updateEntwurf(entwurf.hebelId, { faktorenRoh: neu });
+                      updateEntwurf(entwurf.loesungId, { faktorenRoh: neu });
                     }}
                   />
                 </label>

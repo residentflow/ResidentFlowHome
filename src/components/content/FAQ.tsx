@@ -1,5 +1,6 @@
 import { FAQ_EINTRAEGE } from '../../content/faq.config';
 import { Section } from '../ui/Section';
+import { copy } from '@/config/checkConfig';
 
 /**
  * FAQ-Komponente — rendert genau die 5 Vertrauensfragen aus faq.config (§12).
@@ -31,6 +32,10 @@ export function FAQ() {
           </div>
         ))}
       </dl>
+      {/* System-Satz-Platzierung (§21) */}
+      <p data-testid="system-satz" style={{ fontWeight: 600, marginTop: '1rem' }}>
+        {copy('copy.systemSatz')}
+      </p>
     </Section>
   );
 }

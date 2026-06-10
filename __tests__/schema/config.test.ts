@@ -12,11 +12,11 @@ function gueltigeConfig() {
         schmerzBereich: 'ertrag',
         text: 'Vermarktung dauert zu lange',
         rollenFilter: ['hausverwaltung'],
-        verknuepfteHebel: ['h1'],
+        verknuepfteLoesung: ['h1'],
         aktiv: true,
       },
     ],
-    hebel: [
+    loesung: [
       {
         id: 'h1',
         name: 'Virtuelles Staging',
@@ -53,15 +53,15 @@ describe('ConfigSchema — Cross-Reference-Integrität (§14)', () => {
     expect(ConfigSchema.safeParse(gueltigeConfig()).success).toBe(true);
   });
 
-  it('lehnt ein Problem ab, das auf einen nicht existierenden Hebel verweist', () => {
+  it('lehnt ein Problem ab, das auf einen nicht existierenden Loesung verweist', () => {
     const c = gueltigeConfig();
-    c.probleme[0]!.verknuepfteHebel = ['existiert-nicht'];
+    c.probleme[0]!.verknuepfteLoesung = ['existiert-nicht'];
     expect(ConfigSchema.safeParse(c).success).toBe(false);
   });
 
-  it('lehnt einen Hebel ab, dessen lebenszyklusPhase nicht existiert', () => {
+  it('lehnt einen Loesung ab, dessen lebenszyklusPhase nicht existiert', () => {
     const c = gueltigeConfig();
-    c.hebel[0]!.lebenszyklusPhase = 99;
+    c.loesung[0]!.lebenszyklusPhase = 99;
     expect(ConfigSchema.safeParse(c).success).toBe(false);
   });
 
@@ -77,9 +77,9 @@ describe('Seed-Config aus src/content', () => {
     expect(ConfigSchema.safeParse(schatzsucheConfig).success).toBe(true);
   });
 
-  it('enthält für jedes Problem mindestens einen verknüpften Hebel', () => {
+  it('enthält für jedes Problem mindestens eine verknüpfte Lösung', () => {
     for (const p of schatzsucheConfig.probleme) {
-      expect(p.verknuepfteHebel.length).toBeGreaterThan(0);
+      expect(p.verknuepfteLoesung.length).toBeGreaterThan(0);
     }
   });
 });
