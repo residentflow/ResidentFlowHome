@@ -135,7 +135,16 @@ async function main() {
         sizeMetric: (() => {
           const sm = sizeMetrics.find((m) => m.id === idOf(r.sizeMetric));
           return sm
-            ? { slug: sm.slug, frageWortlaut: sm.frageWortlaut, buckets: sm.buckets }
+            ? {
+                slug: sm.slug,
+                frageWortlaut: sm.frageWortlaut,
+                // Auto-generierte Array-Row-IDs entfernen → deterministischer Export
+                buckets: (sm.buckets || []).map((b: any) => ({
+                  label: b.label,
+                  rank: b.rank,
+                  ...(b.unitsMid != null ? { unitsMid: b.unitsMid } : {}),
+                })),
+              }
             : null;
         })(),
         endAusgang: r.endAusgang,
