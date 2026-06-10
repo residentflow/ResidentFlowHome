@@ -116,7 +116,7 @@ export function BeispielAnalyse({ data = exampleData as ExampleData }: { data?: 
           {copy('copy.systemSatz')}
         </p>
         <p style={{ color: '#555' }}>{data.statusZeile}</p>
-        <a data-testid="example-bridge" href="#termin">
+        <a data-testid="example-bridge" href="/termin?src=beispielanalyse">
           {copy('cta.exampleBridge')}
         </a>
         <p style={{ marginTop: '0.5rem' }}>
