@@ -41,6 +41,7 @@ function gueltigeConfig() {
     globalConfig: {
       schwellenwertStufe3: 50,
       terminLink: '#termin',
+      playbookUrl: '#playbook',
       partnerprogrammLink: '#partner',
       brevoListId: 1,
       privacyFlowDownloadUrl: '#privacyflow',

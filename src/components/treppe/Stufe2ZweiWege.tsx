@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button';
 import { Section } from '@/components/ui/Section';
 import { Terminlink } from '@/components/treppe/Terminlink';
+import { schatzsucheConfig } from '@/content/schatzsuche.config';
 
 interface Stufe2ZweiWegeProps {
   privacyFlowDownloadUrl?: string;
@@ -13,10 +14,15 @@ interface Stufe2ZweiWegeProps {
  *   (b) Geführte Analyse ohne Installation im Termin
  * Der Produktname darf hier NICHT erscheinen (§17).
  */
-export function Stufe2ZweiWege({ privacyFlowDownloadUrl = '#download' }: Stufe2ZweiWegeProps) {
+export function Stufe2ZweiWege({
+  privacyFlowDownloadUrl = schatzsucheConfig.globalConfig.privacyFlowDownloadUrl,
+}: Stufe2ZweiWegeProps) {
+  // '#'-Präfix = noch keine echte Download-Quelle → ehrlicher „folgt in Kürze"-Zustand statt totem Link.
+  const downloadVerfuegbar = !privacyFlowDownloadUrl.startsWith('#');
+
   return (
     <Section titel="Stufe 2 — Für Ihren Bestand umsetzen">
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+      <div className="zwei-spalten" style={{ gap: '2rem' }}>
         {/* Weg A: ResidentPrivacyFlow-Download */}
         <div>
           <h3>Weg A — Download</h3>
@@ -24,9 +30,26 @@ export function Stufe2ZweiWege({ privacyFlowDownloadUrl = '#download' }: Stufe2Z
             Laden Sie <strong>ResidentPrivacyFlow</strong> herunter und analysieren Sie Ihren
             Bestand lokal — ohne Installation auf einem Server, ohne Datenübertragung.
           </p>
-          <a href={privacyFlowDownloadUrl} style={{ textDecoration: 'none' }}>
-            <Button variante="primär">Jetzt herunterladen</Button>
-          </a>
+          {downloadVerfuegbar ? (
+            <a href={privacyFlowDownloadUrl} style={{ textDecoration: 'none' }}>
+              <Button variante="primär">Jetzt herunterladen</Button>
+            </a>
+          ) : (
+            <>
+              <Button variante="sekundär" disabled style={{ cursor: 'default', opacity: 0.6 }}>
+                Download folgt in Kürze
+              </Button>
+              <p
+                style={{
+                  marginTop: '0.5rem',
+                  fontSize: '0.875rem',
+                  color: 'var(--farbe-text-sekundaer, #6b7280)',
+                }}
+              >
+                Bis dahin: Wir gehen Ihren Bestand gern gemeinsam im Termin durch (Weg B).
+              </p>
+            </>
+          )}
         </div>
 
         {/* Weg B: Geführte Analyse ohne Installation im Termin */}

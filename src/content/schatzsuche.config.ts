@@ -209,11 +209,14 @@ export const schatzsucheConfig: Config = {
       detailFragen: ['einheitenMitPotenzial'],
       berechnung: {
         inputs: ['einheitenMitPotenzial'],
-        // ⚠️ PLATZHALTER-Benchmarks aus eigenem Portfolio
-        faktoren: { mietdifferenzProMonat: { min: 40, max: 90 } },
+        // ⚠️ PLATZHALTER-Benchmarks aus eigenem Portfolio.
+        // Jahreswert: 40–90 €/Monat × 12 — die Engine multipliziert nur Eingaben × Faktoren,
+        // daher muss der Faktor bereits auf Jahresbasis vorliegen.
+        faktoren: { mietdifferenzProJahr: { min: 480, max: 1080 } },
         ausgabe: { min: 18000, max: 42000 },
         einheit: '€ p.a.',
-        rechenwegText: 'betroffene Einheiten × Ø-Mietdifferenz/Monat × 12 (konservative Spanne)',
+        rechenwegText:
+          'betroffene Einheiten × Ø-Mietdifferenz/Jahr (40–90 €/Monat × 12, konservative Spanne)',
       },
       playbookLink: '#playbook-mietpotenzial',
       kartenText: 'Nicht gezogene Mieterhöhungen summieren sich über das Jahr.',
@@ -389,8 +392,10 @@ export const schatzsucheConfig: Config = {
 
   globalConfig: {
     schwellenwertStufe3: 50,
-    // ⚠️ PLATZHALTER-Links (§19)
-    terminLink: 'https://cal.com/residentflow/bestand-ansehen',
+    terminLink: 'https://cal.com/stefan-holhut/bestand-ansehen',
+    playbookUrl: 'https://www.skool.com/residentcashflow-6876/classroom',
+    // ⚠️ PLATZHALTER-Links (§19): Download-URL existiert noch nicht —
+    // '#'-Präfix signalisiert der UI den „folgt in Kürze"-Zustand.
     partnerprogrammLink: '#partnerprogramm',
     brevoListId: 0,
     privacyFlowDownloadUrl: '#residentprivacyflow-download',

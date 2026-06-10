@@ -51,7 +51,7 @@ export function LandingPage() {
   }): Promise<void> {
     // Datenkanal NUR auf bewusste Nutzeraktion NACH dem Ergebnis (kein Gate, §10.4).
     if (!ergebnis || !auswertung) return;
-    await fetch('/api/optin', {
+    const antwort = await fetch('/api/optin', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
@@ -63,6 +63,15 @@ export function LandingPage() {
         ergebnisSpanne: ergebnis.aggregat,
       }),
     });
+    // Erfolg nur, wenn die API ihn bestätigt — ein 200 mit beliebigem Inhalt (z. B. die
+    // index.html eines falsch konfigurierten Proxys) darf nie als Versand gelten.
+    if (!antwort.ok) {
+      throw new Error(`Opt-in fehlgeschlagen (HTTP ${antwort.status})`);
+    }
+    const ergebnisJson = (await antwort.json().catch(() => null)) as { status?: string } | null;
+    if (ergebnisJson?.status !== 'ok') {
+      throw new Error('Opt-in fehlgeschlagen: API hat den Versand nicht bestätigt.');
+    }
   }
 
   return (

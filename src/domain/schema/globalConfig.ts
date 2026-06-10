@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const GlobalConfigSchema = z.object({
   schwellenwertStufe3: z.number().int().positive().default(50),
   terminLink: z.string().min(1),
+  playbookUrl: z.string().min(1),
   partnerprogrammLink: z.string().min(1),
   brevoListId: z.number().int().nonnegative(),
   privacyFlowDownloadUrl: z.string().min(1),

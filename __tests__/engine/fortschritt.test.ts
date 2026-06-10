@@ -36,4 +36,16 @@ describe('fortschritt (§8.4 "x von y analysiert")', () => {
   it('liefert bei leerer Liste einen Anteil von 0 (kein NaN)', () => {
     expect(fortschritt([]).anteil).toBe(0);
   });
+
+  it('zählt qualitative Hebel (nutzenAussage, keine Detailfrage) als analysiert', () => {
+    const qualitativ: HebelLaufzeit = {
+      hebelId: 'expose-optimierung',
+      zustand: 'relevant',
+      rahmung: 'chance',
+      nutzenAussage: 'Bessere Exposés ziehen mehr qualifizierte Interessenten an.',
+    };
+    const f = fortschritt([quantifiziert('a'), qualitativ]);
+    expect(f.analysiert).toBe(2);
+    expect(f.anteil).toBe(1);
+  });
 });

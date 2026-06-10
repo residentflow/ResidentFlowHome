@@ -9,8 +9,13 @@ import { schatzsucheConfig } from '@/content/schatzsuche.config';
  * sortiert nach reihenfolge) mit Titel + Beschreibung.
  * Der Produktname darf hier NICHT erscheinen (§17).
  */
-export function Stufe1Playbook({ href = '#playbook' }: { href?: string }) {
+export function Stufe1Playbook({
+  href = schatzsucheConfig.globalConfig.playbookUrl,
+}: {
+  href?: string;
+}) {
   const schwerpunkte = [...schatzsucheConfig.phasen].sort((a, b) => a.reihenfolge - b.reihenfolge);
+  const extern = href.startsWith('http');
 
   return (
     <Section titel="Stufe 1 — Methodik">
@@ -41,7 +46,12 @@ export function Stufe1Playbook({ href = '#playbook' }: { href?: string }) {
         ))}
       </ul>
 
-      <a href={href} style={{ textDecoration: 'none' }}>
+      <a
+        href={href}
+        target={extern ? '_blank' : undefined}
+        rel={extern ? 'noreferrer' : undefined}
+        style={{ textDecoration: 'none' }}
+      >
         <Button variante="sekundär">{PLAYBOOK_CTA}</Button>
       </a>
     </Section>

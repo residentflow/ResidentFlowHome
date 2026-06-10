@@ -7,7 +7,7 @@
  */
 
 // — Hero (§9 #1) —
-export const HERO_TOPLINE = 'Bestand optimieren · Rendite steigern · Verwaltungsaufwand reduzieren';
+export const HERO_TOPLINE = 'Mietpotenziale mit KI finden · Leerstand senken · Rendite steigern';
 export const HERO_SUBLINE =
   'Finden Sie heraus, wo in Ihrem Bestand Ertrag liegen bleibt — und sorgen Sie dafür, dass es nicht liegen bleibt.';
 export const HERO_VERSPRECHEN =

@@ -31,9 +31,23 @@ describe('Datenschutz', () => {
     expect(text).toMatch(/Abmeld/i);
   });
 
-  it('enthält den Hinweis "rechtlich prüfen lassen"', () => {
+  it('nennt die verantwortliche Stelle mit echten Daten', () => {
     const { container } = render(<Datenschutz />);
     const text = container.textContent ?? '';
-    expect(text).toMatch(/rechtlich prüfen lassen/i);
+    expect(text).toMatch(/menosgada Service GmbH/);
+    expect(text).toMatch(/datenschutz@menosgada\.de/);
+  });
+
+  it('enthält keine Platzhalter und keinen Entwurfs-Hinweis mehr', () => {
+    const { container } = render(<Datenschutz />);
+    const text = container.textContent ?? '';
+    expect(text).not.toMatch(/PLATZHALTER/i);
+    expect(text).not.toMatch(/Entwurf/i);
+  });
+
+  it('erwähnt keine Dienste, die die Seite nicht nutzt (kein Google-Tracking)', () => {
+    const { container } = render(<Datenschutz />);
+    const text = container.textContent ?? '';
+    expect(text).not.toMatch(/Google Analytics|AdWords|reCAPTCHA|Mouseflow/i);
   });
 });
