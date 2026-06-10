@@ -33,4 +33,13 @@ describe('LoesungsSeite /loesungen/:slug (§7/§11)', () => {
     renderAt('/loesungen/gibt-es-nicht');
     expect(screen.getByText(/nicht gefunden/i)).toBeInTheDocument();
   });
+
+  it('AP6.5: Vermarktungs-Routen Neuvermietung + Verkauf sind live (≥2 Lösungen)', () => {
+    for (const slug of ['neuvermietung-dauert-zu-lange', 'verkauf-dauert-zu-lange']) {
+      const { unmount } = renderAt(`/loesungen/${slug}`);
+      expect(screen.getByTestId('solution-result')).toBeInTheDocument();
+      expect(screen.getAllByTestId(/^solution-card-/).length).toBeGreaterThanOrEqual(2);
+      unmount();
+    }
+  });
 });

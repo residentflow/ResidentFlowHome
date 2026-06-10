@@ -1,7 +1,7 @@
 /**
- * Seed (PRD §8 Priorität 1 + §21 Copy + §2.3 Rollen). Idempotent: löscht vorhandene
- * Datensätze der betroffenen Collections und legt den P1-Grundbestand neu an.
- * Benchmarks bewusst isPlaceholder=true → Build-Export sperrt L2 bis echte Werte da sind.
+ * Seed (PRD §8 + §21 Copy + §2.3 Rollen). Idempotent: löscht vorhandene Datensätze der
+ * betroffenen Collections und legt P1 (Leithebel, echte Benchmarks n=31) sowie den
+ * AP6.5-Vermarktungs-Content (P2: Neuvermietung + Verkauf) neu an.
  * Lauf: `tsx src/seed.ts` in apps/admin.
  */
 import { getPayload } from 'payload';
@@ -332,6 +332,112 @@ async function main() {
       defaultSolutionOrder: [sol.id, sol2.id],
       calculationModel: m1.id,
       priority: 'P1',
+      active: true,
+    },
+  });
+
+  // ── AP6.5 Vermarktungs-Content (P2, Motor A) → schaltet Neuvermietung + Verkauf gemeinsam
+  //    live (n:m: geteilte Lösungen). Qualitativ (kein CalculationModel → nutzenAussage Pflicht).
+  const exposeAsset = await payload.create({
+    collection: 'assets',
+    data: {
+      title: 'Exposé optimieren — Prompt',
+      slug: 'expose-optimieren-prompt',
+      assetType: 'prompt',
+      summary: 'Macht aus Eckdaten ein hochwertiges, ehrliches Exposé mit klarer Zielgruppe.',
+      copyable: true,
+      promptText:
+        'Erstelle aus den folgenden Objektdaten ein hochwertiges Exposé. Keine erfundenen Eigenschaften, keine irreführenden Formulierungen. Struktur: Headline, Lage, Objekt, Zielgruppe, Highlights.',
+      requiredInputs: 'Objektdaten: Lage, Fläche, Zustand, Besonderheiten.',
+      requiresPrivacyNote: false,
+      riskLevel: 'niedrig',
+      qualityStatus: 'approved',
+    },
+  });
+  const stagingWarnung = await payload.create({
+    collection: 'assets',
+    data: {
+      title: 'Virtuelles Staging — Transparenz-Checkliste',
+      slug: 'staging-transparenz-checkliste',
+      assetType: 'checklist',
+      summary: 'Stellt sicher, dass virtuelles Staging nicht täuscht (Kennzeichnungspflicht).',
+      bodyText:
+        'Virtuell möblierte Bilder immer als solche kennzeichnen. Keine baulichen Mängel kaschieren. Grundriss und Maße unverändert lassen. Im Exposé klar ausweisen: „digital möbliert".',
+      riskLevel: 'mittel',
+      qualityStatus: 'approved',
+    },
+  });
+  const exposeSol = await payload.create({
+    collection: 'solutions',
+    data: {
+      title: 'Exposé optimieren',
+      slug: 'expose-optimieren',
+      shortDescription: 'Hochwertige, ehrliche Exposés, die die richtige Zielgruppe ansprechen.',
+      valueCategory: 'ertrag',
+      nutzenAussage: 'Mehr passende Anfragen, weniger Streuverlust.',
+      assets: [exposeAsset.id],
+      primaryAsset: exposeAsset.id,
+      scaleBreakNote:
+        'Einzeln machbar; über viele Objekte lohnt ein wiederholbarer Exposé-Prozess.',
+      active: true,
+    },
+  });
+  const stagingSol = await payload.create({
+    collection: 'solutions',
+    data: {
+      title: 'Virtuelles Staging',
+      slug: 'virtuelles-staging',
+      shortDescription: 'Leere Räume ansprechend und ehrlich digital möblieren.',
+      valueCategory: 'ertrag',
+      nutzenAussage: 'Leere Wohnungen wirken bezugsfertig — fair gekennzeichnet.',
+      assets: [stagingWarnung.id],
+      primaryAsset: stagingWarnung.id,
+      legalWarning: 'Virtuelles Staging muss als solches gekennzeichnet werden (nicht täuschen).',
+      scaleBreakNote: 'Pro Objekt machbar; im Bestand lohnt ein standardisierter Staging-Workflow.',
+      active: true,
+    },
+  });
+  const grundrissSol = await payload.create({
+    collection: 'solutions',
+    data: {
+      title: 'Grundriss visualisieren',
+      slug: 'grundriss-visualisieren',
+      shortDescription: 'Aus Skizzen klare, ansprechende Grundrisse erstellen.',
+      valueCategory: 'ertrag',
+      nutzenAussage: 'Bessere Vorstellbarkeit senkt Rückfragen und Besichtigungsabbrüche.',
+      assets: [exposeAsset.id],
+      primaryAsset: exposeAsset.id,
+      scaleBreakNote: 'Einzeln machbar; standardisiert über viele Objekte deutlich schneller.',
+      active: true,
+    },
+  });
+  const vermarktung = [exposeSol.id, stagingSol.id, grundrissSol.id];
+
+  await payload.create({
+    collection: 'problems',
+    data: {
+      title: 'Neuvermietung dauert zu lange',
+      slug: 'neuvermietung-dauert-zu-lange',
+      userFacingDescription: 'Wohnungen stehen länger leer als nötig.',
+      roleFilters: [roleIdBySlug['buyAndHold'], roleIdBySlug['hausverwaltung']],
+      valueCategory: ['ertrag'],
+      solutions: vermarktung,
+      defaultSolutionOrder: vermarktung,
+      priority: 'P2',
+      active: true,
+    },
+  });
+  await payload.create({
+    collection: 'problems',
+    data: {
+      title: 'Verkauf dauert zu lange',
+      slug: 'verkauf-dauert-zu-lange',
+      userFacingDescription: 'Objekte vermarkten sich online nicht hochwertig genug.',
+      roleFilters: [roleIdBySlug['makler']],
+      valueCategory: ['ertrag'],
+      solutions: vermarktung,
+      defaultSolutionOrder: vermarktung,
+      priority: 'P2',
       active: true,
     },
   });
