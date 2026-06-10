@@ -7,7 +7,7 @@ import { checkConfig, copy } from '@/config/checkConfig';
  * der Diagnosekontext erhalten bleibt (§17.2). Das Event „15min" bietet Telefon/Video an.
  */
 export function TerminSeite() {
-  const base = checkConfig.settings.calComUrl || 'https://cal.com/stefan-holhut/15min';
+  const base = checkConfig.settings.calComUrl || 'https://cal.com/stefan-holhut/bestand-ansehen';
   const [src, setSrc] = useState(base);
 
   useEffect(() => {

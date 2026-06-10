@@ -93,6 +93,7 @@ describe('Sprach-Gates §17', () => {
   it('keine Emojis im UI (§3.10)', () => {
     // Emoji-Blöcke (Symbole, Piktogramme, Transport, Ergänzungen, Dingbats, Variationsselektor)
     const emoji =
+      // eslint-disable-next-line no-misleading-character-class -- FE0F (Variationsselektor) ist hier Absicht
       /[\u{1F300}-\u{1FAFF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE0F}\u{1F1E6}-\u{1F1FF}]/u;
     const treffer = inhaltMitPfaden()
       .filter((d) => emoji.test(d.inhalt))

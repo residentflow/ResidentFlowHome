@@ -17,7 +17,7 @@ describe('HighIntentCTA (§14.2)', () => {
   it('Termin-Link zeigt auf cal.com mit Prefill-Metadata (§17.2)', () => {
     render(<HighIntentCTA calContext={{ role: 'buyAndHold', source: 'direct' }} />);
     const href = screen.getByTestId('cta-termin').getAttribute('href') ?? '';
-    expect(href).toContain('cal.com/stefan-holhut/15min');
+    expect(href).toContain('cal.com/stefan-holhut/bestand-ansehen');
     expect(href).toContain('metadata%5Brole%5D=buyAndHold');
     expect(href).toContain('metadata%5Bsource%5D=direct');
   });

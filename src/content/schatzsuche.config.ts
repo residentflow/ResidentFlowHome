@@ -390,7 +390,7 @@ export const schatzsucheConfig: Config = {
   globalConfig: {
     schwellenwertStufe3: 50,
     // ACHTUNG PLATZHALTER-Links (§19)
-    terminLink: 'https://cal.com/residentflow/bestand-ansehen',
+    terminLink: 'https://cal.com/stefan-holhut/bestand-ansehen',
     partnerprogrammLink: '#partnerprogramm',
     brevoListId: 0,
     privacyFlowDownloadUrl: '#residentprivacyflow-download',
