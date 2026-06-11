@@ -15,6 +15,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "skool:extract": "tsx scripts/skool-extract.ts",
     "api:dev": "tsx watch api/server.ts",
     "api:start": "node --import tsx api/server.ts"
   },
