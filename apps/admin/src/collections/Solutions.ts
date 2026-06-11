@@ -8,7 +8,11 @@ import type { CollectionConfig } from 'payload';
 export const Solutions: CollectionConfig = {
   slug: 'solutions',
   labels: { singular: 'Lösung', plural: 'Lösungen' },
-  admin: { useAsTitle: 'title', group: 'Inhalte' },
+  admin: {
+    useAsTitle: 'title',
+    group: 'Inhalte',
+    defaultColumns: ['title', 'valueCategory', 'active'],
+  },
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'slug', type: 'text', required: true, unique: true },
@@ -44,7 +48,16 @@ export const Solutions: CollectionConfig = {
     { name: 'ctaRules', type: 'relationship', relationTo: 'cta-rules', hasMany: true },
     { name: 'privacyWarning', type: 'textarea' },
     { name: 'legalWarning', type: 'textarea' },
-    { name: 'active', type: 'checkbox', defaultValue: false },
+    {
+      name: 'active',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description:
+          'Nur aktive Lösungen werden exportiert. Problem braucht ≥2 aktive Lösungen (§25).',
+      },
+    },
   ],
   hooks: {
     beforeValidate: [
