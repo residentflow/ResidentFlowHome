@@ -8,7 +8,8 @@
     "build": "next build",
     "payload": "payload",
     "seed": "tsx src/seed.ts",
-    "export-config": "tsx src/export-config.ts"
+    "export-config": "tsx src/export-config.ts",
+    "import-skool": "tsx src/import-skool.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",
